@@ -15,7 +15,7 @@
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Tien Do Nam"
 #define MyAppURL "https://github.com/Huoyuan461/localsend"
-#define MyAppExeName "zhichuan_app.exe"
+#define MyAppExeName "Zhichuan.exe"
 #define MyAppMsixHelper "zhichuan_msix_helper.msix"
 
 [Setup]
