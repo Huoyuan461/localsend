@@ -42,21 +42,34 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k ci /tmp/ci.keychain-db
           security list-keychains -d user -s /tmp/ci.keychain-db $(security list-keychains -d user | tr -d '"')
 
-      - name: Install provisioning profiles
+      - name: Setup App Store Connect API key
         env:
-          PROF_APP: ${{ secrets.IOS_PROFILE_APP }}
-          PROF_EXT: ${{ secrets.IOS_PROFILE_EXT }}
+          ASC_KEY_P8: ${{ secrets.ASC_API_KEY_P8 }}
         run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "$PROF_APP" | base64 -d -o ~/Library/MobileDevice/Provisioning\ Profiles/Zhichuan_AppStore.mobileprovision
-          echo "$PROF_EXT" | base64 -d -o ~/Library/MobileDevice/Provisioning\ Profiles/Zhichuan_ShareExtension_AppStore.mobileprovision
+          mkdir -p ~/.appstoreconnect
+          echo "$ASC_KEY_P8" | base64 -d -o ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8
+          chmod 600 ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8
 
       - name: Flutter pub get & pod install
         run: |
           flutter pub get
           cd ios && pod install && cd ..
 
-      - name: Build IPA
+      - name: Archive with xcodebuild (auto signing via API key)
+        run: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath $RUNNER_TEMP/Runner.xcarchive \
+            -authenticationKeyPath ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8 \
+            -authenticationKeyID U9828Q5FY7 \
+            -authenticationKeyIssuerID a543b234-4283-41cc-8706-caced4cfb1ff \
+            -allowProvisioningUpdates \
+            archive
+
+      - name: Export IPA
         run: |
           cat > /tmp/ExportOptions.plist <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
@@ -65,19 +78,21 @@ jobs:
           <dict>
               <key>method</key><string>app-store-connect</string>
               <key>teamID</key><string>49Y2P4VXPB</string>
-              <key>provisioningProfiles</key>
-              <dict>
-                  <key>com.zhichuan.app</key><string>Zhichuan AppStore</string>
-                  <key>com.zhichuan.app.ShareExtension</key><string>Zhichuan ShareExtension AppStore</string>
-              </dict>
-              <key>signingStyle</key><string>manual</string>
+              <key>signingStyle</key><string>automatic</string>
           </dict>
           </plist>
           EOF
-          flutter build ipa --release --export-options-plist=/tmp/ExportOptions.plist
+          xcodebuild -exportArchive \
+            -archivePath $RUNNER_TEMP/Runner.xcarchive \
+            -exportPath $RUNNER_TEMP/ipa \
+            -exportOptionsPlist /tmp/ExportOptions.plist \
+            -authenticationKeyPath ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8 \
+            -authenticationKeyID U9828Q5FY7 \
+            -authenticationKeyIssuerID a543b234-4283-41cc-8706-caced4cfb1ff \
+            -allowProvisioningUpdates
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: zhichuan-ios-ipa
-          path: build/ios/ipa/*.ipa
+          path: ${{ runner.temp }}/ipa/*.ipa
