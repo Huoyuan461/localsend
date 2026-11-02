@@ -69,11 +69,11 @@ jobs:
       - name: Copy logo to AppDir
         run: |
           mkdir -p AppDir/usr/share/icons/hicolor/32x32/apps
-          cp app/assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
+          cp app/assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/zhichuan.png
           mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps
-          cp app/assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/localsend.png
+          cp app/assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/zhichuan.png
           mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
-          cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
+          cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/zhichuan.png
 
       - name: Copy Recipe to correct location
         run: cp support/build/appimage/AppImageBuilder_arm_64.yml AppImageBuilder.yml
@@ -87,13 +87,13 @@ jobs:
 
       - name: Verify AppImage update files
         run: |
-          test -f "LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage"
-          test -f "LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage.zsync"
+          test -f "Zhichuan-${{ needs.build.outputs.version }}-linux-arm-64.AppImage"
+          test -f "Zhichuan-${{ needs.build.outputs.version }}-linux-arm-64.AppImage.zsync"
 
       - name: Upload AppImage files
         uses: actions/upload-artifact@v6
         with:
           name: appimage-arm-64-result
           path: |
-            ./LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage
-            ./LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage.zsync
+            ./Zhichuan-${{ needs.build.outputs.version }}-linux-arm-64.AppImage
+            ./Zhichuan-${{ needs.build.outputs.version }}-linux-arm-64.AppImage.zsync
