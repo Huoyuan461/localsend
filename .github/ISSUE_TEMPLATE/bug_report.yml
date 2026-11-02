@@ -6,7 +6,7 @@ body:
   - type: checkboxes
     id: confirm
     attributes:
-      label: Read [this](https://github.com/localsend/localsend/issues/528) before anything
+      label: Read [this](https://github.com/Huoyuan461/localsend/issues/528) before anything
       options:
         - label: I have read it.
         - label: Issues not fitting are closed.
@@ -25,7 +25,7 @@ body:
     id: app-version
     attributes:
       label: App version
-      description: Enter the LocalSend app version shown at the bottom of the Settings screen
+      description: Enter the 直传 app version shown at the bottom of the Settings screen
       placeholder: 1.18.2 (64)
     validations:
       required: true

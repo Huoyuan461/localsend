@@ -57,7 +57,7 @@ Future<bool> isContextMenuEnabled() async {
   }
 }
 
-const _windowsFileName = 'LocalSend';
+const _windowsFileName = '直传';
 
 String _getWindowsFilePath(String appName) {
   final appData = Platform.environment['APPDATA'];

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=直传
+Exec=zhichuan_app
+Icon=zhichuan
+Type=Application
+Terminal=false
+Categories=Utility;
+Comment=手机电脑互传文件，原画质、不压缩
+StartupWMClass=com.zhichuan.app

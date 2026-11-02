@@ -11,12 +11,12 @@
   #define ResultDir "D:\inno-result"
 #endif
 
-#define MyAppName "LocalSend"
-#define MyAppVersion "1.18.2"
+#define MyAppName "直传"
+#define MyAppVersion "1.0.0"
 #define MyAppPublisher "Tien Do Nam"
-#define MyAppURL "https://localsend.org"
-#define MyAppExeName "localsend_app.exe"
-#define MyAppMsixHelper "localsend_msix_helper.msix"
+#define MyAppURL "https://github.com/Huoyuan461/localsend"
+#define MyAppExeName "zhichuan_app.exe"
+#define MyAppMsixHelper "zhichuan_msix_helper.msix"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -35,7 +35,7 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir={#ResultDir}
-OutputBaseFilename=localsend
+OutputBaseFilename=zhichuan
 SetupIconFile={#PayloadDir}\logo.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
@@ -101,10 +101,10 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 #ifndef SkipMsixHelper
-Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Add-AppxPackage .\localsend_msix_helper.msix -ExternalLocation $(Get-Location)"; WorkingDir: {app}; Flags: nowait runhidden
+Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Add-AppxPackage .\zhichuan_msix_helper.msix -ExternalLocation $(Get-Location)"; WorkingDir: {app}; Flags: nowait runhidden
 #endif
 
 [UninstallRun]
 #ifndef SkipMsixHelper
-Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Get-AppxPackage LocalSend.App | Remove-AppxPackage"; Flags: nowait runhidden
+Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Get-AppxPackage Zhichuan.App | Remove-AppxPackage"; Flags: nowait runhidden
 #endif

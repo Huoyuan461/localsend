@@ -1,5 +1,5 @@
 use flutter_rust_bridge::frb;
-use localsend::util::filename;
+use zhichuan::util::filename;
 
 /// Rewrites `name` into a file name that is legal on the current platform,
 /// replacing illegal characters with `_`.

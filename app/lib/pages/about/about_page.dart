@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/pages/debug/debug_page.dart';
-import 'package:localsend_app/util/i18n.dart';
-import 'package:localsend_app/widget/local_send_logo.dart';
-import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/pages/debug/debug_page.dart';
+import 'package:zhichuan_app/util/i18n.dart';
+import 'package:zhichuan_app/widget/local_send_logo.dart';
+import 'package:zhichuan_app/widget/responsive_list_view.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -36,13 +36,19 @@ class AboutPage extends StatelessWidget {
             '© ${DateTime.now().year} Tien Do Nam',
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 4),
+          const Text(
+            '基于开源项目 LocalSend (Apache-2.0) 二次开发',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
           const SizedBox(height: 10),
           Center(
             child: TextButton(
               onPressed: () async {
-                await launchUrl(Uri.parse('https://localsend.org'));
+                await launchUrl(Uri.parse('https://github.com/Huoyuan461/localsend'));
               },
-              child: const Text('localsend.org'),
+              child: const Text('GitHub 开源主页'),
             ),
           ),
           const SizedBox(height: 10),
@@ -137,19 +143,19 @@ class AboutPage extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () async {
-                  await launchUrl(Uri.parse('https://localsend.org'));
+                  await launchUrl(Uri.parse('https://github.com/Huoyuan461/localsend'));
                 },
                 child: const Text('Homepage'),
               ),
               TextButton(
                 onPressed: () async {
-                  await launchUrl(Uri.parse('https://github.com/localsend/localsend'), mode: LaunchMode.externalApplication);
+                  await launchUrl(Uri.parse('https://github.com/Huoyuan461/localsend'), mode: LaunchMode.externalApplication);
                 },
                 child: const Text('Source Code (Github)'),
               ),
               TextButton(
                 onPressed: () async {
-                  await launchUrl(Uri.parse('https://codeberg.org/localsend/localsend'), mode: LaunchMode.externalApplication);
+                  await launchUrl(Uri.parse('https://codeberg.org/zhichuan/zhichuan'), mode: LaunchMode.externalApplication);
                 },
                 child: const Text('Source Code (Codeberg)'),
               ),

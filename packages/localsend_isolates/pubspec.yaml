@@ -23,7 +23,7 @@ dependencies:
   path: ^1.9.1
   pool: ^1.5.2
   refena_flutter: ^3.5.0
-  rust_lib_localsend_app:
+  rust_lib_zhichuan_app:
     path: rust_builder
   typed_isolates:
     path: ../typed_isolates

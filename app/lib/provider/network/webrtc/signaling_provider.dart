@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/favorites_provider.dart';
-import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/network/webrtc/webrtc_receiver.dart';
-import 'package:localsend_app/provider/persistence_provider.dart';
-import 'package:localsend_app/provider/security_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:zhichuan_app/provider/device_info_provider.dart';
+import 'package:zhichuan_app/provider/favorites_provider.dart';
+import 'package:zhichuan_app/provider/network/nearby_devices_provider.dart';
+import 'package:zhichuan_app/provider/network/webrtc/webrtc_receiver.dart';
+import 'package:zhichuan_app/provider/persistence_provider.dart';
+import 'package:zhichuan_app/provider/security_provider.dart';
+import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/crypto.dart' as crypto;
@@ -50,8 +50,8 @@ class SignalingService extends ReduxNotifier<SignalingState> {
   @override
   SignalingState init() {
     return SignalingState(
-      signalingServers: _persistence.getSignalingServers() ?? ['wss://public.localsend.org/v1/ws'],
-      stunServers: _persistence.getStunServers() ?? ['stun:stun.localsend.org:3478'],
+      signalingServers: _persistence.getSignalingServers() ?? ['wss://public.github.com/Huoyuan461/localsend/v1/ws'],
+      stunServers: _persistence.getStunServers() ?? ['stun:stun.github.com/Huoyuan461/localsend:3478'],
       connections: {},
     );
   }
@@ -87,7 +87,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
 
     LsSignalingConnection? connection;
     final stream = connect(
-      uri: 'wss://public.localsend.org/v1/ws',
+      uri: 'wss://public.github.com/Huoyuan461/localsend/v1/ws',
       info: ProposingClientInfo(
         alias: settings.alias,
         version: protocolVersion,

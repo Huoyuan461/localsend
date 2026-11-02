@@ -6,40 +6,40 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:localsend_app/config/refena.dart';
-import 'package:localsend_app/config/theme.dart';
-import 'package:localsend_app/pages/home_page.dart';
-import 'package:localsend_app/pages/home_page_controller.dart';
-import 'package:localsend_app/pages/whats_new_page.dart';
-import 'package:localsend_app/provider/animation_provider.dart';
-import 'package:localsend_app/provider/app_arguments_provider.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
-import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
-import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:zhichuan_app/config/refena.dart';
+import 'package:zhichuan_app/config/theme.dart';
+import 'package:zhichuan_app/pages/home_page.dart';
+import 'package:zhichuan_app/pages/home_page_controller.dart';
+import 'package:zhichuan_app/pages/whats_new_page.dart';
+import 'package:zhichuan_app/provider/animation_provider.dart';
+import 'package:zhichuan_app/provider/app_arguments_provider.dart';
+import 'package:zhichuan_app/provider/device_info_provider.dart';
+import 'package:zhichuan_app/provider/network/nearby_devices_provider.dart';
+import 'package:zhichuan_app/provider/network/server/server_provider.dart';
+import 'package:zhichuan_app/provider/network/webrtc/signaling_provider.dart';
+import 'package:zhichuan_app/provider/persistence_provider.dart';
 // [FOSS_REMOVE_START]
-import 'package:localsend_app/provider/purchase_provider.dart';
+import 'package:zhichuan_app/provider/purchase_provider.dart';
 // [FOSS_REMOVE_END]
-import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/provider/tv_provider.dart';
-import 'package:localsend_app/provider/version_provider.dart';
-import 'package:localsend_app/provider/window_dimensions_provider.dart';
-import 'package:localsend_app/util/i18n.dart';
-import 'package:localsend_app/util/native/autostart_helper.dart';
-import 'package:localsend_app/util/native/cache_helper.dart';
-import 'package:localsend_app/util/native/channel/android_channel.dart';
-import 'package:localsend_app/util/native/context_menu_helper.dart';
-import 'package:localsend_app/util/native/cross_file_converters.dart';
-import 'package:localsend_app/util/native/device_info_helper.dart';
-import 'package:localsend_app/util/native/macos_channel.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/native/tray_helper.dart';
-import 'package:localsend_app/util/notification_strings.dart';
-import 'package:localsend_app/util/ui/dynamic_colors.dart';
-import 'package:localsend_app/util/ui/snackbar.dart';
-import 'package:localsend_app/widget/dialogs/local_network_dialog.dart';
+import 'package:zhichuan_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:zhichuan_app/provider/settings_provider.dart';
+import 'package:zhichuan_app/provider/tv_provider.dart';
+import 'package:zhichuan_app/provider/version_provider.dart';
+import 'package:zhichuan_app/provider/window_dimensions_provider.dart';
+import 'package:zhichuan_app/util/i18n.dart';
+import 'package:zhichuan_app/util/native/autostart_helper.dart';
+import 'package:zhichuan_app/util/native/cache_helper.dart';
+import 'package:zhichuan_app/util/native/channel/android_channel.dart';
+import 'package:zhichuan_app/util/native/context_menu_helper.dart';
+import 'package:zhichuan_app/util/native/cross_file_converters.dart';
+import 'package:zhichuan_app/util/native/device_info_helper.dart';
+import 'package:zhichuan_app/util/native/macos_channel.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
+import 'package:zhichuan_app/util/native/tray_helper.dart';
+import 'package:zhichuan_app/util/notification_strings.dart';
+import 'package:zhichuan_app/util/ui/dynamic_colors.dart';
+import 'package:zhichuan_app/util/ui/snackbar.dart';
+import 'package:zhichuan_app/widget/dialogs/local_network_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
@@ -200,7 +200,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
   if (checkPlatform([TargetPlatform.android])) {
     // On some TVs, requesting a high refresh rate can trigger HDMI resync and blank the display when entering or leaving the app.
-    // https://github.com/localsend/localsend/issues/3452
+    // https://github.com/Huoyuan461/localsend/issues/3452
     if (!ref.read(tvProvider)) {
       try {
         await FlutterDisplayMode.setHighRefreshRate();

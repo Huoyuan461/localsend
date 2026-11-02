@@ -1,6 +1,6 @@
 import 'package:localsend_isolates/model/device.dart';
 
-const _basePath = '/api/localsend';
+const _basePath = '/api/zhichuan';
 
 /// Type-safe API paths
 enum ApiRoute {

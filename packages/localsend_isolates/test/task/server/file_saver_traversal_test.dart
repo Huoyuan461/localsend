@@ -100,7 +100,7 @@ void main() {
 
 String jsonish(String value) => value.isEmpty ? '<empty>' : value.replaceAll('\u0000', r'\0');
 
-/// Mirrors `localsend::util::filename::sanitize` under `Rules::Posix`; the
+/// Mirrors `zhichuan::util::filename::sanitize` under `Rules::Posix`; the
 /// real one lives in the Rust library, which is not loaded in unit tests.
 class _MockRustLibApi implements RustLibApi {
   @override

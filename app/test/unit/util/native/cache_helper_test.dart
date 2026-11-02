@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:zhichuan_app/util/native/cache_helper.dart';
 import 'package:test/test.dart';
 
 void main() {

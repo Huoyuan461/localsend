@@ -1,10 +1,10 @@
-name: localsend_app
-description: An open source cross-platform alternative to AirDrop
-homepage: https://localsend.org/
+name: zhichuan_app
+description: 手机电脑互传文件，原画质、不压缩
+homepage: https://github.com/Huoyuan461/localsend/
 publish_to: "none"
 resolution: workspace
 
-version: 1.18.2+64
+version: 1.0.0+1
 
 environment:
   flutter: ^3.41.0
@@ -102,7 +102,7 @@ dependency_overrides:
     # Remove windows support as it causes trouble with Windows 7
     # https://github.com/Baseflow/flutter-permission-handler/issues/1034
     git:
-      url: https://github.com/localsend/permission_handler_windows_noop.git
+      url: https://github.com/zhichuan/permission_handler_windows_noop.git
       ref: 2dadd8afbf81e0e3e4791d7144e689555e58f649
 
 flutter:

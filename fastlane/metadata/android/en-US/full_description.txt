@@ -1,7 +1,20 @@
-LocalSend is an open source app to share files and messages between nearby devices using the local wifi network.
-The communication between devices is entirely end-to-end encrypted via HTTPS.
-No Internet required. No tracking*. No ads.
+Zhichuan: send files between your phone and computer. Original quality, no compression, free.
 
-Currently, this app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.
+[Why you need Zhichuan]
+- Tired of messaging apps compressing your videos into mush? Zhichuan transfers over your local network at full speed, in original quality. A 1GB video takes seconds.
+- Need to send files from Android to iPhone? AirDrop doesn't do Android. Zhichuan connects Android ↔ iPhone ↔ Windows ↔ Mac — every platform talks to every other.
+- No internet? As long as your devices are on the same Wi-Fi (it even works without internet access), you can still send.
 
-*The operating system may still gather usage data.
+[What it is]
+Zhichuan is a free local file transfer tool: install the app on your phones, tablets and computers, join the same network, and send files, photos and videos to each other. No account, no cloud upload, no ads.
+
+- Original quality: what you send is what arrives, never compressed
+- Fast: direct local transfer, as fast as your Wi-Fi allows
+- No size limits: multi-GB videos, whole folders, in one go
+- Private: end-to-end encrypted, files travel only between your devices, never through a server
+- Free: free for personal use, no in-app purchases, no subscriptions
+
+[How to use]
+Open Zhichuan on both devices → pick files → tap send → the other side taps accept. That's it.
+
+Zhichuan is based on the open-source project LocalSend (Apache-2.0).

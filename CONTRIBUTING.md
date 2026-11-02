@@ -29,8 +29,8 @@ You can help in translating this app to other languages!
 
 1. Fork this repository
 2. Choose one
-   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
-   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)
+   - Add missing translations in existing languages: Only update `_missing_translations_<locale>.json` in [assets/i18n](https://github.com/Huoyuan461/localsend/tree/main/app/assets/i18n)
+   - Fix existing translations: Update `strings_<locale>.i18n.json` in [assets/i18n](https://github.com/Huoyuan461/localsend/tree/main/app/assets/i18n)
    - Add new languages: Create a new file, see also: [locale codes](https://saimana.com/list-of-country-locale-code/).
 3. Optional: Re-run this app
    1. Run `cd app` to enter the app directory.
@@ -41,7 +41,7 @@ You can help in translating this app to other languages!
 
 **_Take note:_ Fields decorated with `@` are not meant to be translated, they are not used in the app in any way, being merely informative text about the file or to give context to the translator.**
 
-Thanks to all [translators](https://github.com/localsend/localsend/tree/main/app/lib/pages/about/translators.dart)!
+Thanks to all [translators](https://github.com/Huoyuan461/localsend/tree/main/app/lib/pages/about/translators.dart)!
 
 ## Contributing Guidelines
 
@@ -54,11 +54,11 @@ Before you submit a pull request to LocalSend, please ensure that you have follo
 
 ## Bug Reports and Feature Requests
 
-If you encounter a bug in LocalSend or have a feature request, please submit an issue to the [issue tracker](https://github.com/localsend/localsend/issues). Please be sure to provide a clear description of the problem or feature request, along with any relevant context or steps to reproduce the issue.
+If you encounter a bug in LocalSend or have a feature request, please submit an issue to the [issue tracker](https://github.com/Huoyuan461/localsend/issues). Please be sure to provide a clear description of the problem or feature request, along with any relevant context or steps to reproduce the issue.
 
 ## Security Issues
 
-If you discover a security issue in LocalSend, please do not submit an issue to the public issue tracker. Instead, please email us directly at [support@localsend.org](mailto:support@localsend.org) so that we can address the issue as quickly and effectively as possible.
+If you discover a security issue in LocalSend, please do not submit an issue to the public issue tracker. Instead, please email us directly at [support@github.com/Huoyuan461/localsend](mailto:support@github.com/Huoyuan461/localsend) so that we can address the issue as quickly and effectively as possible.
 
 ## Distribution
 
@@ -70,7 +70,7 @@ Git based distribution:
 | [Scoop][]      | [Scoop Repo][]      | [@sitiom][], [@Tienisto], Github Actions           |
 | [Chocolatey][] | [Chocolatey Repo][] | [@brogers5][]                                      |
 | [Homebrew][]   | [Homebrew Repo][]   | [@Tienisto][], Homebrew autobump                    |
-| Homebrew (`localsend-cli`) | [Homebrew CLI Repo][] | [@ShlomoCode][], Homebrew autobump |
+| Homebrew (`zhichuan-cli`) | [Homebrew CLI Repo][] | [@ShlomoCode][], Homebrew autobump |
 | [Flathub][]    | [Flathub Repo][]    | [@proletarius101][], [@Tienisto][], Github Actions |
 | [AUR][]        | [AUR Repo][]        | [@Nixuge][]                                        |
 | [Nixpkgs][]    | [Nixpkgs Repo][]    | [@sikmir][], [@linsui][]                           |
@@ -79,23 +79,23 @@ Git based distribution:
 
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
 [winget repo]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/l/LocalSend/LocalSend
-[scoop]: https://scoop.sh/#/apps?s=0&d=1&o=true&q=localsend&id=fb88113be361ca32c0dcac423cb4afdeda0b0c66
-[scoop repo]: https://github.com/ScoopInstaller/Extras/blob/master/bucket/localsend.json
-[chocolatey]: https://community.chocolatey.org/packages/localsend
-[chocolatey repo]: https://github.com/brogers5/chocolatey-package-localsend/tree/main
-[homebrew]: https://formulae.brew.sh/cask/localsend
-[homebrew repo]: https://github.com/Homebrew/homebrew-cask/blob/master/Casks/l/localsend.rb
-[homebrew cli repo]: https://github.com/Homebrew/homebrew-core/blob/main/Formula/l/localsend-cli.rb
-[flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
-[flathub repo]: https://github.com/flathub/org.localsend.localsend_app
-[aur]: https://aur.archlinux.org/packages/localsend-bin
-[aur repo]: https://aur.archlinux.org/localsend-bin.git
-[nixpkgs]: https://search.nixos.org/packages?show=localsend
-[nixpkgs repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/localsend/default.nix
-[f-droid]: https://f-droid.org/packages/org.localsend.localsend_app
-[f-droid repo]: https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/org.localsend.localsend_app.yml
-[snap]: https://snapcraft.io/localsend
-[snap repo]: https://github.com/localsend/snap
+[scoop]: https://scoop.sh/#/apps?s=0&d=1&o=true&q=zhichuan&id=fb88113be361ca32c0dcac423cb4afdeda0b0c66
+[scoop repo]: https://github.com/ScoopInstaller/Extras/blob/master/bucket/zhichuan.json
+[chocolatey]: https://community.chocolatey.org/packages/zhichuan
+[chocolatey repo]: https://github.com/brogers5/chocolatey-package-zhichuan/tree/main
+[homebrew]: https://formulae.brew.sh/cask/zhichuan
+[homebrew repo]: https://github.com/Homebrew/homebrew-cask/blob/master/Casks/l/zhichuan.rb
+[homebrew cli repo]: https://github.com/Homebrew/homebrew-core/blob/main/Formula/l/zhichuan-cli.rb
+[flathub]: https://flathub.org/apps/details/com.zhichuan.app
+[flathub repo]: https://github.com/flathub/com.zhichuan.app
+[aur]: https://aur.archlinux.org/packages/zhichuan-bin
+[aur repo]: https://aur.archlinux.org/zhichuan-bin.git
+[nixpkgs]: https://search.nixos.org/packages?show=zhichuan
+[nixpkgs repo]: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/zhichuan/default.nix
+[f-droid]: https://f-droid.org/packages/com.zhichuan.app
+[f-droid repo]: https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/com.zhichuan.app.yml
+[snap]: https://snapcraft.io/zhichuan
+[snap repo]: https://github.com/zhichuan/snap
 
 Manual distribution:
 
@@ -105,8 +105,8 @@ Manual distribution:
 | [Play Store][] | [@Tienisto](https://github.com/Tienisto) |
 | [Amazon][]     | [@Tienisto](https://github.com/Tienisto) |
 
-[app store]: https://apps.apple.com/us/app/localsend/id1661733229
-[play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
+[app store]: https://apps.apple.com/us/app/zhichuan/id1661733229
+[play store]: https://play.google.com/store/apps/details?id=com.zhichuan.app
 [amazon]: https://www.amazon.com/dp/B0BW6MP732
 
 Binary distribution:
@@ -204,6 +204,6 @@ flutter doctor
 
 Next, follow the instructions to set up the GitHub runner.
 
-Start the "Release Draft" workflow from the "Actions" tab: https://github.com/localsend/localsend/actions/workflows/release.yml
+Start the "Release Draft" workflow from the "Actions" tab: https://github.com/Huoyuan461/localsend/actions/workflows/release.yml
 
 Finally, compile binaries not yet supported by the pipeline.

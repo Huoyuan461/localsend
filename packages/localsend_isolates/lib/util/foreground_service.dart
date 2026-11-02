@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 
 final _logger = Logger('ForegroundService');
 
-const _channelId = 'localsend_foreground_service';
+const _channelId = 'zhichuan_foreground_service';
 const _serviceId = 1;
 
 /// Notifications cannot sensibly be redrawn as often as transfer progress arrives.

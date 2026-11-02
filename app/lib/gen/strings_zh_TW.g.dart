@@ -40,7 +40,7 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get appName => 'LocalSend';
+  String get appName => '直传';
   @override
   late final Translations$general$zh_TW general = Translations$general$zh_TW.internal(_root);
   @override
@@ -93,6 +93,8 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$zh_TW web = Translations$web$zh_TW.internal(_root);
   @override
   late final Translations$assetPicker$zh_TW assetPicker = Translations$assetPicker$zh_TW.internal(_root);
+  @override
+  late final Translations$aliasGenerator$zh_TW aliasGenerator = Translations$aliasGenerator$zh_TW.internal(_root);
 }
 
 // Path: general
@@ -288,7 +290,7 @@ class Translations$networkInterfacesPage$zh_TW extends Translations$networkInter
   @override
   String get title => '網路介面';
   @override
-  String get info => 'LocalSend 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。';
+  String get info => '直传 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。';
   @override
   String get preview => '預覽';
   @override
@@ -413,7 +415,7 @@ class Translations$receiveOptionsPage$zh_TW extends Translations$receiveOptionsP
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend 資料夾)';
+  String get appDirectory => '(直传 資料夾)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -492,7 +494,7 @@ class Translations$webSharePage$zh_TW extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'PIN 碼是「${pin}」';
   @override
-  String get encryptionHint => 'LocalSend 使用自簽署憑證。您需要在瀏覽器中接受它。';
+  String get encryptionHint => '直传 使用自簽署憑證。您需要在瀏覽器中接受它。';
   @override
   String pendingRequests({required Object n}) => '待處理的要求：${n}';
 }
@@ -516,10 +518,10 @@ class Translations$aboutPage$zh_TW extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => '關於 LocalSend';
+  String get title => '關於 直传';
   @override
   List<String> get description => [
-    'LocalSend 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的分享檔案和訊息，無需網際網路連線。',
+    '直传 是一款免費的開源應用程式，可讓您透過區域網路與鄰近的裝置安全的分享檔案和訊息，無需網際網路連線。',
     '此應用程式可在 Android、iOS、macOS、Windows 和 Linux 上使用。 您可以在官網首頁上找到所有下載選項。',
   ];
   @override
@@ -542,7 +544,7 @@ class Translations$donationPage$zh_TW extends Translations$donationPage$en {
   @override
   String get title => '贊助';
   @override
-  String get info => 'LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，可以透過捐贈來支持開發。';
+  String get info => '直传 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，可以透過捐贈來支持開發。';
   @override
   String donate({required Object amount}) => '贊助 ${amount}';
   @override
@@ -662,7 +664,7 @@ class Translations$tray$zh_TW extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => '退出 LocalSend';
+  String get close => '退出 直传';
   @override
   String get closeWindows => '離開';
 }
@@ -873,9 +875,13 @@ class Translations$settingsTab$general$zh_TW extends Translations$settingsTab$ge
   @override
   String get launchMinimized => '自動啟動至系統匣';
   @override
-  String get showInContextMenu => '在檔案功能表「傳送到」項目中顯示 LocalSend';
+  String get showInContextMenu => '在檔案功能表「傳送到」項目中顯示 直传';
   @override
   String get animations => '動畫';
+  @override
+  String get alwaysOnTop => '視窗置頂';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland 下不支援';
 }
 
 // Path: settingsTab.receive
@@ -975,7 +981,7 @@ class Translations$settingsTab$other$zh_TW extends Translations$settingsTab$othe
   @override
   String get title => '其他';
   @override
-  String get support => '支持 LocalSend';
+  String get support => '支持 直传';
   @override
   String get donate => '贊助';
   @override
@@ -1268,6 +1274,8 @@ class Translations$dialogs$favoriteEditDialog$zh_TW extends Translations$dialogs
   String get ip => 'IP 位址';
   @override
   String get port => '連接埠';
+  @override
+  String get invalidPort => '請輸入 1 到 65535 之間的整數。';
 }
 
 // Path: dialogs.fileInfo
@@ -1327,7 +1335,7 @@ class Translations$dialogs$localNetworkUnauthorized$zh_TW extends Translations$d
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => '在未取得掃描區域網路權限的狀況下 LocalSend 無法找到其他裝置，請在設定中授予此權限。';
+  String get description => '在未取得掃描區域網路權限的狀況下 直传 無法找到其他裝置，請在設定中授予此權限。';
   @override
   String get gotoSettings => '設定';
 }
@@ -1469,7 +1477,7 @@ class Translations$dialogs$sendModeHelp$zh_TW extends Translations$dialogs$sendM
   @override
   String get multiple => '傳送檔案給多位接收者；檔案傳輸完成後，系統不會清除選取項目。';
   @override
-  String get link => '未安裝 LocalSend 的接收者可以在瀏覽器中開啟連結，以下載選取的檔案。';
+  String get link => '未安裝 直传 的接收者可以在瀏覽器中開啟連結，以下載選取的檔案。';
 }
 
 // Path: dialogs.zoom
@@ -1567,4 +1575,86 @@ class Translations$whatsNewPage$changes$v1_18_0$zh_TW extends Translations$whats
     '來自「最愛」的請求現在會自動接受。此功能預設為開啟，並可在設定中停用。',
     '在 Android 上，當應用程式在背景執行或螢幕關閉時，傳輸仍會繼續。在 iOS 上，應用程式必須保持在前景。',
   ];
+}
+
+
+// Path: aliasGenerator
+class Translations$aliasGenerator$zh_TW extends Translations$aliasGenerator$en {
+  Translations$aliasGenerator$zh_TW.internal(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get adjectives => [
+    '迷人',
+    '美麗',
+    '巨大',
+    '明亮',
+    '乾淨',
+    '聰明',
+    '帥氣',
+    '可愛',
+    '狡猾',
+    '堅定',
+    '有活力',
+    '高效',
+    '極好',
+    '快速',
+    '不錯',
+    '新鮮',
+    '好',
+    '華麗',
+    '偉大',
+    '英俊',
+    '熾熱',
+    '善良',
+    '誠實',
+    '神秘',
+    '整潔',
+    '開心',
+    '耐心',
+    '漂亮',
+    '強大',
+    '富有',
+    '秘密',
+    '聰明',
+    '穩固',
+    '特別',
+    '戰略性',
+    '強大',
+    '整潔',
+    '智慧',
+  ];
+  @override
+  List<String> get fruits => [
+    '蘋果',
+    '鱷梨',
+    '香蕉',
+    '黑莓',
+    '藍莓',
+    '西蘭花',
+    '胡蘿蔔',
+    '櫻桃',
+    '椰子',
+    '葡萄',
+    '檸檬',
+    '萵苣',
+    '芒果',
+    '甜瓜',
+    '蘑菇',
+    '洋蔥',
+    '橙子',
+    '木瓜',
+    '桃子',
+    '梨',
+    '菠蘿',
+    '土豆',
+    '南瓜',
+    '覆盆子',
+    '草莓',
+    '番茄',
+  ];
+  @override
+  String combination({required Object adjective, required Object fruit}) => '${adjective}的${fruit}';
 }

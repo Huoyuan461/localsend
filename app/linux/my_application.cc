@@ -57,11 +57,11 @@ static void my_application_activate(GApplication* application) {
   if (GTK_CSD && strcmp(GTK_CSD, "1") == 0) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
-    gtk_header_bar_set_title(header_bar, "LocalSend");
+    gtk_header_bar_set_title(header_bar, "直传");
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
   } else {
-    gtk_window_set_title(window, "LocalSend");
+    gtk_window_set_title(window, "直传");
   }
 
   gtk_window_set_default_size(window, 400, 500);
@@ -82,7 +82,7 @@ static void my_application_activate(GApplication* application) {
   g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
   g_autoptr(FlMethodChannel) platform_channel = fl_method_channel_new(
       fl_engine_get_binary_messenger(fl_view_get_engine(view)),
-      "org.localsend.localsend_app/platform", FL_METHOD_CODEC(codec));
+      "com.zhichuan.app/platform", FL_METHOD_CODEC(codec));
   bool is_wayland = false;
 #ifdef GDK_WINDOWING_WAYLAND
   is_wayland = GDK_IS_WAYLAND_DISPLAY(

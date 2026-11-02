@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/persistence/color_mode.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/ui/dynamic_colors.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/model/persistence/color_mode.dart';
+import 'package:zhichuan_app/provider/device_info_provider.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
+import 'package:zhichuan_app/util/ui/dynamic_colors.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:yaru/yaru.dart' as yaru;
 
@@ -27,7 +27,7 @@ ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness
     borderRadius: _borderRadius,
   );
 
-  // https://github.com/localsend/localsend/issues/52
+  // https://github.com/Huoyuan461/localsend/issues/52
   final String? fontFamily;
   if (checkPlatform([TargetPlatform.windows])) {
     fontFamily = switch (LocaleSettings.currentLocale) {
@@ -142,13 +142,13 @@ extension InputDecorationThemeExt on InputDecorationThemeData {
 
 ColorScheme _determineColorScheme(ColorMode mode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
   final defaultColorScheme = ColorScheme.fromSeed(
-    seedColor: Colors.teal,
+    seedColor: const Color(0xFFFF6B1A),
     brightness: brightness,
   );
 
   final colorScheme = switch (mode) {
     ColorMode.system => brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark,
-    ColorMode.localsend => null,
+    ColorMode.zhichuan => null,
     ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(
       surface: Colors.black,
     ),

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:localsend_app/config/init.dart';
-import 'package:localsend_app/config/init_error.dart';
-import 'package:localsend_app/config/theme.dart';
-import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/persistence/color_mode.dart';
-import 'package:localsend_app/pages/home_page.dart';
-import 'package:localsend_app/provider/local_ip_provider.dart';
-import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/ui/dynamic_colors.dart';
-import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
-import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
-import 'package:localsend_app/widget/watcher/tray_watcher.dart';
-import 'package:localsend_app/widget/watcher/window_brightness_watcher.dart';
-import 'package:localsend_app/widget/watcher/window_watcher.dart';
+import 'package:zhichuan_app/config/init.dart';
+import 'package:zhichuan_app/config/init_error.dart';
+import 'package:zhichuan_app/config/theme.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/model/persistence/color_mode.dart';
+import 'package:zhichuan_app/pages/home_page.dart';
+import 'package:zhichuan_app/provider/local_ip_provider.dart';
+import 'package:zhichuan_app/provider/network/server/server_provider.dart';
+import 'package:zhichuan_app/provider/settings_provider.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
+import 'package:zhichuan_app/util/ui/dynamic_colors.dart';
+import 'package:zhichuan_app/widget/watcher/life_cycle_watcher.dart';
+import 'package:zhichuan_app/widget/watcher/shortcut_watcher.dart';
+import 'package:zhichuan_app/widget/watcher/tray_watcher.dart';
+import 'package:zhichuan_app/widget/watcher/window_brightness_watcher.dart';
+import 'package:zhichuan_app/widget/watcher/window_watcher.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -75,7 +75,7 @@ class LocalSendApp extends StatelessWidget {
                 break;
               case AppLifecycleState.detached:
                 // The main isolate is only exited when all child isolates are exited.
-                // https://github.com/localsend/localsend/issues/1568
+                // https://github.com/Huoyuan461/localsend/issues/1568
                 ref.redux(parentIsolateProvider).dispatch(IsolateDisposeAction());
                 break;
               default:

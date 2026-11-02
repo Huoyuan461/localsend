@@ -1,4 +1,4 @@
-use localsend::model::transfer::FileMetadata;
+use zhichuan::model::transfer::FileMetadata;
 
 /// Reads the timestamps of the file at `path` in the protocol's RFC 3339
 /// format with nanosecond precision, which Dart's `DateTime` cannot express.

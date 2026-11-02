@@ -8,16 +8,16 @@
 //! machine, so these tests skip themselves instead of failing when the
 //! environment does not cooperate.
 
-use localsend::crypto::cert::generate_self_signed;
-use localsend::discovery::{
+use zhichuan::crypto::cert::generate_self_signed;
+use zhichuan::discovery::{
     self, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
 };
-use localsend::http::server::web::WebConfig;
-use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
-use localsend::http::state::ClientInfo;
-use localsend::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
-use localsend::multicast::MulticastDevice;
-use localsend::util::interface::InterfaceFilter;
+use zhichuan::http::server::web::WebConfig;
+use zhichuan::http::server::{start_with_port, ServerConfigV2, TlsConfig};
+use zhichuan::http::state::ClientInfo;
+use zhichuan::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
+use zhichuan::multicast::MulticastDevice;
+use zhichuan::util::interface::InterfaceFilter;
 use std::net::{Ipv4Addr, Ipv6Addr};
 use std::sync::atomic::{AtomicU16, Ordering};
 use std::time::Duration;
@@ -97,7 +97,7 @@ impl TestInstance {
     async fn next_discovery(
         &mut self,
         fingerprint: &str,
-    ) -> Option<localsend::discovery::DiscoveredDevice> {
+    ) -> Option<zhichuan::discovery::DiscoveredDevice> {
         let deadline = tokio::time::Instant::now() + RECEIVE_TIMEOUT;
         loop {
             let event = tokio::time::timeout_at(deadline, self.events.recv())
@@ -130,7 +130,7 @@ async fn start_instance_with_cert(
     alias: &str,
     multicast_port: u16,
     server_port: u16,
-    cert: localsend::crypto::cert::SelfSignedCert,
+    cert: zhichuan::crypto::cert::SelfSignedCert,
 ) -> Option<TestInstance> {
     let (event_tx, events) = mpsc::channel(32);
     let (stop_tx, stop_rx) = oneshot::channel();

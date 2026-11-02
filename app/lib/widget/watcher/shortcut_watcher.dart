@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:localsend_app/pages/home_page.dart';
-import 'package:localsend_app/pages/home_page_controller.dart';
-import 'package:localsend_app/util/native/file_picker.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:zhichuan_app/pages/home_page.dart';
+import 'package:zhichuan_app/pages/home_page_controller.dart';
+import 'package:zhichuan_app/util/native/file_picker.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -19,12 +19,12 @@ class ShortcutWatcher extends StatelessWidget {
     return Shortcuts(
       shortcuts: {
         // LogicalKeySet requires an exact pressed-key match, which fails with Num Lock enabled on Linux.
-        // https://github.com/localsend/localsend/issues/3481
+        // https://github.com/Huoyuan461/localsend/issues/3481
         // The select button on AndroidTV needs this to work
         SingleActivator(LogicalKeyboardKey.select): const ActivateIntent(),
 
         // Add Control+Q binding for Linux
-        // https://github.com/localsend/localsend/issues/194
+        // https://github.com/Huoyuan461/localsend/issues/194
         if (checkPlatform([TargetPlatform.linux])) SingleActivator(LogicalKeyboardKey.keyQ, control: true): _ExitAppIntent(),
         // Add Control+, to open settings for macOS
         if (checkPlatform([TargetPlatform.macOS])) SingleActivator(LogicalKeyboardKey.comma, meta: true): _OpenSettingsIntent(),

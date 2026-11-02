@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/util/native/taskbar_helper.dart';
-import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/util/native/taskbar_helper.dart';
+import 'package:zhichuan_app/util/native/tray_helper.dart';
 
 const _methodChannel = MethodChannel('main-delegate-channel');
 
@@ -93,7 +93,7 @@ Future<void> setupMethodCallHandler() async {
       case 'onPendingStrings':
         _pendingStringsStreamController.add((call.arguments as List).cast<String>());
         break;
-      case 'showLocalSendFromMenuBar':
+      case 'showZhichuanFromMenuBar':
         await showFromTray();
         break;
     }

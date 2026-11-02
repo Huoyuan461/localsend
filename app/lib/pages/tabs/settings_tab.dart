@@ -1,33 +1,32 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/config/theme.dart';
-import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/model/persistence/color_mode.dart';
-import 'package:localsend_app/pages/about/about_page.dart';
-import 'package:localsend_app/pages/changelog_page.dart';
-import 'package:localsend_app/pages/donation/donation_page.dart';
-import 'package:localsend_app/pages/settings/network_interfaces_page.dart';
-import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
-import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/provider/version_provider.dart';
-import 'package:localsend_app/util/alias_generator.dart';
-import 'package:localsend_app/util/device_type_ext.dart';
-import 'package:localsend_app/util/i18n.dart';
-import 'package:localsend_app/util/native/device_info_helper.dart';
-import 'package:localsend_app/util/native/macos_channel.dart';
-import 'package:localsend_app/util/native/pick_directory_path.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/widget/custom_dropdown_button.dart';
-import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
-import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
-import 'package:localsend_app/widget/dialogs/quick_save_from_favorites_notice.dart';
-import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
-import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
-import 'package:localsend_app/widget/dialogs/text_field_with_actions.dart';
-import 'package:localsend_app/widget/labeled_checkbox.dart';
-import 'package:localsend_app/widget/local_send_logo.dart';
-import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:zhichuan_app/config/theme.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/model/persistence/color_mode.dart';
+import 'package:zhichuan_app/pages/about/about_page.dart';
+import 'package:zhichuan_app/pages/changelog_page.dart';
+import 'package:zhichuan_app/pages/settings/network_interfaces_page.dart';
+import 'package:zhichuan_app/pages/tabs/settings_tab_controller.dart';
+import 'package:zhichuan_app/provider/network/server/server_provider.dart';
+import 'package:zhichuan_app/provider/settings_provider.dart';
+import 'package:zhichuan_app/provider/version_provider.dart';
+import 'package:zhichuan_app/util/alias_generator.dart';
+import 'package:zhichuan_app/util/device_type_ext.dart';
+import 'package:zhichuan_app/util/i18n.dart';
+import 'package:zhichuan_app/util/native/device_info_helper.dart';
+import 'package:zhichuan_app/util/native/macos_channel.dart';
+import 'package:zhichuan_app/util/native/pick_directory_path.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
+import 'package:zhichuan_app/widget/custom_dropdown_button.dart';
+import 'package:zhichuan_app/widget/dialogs/encryption_disabled_notice.dart';
+import 'package:zhichuan_app/widget/dialogs/pin_dialog.dart';
+import 'package:zhichuan_app/widget/dialogs/quick_save_from_favorites_notice.dart';
+import 'package:zhichuan_app/widget/dialogs/quick_save_notice.dart';
+import 'package:zhichuan_app/widget/dialogs/text_field_tv.dart';
+import 'package:zhichuan_app/widget/dialogs/text_field_with_actions.dart';
+import 'package:zhichuan_app/widget/labeled_checkbox.dart';
+import 'package:zhichuan_app/widget/local_send_logo.dart';
+import 'package:zhichuan_app/widget/responsive_list_view.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -99,7 +98,7 @@ class SettingsTab extends StatelessWidget {
                         : null,
                   ),
 
-                  /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
+                  /// Wayland does window position handling, so there's no need for it. See [https://github.com/Huoyuan461/localsend/issues/544]
                   if (vm.advanced && checkPlatformIsNotWaylandDesktop())
                     _BooleanEntry(
                       label: defaultTargetPlatform == TargetPlatform.windows
@@ -539,18 +538,11 @@ class SettingsTab extends StatelessWidget {
                   },
                 ),
                 _ButtonEntry(
-                  label: t.settingsTab.other.support,
-                  buttonLabel: t.settingsTab.other.donate,
-                  onTap: () async {
-                    await context.push(() => const DonationPage());
-                  },
-                ),
-                _ButtonEntry(
                   label: t.settingsTab.other.privacyPolicy,
                   buttonLabel: t.general.open,
                   onTap: () async {
                     await launchUrl(
-                      Uri.parse('https://localsend.org/privacy'),
+                      Uri.parse('https://github.com/Huoyuan461/localsend/privacy'),
                       mode: LaunchMode.externalApplication,
                     );
                   },
@@ -789,7 +781,7 @@ extension on ColorMode {
   String get humanName {
     return switch (this) {
       ColorMode.system => t.settingsTab.general.colorOptions.system,
-      ColorMode.localsend => t.appName,
+      ColorMode.zhichuan => t.appName,
       ColorMode.oled => t.settingsTab.general.colorOptions.oled,
       ColorMode.yaru => 'Yaru',
       ColorMode.custom => t.settingsTab.general.colorOptions.custom,

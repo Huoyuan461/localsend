@@ -12,7 +12,7 @@
 
 cd ..
 rm -rf /tmp/build
-cp localsend /tmp/build -r
+cp zhichuan /tmp/build -r
 pushd /tmp/build
 
 git submodule update --init
@@ -36,12 +36,12 @@ if [ -z "$APP_VERSION" ]; then
 fi
 export APP_VERSION
 appimage-builder
-appimage_file="LocalSend-${APP_VERSION}-linux-x86-64.AppImage"
+appimage_file="Zhichuan-${APP_VERSION}-linux-x86-64.AppImage"
 sudo chmod +x "$appimage_file"
 
 rm -rf AppDir
 rm -rf appimage-build
 
 popd
-cd localsend
+cd zhichuan
 cp "/tmp/build/$appimage_file" "/tmp/build/$appimage_file.zsync" .

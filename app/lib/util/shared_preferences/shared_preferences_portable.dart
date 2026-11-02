@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
+import 'package:zhichuan_app/util/shared_preferences/shared_preferences_file.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
@@ -25,7 +25,7 @@ String _getSettingsPathFromExecutable() {
 /// Returns [Platform.resolvedExecutable], or null when the VM cannot resolve it.
 /// The getter throws a [TypeError] on some virtual disks (e.g. an ImDisk RAM disk),
 /// where reading it would crash the app before it even starts.
-/// See https://github.com/localsend/localsend/issues/3021
+/// See https://github.com/Huoyuan461/localsend/issues/3021
 /// and https://github.com/dart-lang/sdk/issues/53424
 String? _resolveExecutable() {
   try {

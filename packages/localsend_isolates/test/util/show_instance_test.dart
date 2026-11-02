@@ -1,4 +1,4 @@
-// Regression test for https://github.com/localsend/localsend/issues/3165
+// Regression test for https://github.com/Huoyuan461/localsend/issues/3165
 //
 // "Send to -> LocalSend" starts a second process with the file paths as
 // arguments. Only the internal `show` handover keeps that process from becoming
@@ -34,10 +34,10 @@ const _token = 'show-token-3165';
 File _findDylib() {
   final base = '${Directory.current.path}/../../target/debug';
   return [
-    File('$base/librust_lib_localsend_app.dylib'),
-    File('$base/librust_lib_localsend_app.so'),
-    File('$base/rust_lib_localsend_app.dll'),
-  ].firstWhere((f) => f.existsSync(), orElse: () => File('$base/librust_lib_localsend_app.dylib'));
+    File('$base/librust_lib_zhichuan_app.dylib'),
+    File('$base/librust_lib_zhichuan_app.so'),
+    File('$base/rust_lib_zhichuan_app.dll'),
+  ].firstWhere((f) => f.existsSync(), orElse: () => File('$base/librust_lib_zhichuan_app.dylib'));
 }
 
 /// What the stub server saw of a handover request.
@@ -96,7 +96,7 @@ void main() {
       // cannot express, so an unauthorized answer stands in for it).
       request.response.statusCode = switch (received) {
         _Received(clientCertificate: null) => HttpStatus.unauthorized,
-        _Received(path: != '/api/localsend/v2/show') => HttpStatus.notFound,
+        _Received(path: != '/api/zhichuan/v2/show') => HttpStatus.notFound,
         _Received(token: != _token) => HttpStatus.forbidden,
         _ => statusCode,
       };
@@ -108,7 +108,7 @@ void main() {
 
   test('hands the arguments to the running instance over TLS', () async {
     if (!_findDylib().existsSync()) {
-      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
+      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_zhichuan_app)');
       return;
     }
     final (server, received) = await startStub();
@@ -128,7 +128,7 @@ void main() {
     expect(handedOver, isTrue, reason: 'the running instance accepted the handover');
 
     // Regression: '1.0' used to select the v1 path, which the server does not serve.
-    expect(received.path, '/api/localsend/v2/show');
+    expect(received.path, '/api/zhichuan/v2/show');
     expect(received.token, _token);
     expect(jsonDecode(received.body!), {'args': args});
 
@@ -143,7 +143,7 @@ void main() {
 
   test('does not exit when the running instance rejects the request', () async {
     if (!_findDylib().existsSync()) {
-      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
+      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_zhichuan_app)');
       return;
     }
     final (server, _) = await startStub();
@@ -164,7 +164,7 @@ void main() {
 
   test('reports no running instance when nothing listens', () async {
     if (!_findDylib().existsSync()) {
-      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
+      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_zhichuan_app)');
       return;
     }
     // Bind and immediately release a port so that nothing answers on it.

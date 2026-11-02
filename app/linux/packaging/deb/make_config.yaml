@@ -1,11 +1,7 @@
-display_name: LocalSend
-package_name: localsend
+display_name: 直传
+package_name: zhichuan
 maintainer:
-  name: Tienisto
-  email: dev.tien.donam@gmail.com
-co_authors:
-  - name: TheGB0077
-    email: gb.lima.dev@gmail.com
+  name: 直传
 priority: optional
 section: x11
 installed_size: 30600
@@ -24,7 +20,7 @@ dependencies:
   - xdg-user-dirs
 
 postinstall_scripts:
-  - echo "Installed Localsend successfully"
+  - echo "直传安装成功"
 postuninstall_scripts:
   - if [ "$1" = "remove" ]; then echo "Sorry to see you go :("; fi
 
@@ -33,7 +29,7 @@ keywords:
   - LAN
   - Files
 
-generic_name: An open source cross-platform alternative to AirDrop
+generic_name: 手机电脑互传文件，原画质、不压缩
 
 categories:
   - GTK
