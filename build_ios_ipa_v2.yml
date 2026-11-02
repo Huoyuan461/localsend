@@ -1,0 +1,98 @@
+name: build_ios_ipa
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.9'
+          cache: true
+
+      - name: Setup Ruby & CocoaPods
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+
+      - run: gem install cocoapods -N
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios
+
+      - name: Install signing certificate
+        env:
+          P12_B64: ${{ secrets.IOS_DIST_P12 }}
+          P12_PASS: ${{ secrets.IOS_P12_PASSWORD }}
+        run: |
+          echo "$P12_B64" | base64 -d -o /tmp/dist.p12
+          security create-keychain -p ci /tmp/ci.keychain-db
+          security set-keychain-settings -t 3600 -u /tmp/ci.keychain-db
+          security unlock-keychain -p ci /tmp/ci.keychain-db
+          security import /tmp/dist.p12 -k /tmp/ci.keychain-db -P "$P12_PASS" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k ci /tmp/ci.keychain-db
+          security list-keychains -d user -s /tmp/ci.keychain-db $(security list-keychains -d user | tr -d '"')
+
+      - name: Setup App Store Connect API key
+        env:
+          ASC_KEY_P8: ${{ secrets.ASC_API_KEY_P8 }}
+        run: |
+          mkdir -p ~/.appstoreconnect
+          echo "$ASC_KEY_P8" | base64 -d -o ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8
+          chmod 600 ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8
+
+      - name: Flutter pub get & pod install
+        run: |
+          flutter pub get
+          cd ios && pod install && cd ..
+
+      - name: Archive with xcodebuild (auto signing via API key)
+        run: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath $RUNNER_TEMP/Runner.xcarchive \
+            -authenticationKeyPath ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8 \
+            -authenticationKeyID U9828Q5FY7 \
+            -authenticationKeyIssuerID a543b234-4283-41cc-8706-caced4cfb1ff \
+            -allowProvisioningUpdates \
+            archive
+
+      - name: Export IPA
+        run: |
+          cat > /tmp/ExportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key><string>app-store-connect</string>
+              <key>teamID</key><string>49Y2P4VXPB</string>
+              <key>signingStyle</key><string>automatic</string>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive \
+            -archivePath $RUNNER_TEMP/Runner.xcarchive \
+            -exportPath $RUNNER_TEMP/ipa \
+            -exportOptionsPlist /tmp/ExportOptions.plist \
+            -authenticationKeyPath ~/.appstoreconnect/AuthKey_U9828Q5FY7.p8 \
+            -authenticationKeyID U9828Q5FY7 \
+            -authenticationKeyIssuerID a543b234-4283-41cc-8706-caced4cfb1ff \
+            -allowProvisioningUpdates
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: zhichuan-ios-ipa
+          path: ${{ runner.temp }}/ipa/*.ipa
