@@ -144,11 +144,11 @@
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>The app saves received media to the photo library.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>The app requires the local IP to communicate.</string>
+    <string>直传需要获取本地 IP 地址，用于与附近设备建立直连传输。</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>The app requires the local IP to communicate.</string>
+    <string>直传需要获取本地 IP 地址，用于与附近设备建立直连传输。</string>
     <key>NSLocalNetworkUsageDescription</key>
-    <string>The app uses the local network to find and connect to nearby devices.</string>
+    <string>直传需要访问本地网络，用于发现附近的设备并传输文件。</string>
     <key>NSBonjourServices</key>
     <array>
         <string>_http._tcp</string>
