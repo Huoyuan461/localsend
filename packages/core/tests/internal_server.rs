@@ -67,7 +67,7 @@ async fn test_show() {
 
     let response = zhichuan::reqwest::Client::new()
         .post(format!(
-            "http://127.0.0.1:{}/api/zhichuan/v2/show?token=show-token",
+            "http://127.0.0.1:{}/api/localsend/v2/show?token=show-token",
             server.port
         ))
         .json(&serde_json::json!({"args": ["file-a", "file-b"]}))
@@ -88,7 +88,7 @@ async fn test_show_with_empty_body() {
 
     let response = zhichuan::reqwest::Client::new()
         .post(format!(
-            "http://127.0.0.1:{}/api/zhichuan/v2/show?token=show-token",
+            "http://127.0.0.1:{}/api/localsend/v2/show?token=show-token",
             server.port
         ))
         .send()
@@ -105,7 +105,7 @@ async fn test_show_with_invalid_token() {
 
     let response = zhichuan::reqwest::Client::new()
         .post(format!(
-            "http://127.0.0.1:{}/api/zhichuan/v2/show?token=wrong-token",
+            "http://127.0.0.1:{}/api/localsend/v2/show?token=wrong-token",
             server.port
         ))
         .json(&serde_json::json!({"args": ["file-a"]}))
@@ -123,7 +123,7 @@ async fn test_show_disabled() {
 
     let response = zhichuan::reqwest::Client::new()
         .post(format!(
-            "http://127.0.0.1:{}/api/zhichuan/v2/show?token=show-token",
+            "http://127.0.0.1:{}/api/localsend/v2/show?token=show-token",
             server.port
         ))
         .send()

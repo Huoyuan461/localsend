@@ -61,7 +61,7 @@ impl LsHttpClientV2 {
 
     /// Registers with another device for discovery.
     ///
-    /// POST /api/zhichuan/v2/register
+    /// POST /api/localsend/v2/register
     ///
     /// # Arguments
     /// * `protocol` - HTTP or HTTPS
@@ -119,7 +119,7 @@ impl LsHttpClientV2 {
 
     /// Prepares a file upload session with the receiver.
     ///
-    /// POST /api/zhichuan/v2/prepare-upload
+    /// POST /api/localsend/v2/prepare-upload
     ///
     /// The receiver will decide if this request gets accepted, partially accepted, or rejected.
     ///
@@ -209,7 +209,7 @@ impl LsHttpClientV2 {
 
     /// Uploads a file to the receiver.
     ///
-    /// POST /api/zhichuan/v2/upload?sessionId=...&fileId=...&token=...
+    /// POST /api/localsend/v2/upload?sessionId=...&fileId=...&token=...
     ///
     /// Use the session_id, file_id, and token from prepare_upload response.
     /// This method can be called in parallel for multiple files.
@@ -274,7 +274,7 @@ impl LsHttpClientV2 {
 
     /// Cancels an ongoing file transfer session.
     ///
-    /// POST /api/zhichuan/v2/cancel?sessionId=...
+    /// POST /api/localsend/v2/cancel?sessionId=...
     ///
     /// # Arguments
     /// * `protocol` - HTTP or HTTPS
@@ -305,7 +305,7 @@ impl LsHttpClientV2 {
 
     /// Gets device info from a remote device.
     ///
-    /// GET /api/zhichuan/v2/info
+    /// GET /api/localsend/v2/info
     ///
     /// This is primarily for debugging purposes.
     ///
@@ -345,7 +345,7 @@ impl LsHttpClientV2 {
 
     /// Prepares to download files from a sender (Download API).
     ///
-    /// POST /api/zhichuan/v2/prepare-download
+    /// POST /api/localsend/v2/prepare-download
     ///
     /// This is used in reverse file transfer mode where the sender hosts the files
     /// and receivers download them.
@@ -403,7 +403,7 @@ impl LsHttpClientV2 {
 
     /// Downloads a file from a sender (Download API).
     ///
-    /// GET /api/zhichuan/v2/download?sessionId=...&fileId=...
+    /// GET /api/localsend/v2/download?sessionId=...&fileId=...
     ///
     /// This method can be called in parallel for multiple files.
     ///

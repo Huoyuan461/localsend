@@ -1,20 +1,20 @@
 use crate::frb_generated::StreamSink;
 use flutter_rust_bridge::frb;
-pub use zhichuan::http::dto_v2::RegisterDtoV2;
-use zhichuan::http::server::ServerConfigV2;
-pub use zhichuan::http::server::TlsConfig;
-use zhichuan::http::server::common::save::FileUploadTarget;
-use zhichuan::http::server::internal::{InternalConfig, InternalEvent};
-pub use zhichuan::http::server::v2::SessionEndReasonV2;
-use zhichuan::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
-use zhichuan::http::server::web::{
+pub use localsend::http::dto_v2::RegisterDtoV2;
+use localsend::http::server::ServerConfigV2;
+pub use localsend::http::server::TlsConfig;
+use localsend::http::server::common::save::FileUploadTarget;
+use localsend::http::server::internal::{InternalConfig, InternalEvent};
+pub use localsend::http::server::v2::SessionEndReasonV2;
+use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
+use localsend::http::server::web::{
     WebConfig, WebMode as CoreWebMode, WebDownloadConfig, WebDownloadEvent,
 };
-pub use zhichuan::http::server::web::{WebI18n, WebPages};
-use zhichuan::http::state::ClientInfo;
-use zhichuan::model::discovery::DeviceType;
-use zhichuan::model::discovery::ProtocolType;
-use zhichuan::model::transfer::{FileContent, FileDto};
+pub use localsend::http::server::web::{WebI18n, WebPages};
+use localsend::http::state::ClientInfo;
+use localsend::model::discovery::DeviceType;
+use localsend::model::discovery::ProtocolType;
+use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::{Mutex, mpsc, oneshot};
@@ -124,7 +124,7 @@ pub struct RsHttpServer {
 /// [RUNNING_SERVER] so that a leftover instance can be stopped without its
 /// Dart owner.
 struct ServerInstance {
-    handle: zhichuan::http::server::ServerHandle,
+    handle: localsend::http::server::ServerHandle,
     stop_tx: Mutex<Option<oneshot::Sender<()>>>,
 }
 
@@ -253,7 +253,7 @@ pub async fn start_server(
         None => (None, None),
     };
 
-    let handle = zhichuan::http::server::start_with_port(
+    let handle = localsend::http::server::start_with_port(
         port,
         tls,
         ClientInfo {

@@ -86,7 +86,7 @@ async fn connections_beyond_the_limit_are_closed() {
     // Closed without an answer.
     let mut excess = connect(port).await;
     excess
-        .write_all(b"GET /api/zhichuan/v2/info HTTP/1.1\r\nHost: localhost\r\n\r\n")
+        .write_all(b"GET /api/localsend/v2/info HTTP/1.1\r\nHost: localhost\r\n\r\n")
         .await
         .ok();
     assert!(read_until_closed(&mut excess).await.is_empty());
@@ -97,7 +97,7 @@ async fn connections_beyond_the_limit_are_closed() {
         loop {
             let mut stream = connect(port).await;
             stream
-                .write_all(b"GET /api/zhichuan/v2/info HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")
+                .write_all(b"GET /api/localsend/v2/info HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")
                 .await
                 .ok();
             if read_until_closed(&mut stream).await.starts_with(b"HTTP/1.1 ") {

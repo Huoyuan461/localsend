@@ -20,7 +20,7 @@ pub enum ApiVersion {
 impl<'a> TargetUrl<'a> {
     pub fn to_string(&self) -> String {
         let base = format!(
-            "{}://{}:{}/api/zhichuan/{}{}",
+            "{}://{}:{}/api/localsend/{}{}",
             self.protocol,
             // A scoped IPv6 address (`fe80::1%3`) cannot be represented in a
             // URL and becomes a synthetic host name instead.
@@ -91,7 +91,7 @@ mod tests {
             params: &[],
         }
         .to_string();
-        assert_eq!(url, "https://192.168.1.1:53317/api/zhichuan/v2/register");
+        assert_eq!(url, "https://192.168.1.1:53317/api/localsend/v2/register");
     }
 
     #[test]
@@ -105,7 +105,7 @@ mod tests {
             params: &[],
         }
         .to_string();
-        assert_eq!(url, "https://[::1]:53317/api/zhichuan/v2/register");
+        assert_eq!(url, "https://[::1]:53317/api/localsend/v2/register");
     }
 
     #[test]
@@ -121,7 +121,7 @@ mod tests {
         .to_string();
         assert_eq!(
             url,
-            "https://fe80--1s3.scoped.zhichuan.internal:53317/api/zhichuan/v2/register"
+            "https://fe80--1s3.scoped.localsend.internal:53317/api/localsend/v2/register"
         );
     }
 
@@ -136,6 +136,6 @@ mod tests {
             params: &[],
         }
         .to_string();
-        assert_eq!(url, "http://192.168.1.1:53317/api/zhichuan/v2/info");
+        assert_eq!(url, "http://192.168.1.1:53317/api/localsend/v2/info");
     }
 }

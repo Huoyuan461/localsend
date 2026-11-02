@@ -278,7 +278,7 @@ async fn test_web_page_disabled() {
     assert_eq!(response.status().as_u16(), 403);
 
     let response = client
-        .post(format!("{base_url}/api/zhichuan/v2/prepare-download"))
+        .post(format!("{base_url}/api/localsend/v2/prepare-download"))
         .send()
         .await
         .unwrap();

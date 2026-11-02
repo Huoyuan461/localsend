@@ -274,7 +274,7 @@ async fn test_info_on_legacy_v1_route() {
     let server = start_test_server(None, true, None).await;
 
     let body: serde_json::Value = reqwest::get(format!(
-        "http://127.0.0.1:{}/api/zhichuan/v1/info",
+        "http://127.0.0.1:{}/api/localsend/v1/info",
         server.port
     ))
     .await
@@ -912,7 +912,7 @@ async fn test_upload_missing_parameters() {
 
     let response = zhichuan::reqwest::Client::new()
         .post(format!(
-            "http://127.0.0.1:{}/api/zhichuan/v2/upload?sessionId=abc",
+            "http://127.0.0.1:{}/api/localsend/v2/upload?sessionId=abc",
             server.port
         ))
         .body("data")
@@ -1054,7 +1054,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect() {
     let body =
         serde_json::to_string(&prepare_upload_request(&[file_dto("file-a", "a.bin", 5)])).unwrap();
     let request = format!(
-        "POST /api/zhichuan/v2/prepare-upload HTTP/1.1\r\nHost: 127.0.0.1:{port}\r\nContent-Type: application/json\r\nContent-Length: {}\r\n\r\n{body}",
+        "POST /api/localsend/v2/prepare-upload HTTP/1.1\r\nHost: 127.0.0.1:{port}\r\nContent-Type: application/json\r\nContent-Length: {}\r\n\r\n{body}",
         body.len()
     );
     let mut stream = tokio::net::TcpStream::connect(("127.0.0.1", port))
@@ -1170,7 +1170,7 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
     });
     tokio::time::sleep(Duration::from_millis(200)).await;
 
-    let cancel_url = format!("http://127.0.0.1:{port}/api/zhichuan/v2/cancel");
+    let cancel_url = format!("http://127.0.0.1:{port}/api/localsend/v2/cancel");
     let cancel_client = zhichuan::reqwest::Client::new();
 
     // A cancel with a wrong session ID must not cancel the pending request.

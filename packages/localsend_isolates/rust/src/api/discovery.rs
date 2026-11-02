@@ -1,13 +1,13 @@
 use crate::frb_generated::StreamSink;
 use flutter_rust_bridge::frb;
-pub use zhichuan::discovery::DeviceLogKind;
-use zhichuan::discovery::{
+pub use localsend::discovery::DeviceLogKind;
+use localsend::discovery::{
     DeviceChannel, DeviceIdentity, DeviceLog, DiscoveredDevice, DiscoveryConfig, DiscoveryEvent,
     DiscoveryHandle, HttpChannel, StatefulDevice,
 };
-use zhichuan::model::discovery::{DeviceType, ProtocolType};
-use zhichuan::multicast::{DEFAULT_MULTICAST_GROUP_V6, MulticastDevice};
-use zhichuan::util::interface::InterfaceFilter;
+use localsend::model::discovery::{DeviceType, ProtocolType};
+use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, MulticastDevice};
+use localsend::util::interface::InterfaceFilter;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc, oneshot};
@@ -192,7 +192,7 @@ pub async fn start_discovery(
     let (event_tx, event_rx) = mpsc::channel::<DiscoveryEvent>(16);
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
 
-    let handle = zhichuan::discovery::start(
+    let handle = localsend::discovery::start(
         DiscoveryConfig {
             group,
             // Hardcoded for now; becomes a parameter once the app exposes it.

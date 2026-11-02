@@ -43,7 +43,7 @@ async fn info_status(port: u16) -> std::io::Result<String> {
     let mut stream = tokio::net::TcpStream::connect(("127.0.0.1", port)).await?;
     stream
         .write_all(
-            b"GET /api/zhichuan/v2/info HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n",
+            b"GET /api/localsend/v2/info HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n",
         )
         .await?;
     let mut buf = Vec::new();
