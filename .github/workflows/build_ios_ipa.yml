@@ -56,12 +56,11 @@ jobs:
           p = "Runner.xcodeproj/project.pbxproj"
           s = open(p).read()
           s = s.replace("CODE_SIGN_STYLE = Automatic;", "CODE_SIGN_STYLE = Manual;")
-          # 给主 target 加描述文件（只加一次）
+          # 给主 target 所有配置加描述文件（Debug/Release/Profile 都要，打包 archive 用的是 Release）
           if 'PROVISIONING_PROFILE_SPECIFIER = "Zhichuan AppStore"' not in s:
               s = s.replace(
                   "PRODUCT_BUNDLE_IDENTIFIER = com.zhichuan.app;",
-                  'PRODUCT_BUNDLE_IDENTIFIER = com.zhichuan.app;\n\t\t\t\tPROVISIONING_PROFILE_SPECIFIER = "Zhichuan AppStore";\n\t\t\t\tCODE_SIGN_IDENTITY = "Apple Distribution";',
-                  1
+                  'PRODUCT_BUNDLE_IDENTIFIER = com.zhichuan.app;\n\t\t\t\tPROVISIONING_PROFILE_SPECIFIER = "Zhichuan AppStore";\n\t\t\t\tCODE_SIGN_IDENTITY = "Apple Distribution";'
               )
           open(p, "w").write(s)
           print("manual signing configured")
