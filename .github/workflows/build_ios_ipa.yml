@@ -89,9 +89,13 @@ jobs:
           </plist>
           EOF
           flutter build ipa --release --export-options-plist=/tmp/ExportOptions.plist
+          # 产物文件名是中文（直传.ipa），upload-artifact 的 glob 可能匹配失败：改成 ASCII 名
+          for f in build/ios/ipa/*.ipa; do mv "$f" build/ios/ipa/zhichuan.ipa; break; done
+          ls -la build/ios/ipa/
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: zhichuan-ios-ipa
+          path: build/ios/ipa/zhichuan.ipa
           path: build/ios/ipa/*.ipa
