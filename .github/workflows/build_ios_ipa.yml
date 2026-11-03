@@ -11,6 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Select Xcode 26
+        run: |
+          ls -d /Applications/Xcode_26*.app
+          sudo xcode-select -s $(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)
+          xcodebuild -version
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
