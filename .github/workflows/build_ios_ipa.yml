@@ -98,4 +98,3 @@ jobs:
         with:
           name: zhichuan-ios-ipa
           path: build/ios/ipa/zhichuan.ipa
-          path: build/ios/ipa/*.ipa
