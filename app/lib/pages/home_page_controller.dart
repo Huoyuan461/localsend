@@ -36,7 +36,12 @@ class ChangeTabAction extends ReduxAction<HomePageController, HomePageVm> {
 
   @override
   HomePageVm reduce() {
-    state.controller.jumpToPage(tab.index);
+    // 3D质感的页面切换：快速滑入带轻微回弹，而非生硬跳转
+    state.controller.animateToPage(
+      tab.index,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOutCubic,
+    );
     return HomePageVm(
       controller: state.controller,
       currentTab: tab,
