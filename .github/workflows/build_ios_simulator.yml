@@ -1,0 +1,52 @@
+name: build_ios_simulator
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-26
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode 26
+        run: |
+          ls -d /Applications/Xcode_26*.app
+          sudo xcode-select -s $(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)
+          xcodebuild -version
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.9'
+          cache: true
+
+      - name: Setup Ruby & CocoaPods
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+
+      - run: gem install cocoapods -N
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios-sim
+
+      - name: Flutter pub get & pod install
+        run: |
+          flutter pub get
+          cd ios && pod install && cd ..
+
+      - name: Build simulator app
+        run: |
+          flutter build ios --simulator --debug
+          ls -la build/ios/iphonesimulator/
+
+      - name: Upload simulator app
+        uses: actions/upload-artifact@v4
+        with:
+          name: zhichuan-ios-simulator
+          path: app/build/ios/iphonesimulator/Runner.app
