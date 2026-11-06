@@ -139,6 +139,8 @@
     <true/>
 
     <!-- Permissions -->
+    <key>NSCameraUsageDescription</key>
+    <string>直传需要使用相机扫描二维码，以便快速连接附近设备传输文件。</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>The app needs photo library access so that the user can select photos to share.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>

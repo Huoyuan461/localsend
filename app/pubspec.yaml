@@ -4,7 +4,7 @@ homepage: https://github.com/Huoyuan461/localsend/
 publish_to: "none"
 resolution: workspace
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   flutter: ^3.41.0
