@@ -21,8 +21,8 @@ sed -i "$REGEX_A" lib/pages/donation/donation_page_vm.dart
 sed -i "$REGEX_B" lib/pages/donation/donation_page_vm.dart
 
 # Pro purchase feature locks (Pro page itself is removed below)
-sed -i "$REGEX_A" lib/provider/receive_history_provider.dart
-sed -i "$REGEX_B" lib/provider/receive_history_provider.dart
+sed -i "$REGEX_A" lib/provider/network/server/controller/receive_controller.dart
+sed -i "$REGEX_B" lib/provider/network/server/controller/receive_controller.dart
 
 sed -i "$REGEX_A" lib/pages/receive_history_page.dart
 sed -i "$REGEX_B" lib/pages/receive_history_page.dart

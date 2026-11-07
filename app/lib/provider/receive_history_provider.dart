@@ -1,8 +1,5 @@
 import 'package:zhichuan_app/model/persistence/receive_history_entry.dart';
 import 'package:zhichuan_app/provider/persistence_provider.dart';
-// [FOSS_REMOVE_START]
-import 'package:zhichuan_app/provider/purchase_provider.dart';
-// [FOSS_REMOVE_END]
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -39,6 +36,11 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
   final String senderAlias;
   final DateTime timestamp;
 
+  /// Max entries to keep. Callers pass the Pro limit for Pro users and the
+  /// free limit otherwise (read via `purchaseProvider` at the dispatch site).
+  /// Defaults to the Pro limit, which is also what FOSS builds use.
+  final int maxEntries;
+
   AddHistoryEntryAction({
     required this.entryId,
     required this.fileName,
@@ -49,6 +51,7 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
     required this.fileSize,
     required this.senderAlias,
     required this.timestamp,
+    this.maxEntries = proHistoryLimit,
   });
 
   @override
@@ -57,11 +60,6 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
       return state;
     }
 
-    // FOSS builds keep the Pro limit: all features are free there.
-    var maxEntries = proHistoryLimit;
-    // [FOSS_REMOVE_START]
-    maxEntries = ref.read(purchaseProvider).isPro ? proHistoryLimit : freeHistoryLimit;
-    // [FOSS_REMOVE_END]
     final updated = [
       ReceiveHistoryEntry(
         id: entryId,

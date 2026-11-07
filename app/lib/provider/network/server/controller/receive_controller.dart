@@ -17,6 +17,9 @@ import 'package:zhichuan_app/provider/logging/discovery_logs_provider.dart';
 import 'package:zhichuan_app/provider/network/send_provider.dart';
 import 'package:zhichuan_app/provider/network/server/server_provider.dart';
 import 'package:zhichuan_app/provider/network/server/server_utils.dart';
+// [FOSS_REMOVE_START]
+import 'package:zhichuan_app/provider/purchase_provider.dart';
+// [FOSS_REMOVE_END]
 import 'package:zhichuan_app/provider/receive_history_provider.dart';
 import 'package:zhichuan_app/provider/security_provider.dart';
 import 'package:zhichuan_app/provider/selection/selected_receiving_files_provider.dart';
@@ -177,6 +180,9 @@ class ReceiveController {
               fileSize: utf8.encode(message).length,
               senderAlias: server.getState().session!.senderAlias,
               timestamp: DateTime.now().toUtc(),
+              // [FOSS_REMOVE_START]
+              maxEntries: server.ref.read(purchaseProvider).isPro ? proHistoryLimit : freeHistoryLimit,
+              // [FOSS_REMOVE_END]
             ),
           );
     }
@@ -364,6 +370,9 @@ class ReceiveController {
               fileSize: receivingFile.file.size,
               senderAlias: receiveState.senderAlias,
               timestamp: DateTime.now().toUtc(),
+              // [FOSS_REMOVE_START]
+              maxEntries: server.ref.read(purchaseProvider).isPro ? proHistoryLimit : freeHistoryLimit,
+              // [FOSS_REMOVE_END]
             ),
           );
     } else {

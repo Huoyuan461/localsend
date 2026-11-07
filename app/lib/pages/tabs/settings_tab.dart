@@ -104,7 +104,7 @@ class SettingsTab extends StatelessWidget {
                         return;
                       }
                       // [FOSS_REMOVE_END]
-                      await vm.onChangeColorMode(context, colorMode);
+                      vm.onChangeColorMode(context, colorMode);
                     },
                   ),
                 ),

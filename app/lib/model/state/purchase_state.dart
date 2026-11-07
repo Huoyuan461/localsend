@@ -39,7 +39,8 @@ enum PurchaseItem {
 
 /// Pro 上线免费期截止日：App 上线后前两周 Pro 免费开放，之后恢复 ¥38 买断。
 /// 随 Pro 版本实际上线日期调整（1.0 于 2026-11-06 提交审核，Pro 随下一版上，免费期暂定到 2026-11-26）。
-const kProFreeUntil = DateTime.utc(2026, 11, 26);
+/// Note: DateTime.utc is not a const constructor, so this is final, not const.
+final kProFreeUntil = DateTime.utc(2026, 11, 26);
 
 /// Whether the given purchase set counts as Pro.
 /// Note: also true during the launch free period ([kProFreeUntil]).
