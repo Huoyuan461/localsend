@@ -98,7 +98,10 @@
       "colorOptions": {
         "system": "System",
         "oled": "OLED",
-        "custom": "Custom"
+        "custom": "Custom",
+        "charcoal": "Charcoal",
+        "forest": "Forest",
+        "obsidian": "Obsidian"
       },
       "language": "Language",
       "languageOptions": {
@@ -197,7 +200,8 @@
       "showInFolder": "Show in folder",
       "info": "Information",
       "deleteFromHistory": "Delete from history"
-    }
+    },
+    "proUpsell": "Unlock full history with Pro"
   },
   "apkPickerPage": {
     "title": "Apps (APK)",
@@ -318,6 +322,19 @@
     "donate": "Donate {amount}",
     "thanks": "Thank you very much!",
     "restore": "Restore purchase"
+  },
+  "proPage": {
+    "title": "Zhichuan Pro",
+    "info": "Unlock the full power of Zhichuan. Peer-to-peer transfers stay free forever.",
+    "bannerSubtitle": "Unlock full history, unlimited favorites and Pro themes",
+    "featureHistory": "Full transfer history with search and export",
+    "featureFavorites": "Unlimited favorite devices",
+    "featureThemes": "Exclusive Pro themes",
+    "featureDirectory": "Custom save directory",
+    "featureSupport": "Priority support",
+    "buy": "Buy Pro {price}",
+    "alreadyPro": "You are a Pro user. Thank you for your support!",
+    "freeUntil": "Free for everyone until {date}"
   },
   "changelogPage": {
     "title": "Changelog"

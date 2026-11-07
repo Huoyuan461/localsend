@@ -98,7 +98,10 @@
       "colorOptions": {
         "system": "跟随系统",
         "oled": "OLED",
-        "custom": "自定义"
+        "custom": "自定义",
+        "charcoal": "深炭灰",
+        "forest": "墨绿",
+        "obsidian": "曜石黑"
       },
       "language": "语言",
       "languageOptions": {
@@ -197,7 +200,8 @@
       "showInFolder": "在文件管理器中显示",
       "info": "信息",
       "deleteFromHistory": "从历史记录中删除"
-    }
+    },
+    "proUpsell": "Pro 解锁全部记录"
   },
   "apkPickerPage": {
     "title": "应用（APK）",
@@ -318,6 +322,19 @@
     "donate": "捐款 {amount}",
     "thanks": "非常感谢您的支持！",
     "restore": "恢复购买"
+  },
+  "proPage": {
+    "title": "直传 Pro",
+    "info": "开通 Pro，解锁直传的全部能力。核心传输永远免费。",
+    "bannerSubtitle": "解锁全部记录、无限收藏设备与 Pro 主题",
+    "featureHistory": "传输记录全量 + 搜索 + 导出",
+    "featureFavorites": "收藏设备无上限",
+    "featureThemes": "Pro 专属主题",
+    "featureDirectory": "自定义保存目录",
+    "featureSupport": "优先客服",
+    "buy": "购买 Pro {price}",
+    "alreadyPro": "您已是 Pro 用户，感谢支持！",
+    "freeUntil": "免费开放至 {date}"
   },
   "changelogPage": {
     "title": "更新日志"

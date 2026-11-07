@@ -157,6 +157,19 @@ ColorScheme _determineColorScheme(ColorMode mode, Color customColor, Brightness 
       seedColor: customColor,
       brightness: brightness,
     ),
+    // Pro themes are dark-only seed themes.
+    ColorMode.charcoal => ColorScheme.fromSeed(
+      seedColor: const Color(0xFF3A3F44),
+      brightness: Brightness.dark,
+    ),
+    ColorMode.forest => ColorScheme.fromSeed(
+      seedColor: const Color(0xFF1B4D3E),
+      brightness: Brightness.dark,
+    ),
+    ColorMode.obsidian => ColorScheme.fromSeed(
+      seedColor: const Color(0xFF111214),
+      brightness: Brightness.dark,
+    ),
   };
 
   return colorScheme ?? defaultColorScheme;

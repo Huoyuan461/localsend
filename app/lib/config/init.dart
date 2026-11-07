@@ -325,6 +325,9 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   if (checkPlatformSupportPayment()) {
     // ignore: unawaited_futures
     ref.redux(purchaseProvider).dispatchAsync(InitPurchaseStream());
+    // Restore past purchases on every start, so Pro locks are correct without opening the Pro page first.
+    // ignore: unawaited_futures
+    ref.redux(purchaseProvider).dispatchAsync(FetchPricesAndPurchasesAction());
   }
   // [FOSS_REMOVE_END]
 }

@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/receive_history_entry.dart';
+// [FOSS_REMOVE_START]
+import 'package:zhichuan_app/pages/pro/pro_page.dart';
+// [FOSS_REMOVE_END]
 import 'package:zhichuan_app/pages/receive_page.dart';
+// [FOSS_REMOVE_START]
+import 'package:zhichuan_app/provider/purchase_provider.dart';
+// [FOSS_REMOVE_END]
 import 'package:zhichuan_app/provider/receive_history_provider.dart';
 import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:zhichuan_app/util/native/directories.dart';
@@ -63,6 +69,9 @@ class ReceiveHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = context.watch(receiveHistoryProvider);
+    // [FOSS_REMOVE_START]
+    final isPro = context.watch(purchaseProvider).isPro;
+    // [FOSS_REMOVE_END]
 
     return Scaffold(
       appBar: AppBar(
@@ -238,6 +247,30 @@ class ReceiveHistoryPage extends StatelessWidget {
                 ),
               );
             }),
+          // [FOSS_REMOVE_START]
+          if (!isPro && entries.length >= freeHistoryLimit)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+              child: InkWell(
+                onTap: () async {
+                  await context.push(() => const ProPage());
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.lock, color: Theme.of(context).colorScheme.primary),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        t.receiveHistoryPage.proUpsell,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right),
+                  ],
+                ),
+              ),
+            ),
+          // [FOSS_REMOVE_END]
         ],
       ),
     );

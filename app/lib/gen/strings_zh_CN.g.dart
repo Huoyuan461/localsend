@@ -80,6 +80,8 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$donationPage$zh_CN donationPage = Translations$donationPage$zh_CN.internal(_root);
   @override
+  late final Translations$proPage$zh_CN proPage = Translations$proPage$zh_CN.internal(_root);
+  @override
   late final Translations$changelogPage$zh_CN changelogPage = Translations$changelogPage$zh_CN.internal(_root);
   @override
   late final Translations$whatsNewPage$zh_CN whatsNewPage = Translations$whatsNewPage$zh_CN.internal(_root);
@@ -314,6 +316,8 @@ class Translations$receiveHistoryPage$zh_CN extends Translations$receiveHistoryP
   String get deleteHistory => '删除历史记录';
   @override
   String get empty => '无历史记录。';
+  @override
+  String get proUpsell => 'Pro 解锁全部记录';
   @override
   late final Translations$receiveHistoryPage$entryActions$zh_CN entryActions = Translations$receiveHistoryPage$entryActions$zh_CN.internal(_root);
 }
@@ -551,6 +555,37 @@ class Translations$donationPage$zh_CN extends Translations$donationPage$en {
   String get thanks => '非常感谢您的支持！';
   @override
   String get restore => '恢复购买';
+}
+
+// Path: proPage
+class Translations$proPage$zh_CN extends Translations$proPage$en {
+  Translations$proPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '直传 Pro';
+  @override
+  String get info => '开通 Pro，解锁直传的全部能力。核心传输永远免费。';
+  @override
+  String get bannerSubtitle => '解锁全部记录、无限收藏设备与 Pro 主题';
+  @override
+  String get featureHistory => '传输记录全量 + 搜索 + 导出';
+  @override
+  String get featureFavorites => '收藏设备无上限';
+  @override
+  String get featureThemes => 'Pro 专属主题';
+  @override
+  String get featureDirectory => '自定义保存目录';
+  @override
+  String get featureSupport => '优先客服';
+  @override
+  String buy({required Object price}) => '购买 Pro ${price}';
+  @override
+  String get alreadyPro => '您已是 Pro 用户，感谢支持！';
+  @override
+  String freeUntil({required Object date}) => '免费开放至 ${date}';
 }
 
 // Path: changelogPage
@@ -1600,6 +1635,12 @@ class Translations$settingsTab$general$colorOptions$zh_CN extends Translations$s
   String get oled => 'OLED';
   @override
   String get custom => '自定义';
+  @override
+  String get charcoal => '深炭灰';
+  @override
+  String get forest => '墨绿';
+  @override
+  String get obsidian => '曜石黑';
 }
 
 // Path: settingsTab.general.languageOptions

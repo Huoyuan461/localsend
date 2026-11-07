@@ -5,9 +5,15 @@ import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/color_mode.dart';
 import 'package:zhichuan_app/pages/about/about_page.dart';
 import 'package:zhichuan_app/pages/changelog_page.dart';
+// [FOSS_REMOVE_START]
+import 'package:zhichuan_app/pages/pro/pro_page.dart';
+// [FOSS_REMOVE_END]
 import 'package:zhichuan_app/pages/settings/network_interfaces_page.dart';
 import 'package:zhichuan_app/pages/tabs/settings_tab_controller.dart';
 import 'package:zhichuan_app/provider/network/server/server_provider.dart';
+// [FOSS_REMOVE_START]
+import 'package:zhichuan_app/provider/purchase_provider.dart';
+// [FOSS_REMOVE_END]
 import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:zhichuan_app/provider/version_provider.dart';
 import 'package:zhichuan_app/util/alias_generator.dart';
@@ -42,6 +48,9 @@ class SettingsTab extends StatelessWidget {
       provider: (ref) => settingsTabControllerProvider,
       builder: (context, vm) {
         final ref = context.ref;
+        // [FOSS_REMOVE_START]
+        final isPro = context.watch(purchaseProvider).isPro;
+        // [FOSS_REMOVE_END]
         return ResponsiveListView(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
           children: [
@@ -50,6 +59,10 @@ class SettingsTab extends StatelessWidget {
               child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
             ),
             const SizedBox(height: 30),
+            // [FOSS_REMOVE_START]
+            if (!isPro) const ProBanner(),
+            if (!isPro) const SizedBox(height: 15),
+            // [FOSS_REMOVE_END]
             _SettingsSection(
               title: t.settingsTab.general.title,
               children: [
@@ -72,13 +85,27 @@ class SettingsTab extends StatelessWidget {
                   child: CustomDropdownButton<ColorMode>(
                     value: vm.settings.colorMode,
                     items: vm.colorModes.map((colorMode) {
+                      var label = colorMode.humanName;
+                      // [FOSS_REMOVE_START]
+                      if (colorMode.isProTheme && !isPro) {
+                        label = '$label · Pro';
+                      }
+                      // [FOSS_REMOVE_END]
                       return DropdownMenuItem(
                         value: colorMode,
                         alignment: Alignment.center,
-                        child: Text(colorMode.humanName, overflow: TextOverflow.ellipsis),
+                        child: Text(label, overflow: TextOverflow.ellipsis),
                       );
                     }).toList(),
-                    onChanged: (colorMode) => vm.onChangeColorMode(context, colorMode),
+                    onChanged: (colorMode) async {
+                      // [FOSS_REMOVE_START]
+                      if (colorMode.isProTheme && !isPro) {
+                        await context.push(() => const ProPage());
+                        return;
+                      }
+                      // [FOSS_REMOVE_END]
+                      await vm.onChangeColorMode(context, colorMode);
+                    },
                   ),
                 ),
                 _ButtonEntry(
@@ -224,6 +251,13 @@ class SettingsTab extends StatelessWidget {
                         foregroundColor: Theme.of(context).colorScheme.onSurface,
                       ),
                       onPressed: () async {
+                        // [FOSS_REMOVE_START]
+                        if (!isPro && vm.settings.destination == null) {
+                          // Custom save directory is a Pro feature.
+                          await context.push(() => const ProPage());
+                          return;
+                        }
+                        // [FOSS_REMOVE_END]
                         if (vm.settings.destination != null) {
                           await ref.notifier(settingsProvider).setDestination(null);
                           if (defaultTargetPlatform == TargetPlatform.macOS) {
@@ -785,6 +819,9 @@ extension on ColorMode {
       ColorMode.oled => t.settingsTab.general.colorOptions.oled,
       ColorMode.yaru => 'Yaru',
       ColorMode.custom => t.settingsTab.general.colorOptions.custom,
+      ColorMode.charcoal => t.settingsTab.general.colorOptions.charcoal,
+      ColorMode.forest => t.settingsTab.general.colorOptions.forest,
+      ColorMode.obsidian => t.settingsTab.general.colorOptions.obsidian,
     };
   }
 }

@@ -20,8 +20,22 @@ sed -i "$REGEX_B" lib/pages/donation/donation_page.dart
 sed -i "$REGEX_A" lib/pages/donation/donation_page_vm.dart
 sed -i "$REGEX_B" lib/pages/donation/donation_page_vm.dart
 
+# Pro purchase feature locks (Pro page itself is removed below)
+sed -i "$REGEX_A" lib/provider/receive_history_provider.dart
+sed -i "$REGEX_B" lib/provider/receive_history_provider.dart
+
+sed -i "$REGEX_A" lib/pages/receive_history_page.dart
+sed -i "$REGEX_B" lib/pages/receive_history_page.dart
+
+sed -i "$REGEX_A" lib/widget/dialogs/favorite_edit_dialog.dart
+sed -i "$REGEX_B" lib/widget/dialogs/favorite_edit_dialog.dart
+
+sed -i "$REGEX_A" lib/pages/tabs/settings_tab.dart
+sed -i "$REGEX_B" lib/pages/tabs/settings_tab.dart
+
 # Remove files completely
 rm lib/provider/purchase_provider.dart
+rm lib/pages/pro/pro_page.dart lib/pages/pro/pro_page_vm.dart
 
 # Refer to donationPageNoopVmProvider instead of donationPageVmProvider
 sed -i 's/donationPageVmProvider/donationPageNoopVmProvider/g' lib/pages/donation/donation_page.dart

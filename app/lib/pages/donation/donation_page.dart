@@ -75,7 +75,7 @@ class _StoreDonation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...PurchaseItem.values.map((item) {
+        ...PurchaseItem.values.where((item) => item != PurchaseItem.pro).map((item) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: FilledButton.icon(

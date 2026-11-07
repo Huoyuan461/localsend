@@ -65,6 +65,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$webReceivePage$en webReceivePage = Translations$webReceivePage$en.internal(_root);
   late final Translations$aboutPage$en aboutPage = Translations$aboutPage$en.internal(_root);
   late final Translations$donationPage$en donationPage = Translations$donationPage$en.internal(_root);
+  late final Translations$proPage$en proPage = Translations$proPage$en.internal(_root);
   late final Translations$changelogPage$en changelogPage = Translations$changelogPage$en.internal(_root);
   late final Translations$whatsNewPage$en whatsNewPage = Translations$whatsNewPage$en.internal(_root);
   late final Translations$aliasGenerator$en aliasGenerator = Translations$aliasGenerator$en.internal(_root);
@@ -350,6 +351,9 @@ class Translations$receiveHistoryPage$en {
 
   /// en: 'The history is empty.'
   String get empty => 'The history is empty.';
+
+  /// en: 'Unlock full history with Pro'
+  String get proUpsell => 'Unlock full history with Pro';
 
   late final Translations$receiveHistoryPage$entryActions$en entryActions = Translations$receiveHistoryPage$entryActions$en.internal(_root);
 }
@@ -638,6 +642,48 @@ class Translations$donationPage$en {
 
   /// en: 'Restore purchase'
   String get restore => 'Restore purchase';
+}
+
+// Path: proPage
+class Translations$proPage$en {
+  Translations$proPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Zhichuan Pro'
+  String get title => 'Zhichuan Pro';
+
+  /// en: 'Unlock the full power of Zhichuan. Peer-to-peer transfers stay free forever.'
+  String get info => 'Unlock the full power of Zhichuan. Peer-to-peer transfers stay free forever.';
+
+  /// en: 'Unlock full history, unlimited favorites and Pro themes'
+  String get bannerSubtitle => 'Unlock full history, unlimited favorites and Pro themes';
+
+  /// en: 'Full transfer history with search and export'
+  String get featureHistory => 'Full transfer history with search and export';
+
+  /// en: 'Unlimited favorite devices'
+  String get featureFavorites => 'Unlimited favorite devices';
+
+  /// en: 'Exclusive Pro themes'
+  String get featureThemes => 'Exclusive Pro themes';
+
+  /// en: 'Custom save directory'
+  String get featureDirectory => 'Custom save directory';
+
+  /// en: 'Priority support'
+  String get featureSupport => 'Priority support';
+
+  /// en: 'Buy Pro {price}'
+  String buy({required Object price}) => 'Buy Pro ${price}';
+
+  /// en: 'You are a Pro user. Thank you for your support!'
+  String get alreadyPro => 'You are a Pro user. Thank you for your support!';
+
+  /// en: 'Free for everyone until {date}'
+  String freeUntil({required Object date}) => 'Free for everyone until ${date}';
 }
 
 // Path: changelogPage
@@ -1870,6 +1916,15 @@ class Translations$settingsTab$general$colorOptions$en {
 
   /// en: 'Custom'
   String get custom => 'Custom';
+
+  /// en: 'Charcoal'
+  String get charcoal => 'Charcoal';
+
+  /// en: 'Forest'
+  String get forest => 'Forest';
+
+  /// en: 'Obsidian'
+  String get obsidian => 'Obsidian';
 }
 
 // Path: settingsTab.general.languageOptions

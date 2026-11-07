@@ -93,7 +93,7 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
           await _settingsService.setCustomColor(color);
         }
         await _settingsService.setColorMode(colorMode);
-        if (colorMode == ColorMode.oled) {
+        if (colorMode == ColorMode.oled || colorMode.isProTheme) {
           await _settingsService.setTheme(ThemeMode.dark);
           await updateSystemOverlayStyleWithBrightness(Brightness.dark);
         }

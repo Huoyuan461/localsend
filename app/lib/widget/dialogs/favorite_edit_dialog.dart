@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/favorite_device.dart';
+// [FOSS_REMOVE_START]
+import 'package:zhichuan_app/pages/pro/pro_page.dart';
+// [FOSS_REMOVE_END]
 import 'package:zhichuan_app/provider/device_info_provider.dart';
 import 'package:zhichuan_app/provider/favorites_provider.dart';
 import 'package:zhichuan_app/provider/http_provider.dart';
+// [FOSS_REMOVE_START]
+import 'package:zhichuan_app/provider/purchase_provider.dart';
+// [FOSS_REMOVE_END]
 import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:zhichuan_app/widget/dialogs/error_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/favorite_delete_dialog.dart';
@@ -188,6 +194,14 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     }
                   } else {
                     // Add new favorite
+                    // [FOSS_REMOVE_START]
+                    if (ref.read(favoritesProvider).length >= 3 && !ref.read(purchaseProvider).isPro) {
+                      // Free users can favorite up to 3 devices; the dialog stays open behind the Pro page.
+                      // ignore: unawaited_futures
+                      context.push(() => const ProPage());
+                      return;
+                    }
+                    // [FOSS_REMOVE_END]
                     final ip = _ipController.text;
                     final https = ref.read(settingsProvider).https;
                     setState(() {
