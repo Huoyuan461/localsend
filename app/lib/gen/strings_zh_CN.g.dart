@@ -319,6 +319,16 @@ class Translations$receiveHistoryPage$zh_CN extends Translations$receiveHistoryP
   @override
   String get proUpsell => 'Pro 解锁全部记录';
   @override
+  String get searchHint => '搜索文件名或发送方';
+  @override
+  String get exportCsv => '导出 CSV';
+  @override
+  String exportSuccess({required Object fileName}) => '已导出：${fileName}';
+  @override
+  String get exportFailed => '导出失败';
+  @override
+  String get noResults => '没有匹配的记录。';
+  @override
   late final Translations$receiveHistoryPage$entryActions$zh_CN entryActions = Translations$receiveHistoryPage$entryActions$zh_CN.internal(_root);
 }
 

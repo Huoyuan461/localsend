@@ -195,6 +195,11 @@
     "openFolder": "Open folder",
     "deleteHistory": "Delete history",
     "empty": "The history is empty.",
+    "searchHint": "Search by file name or sender",
+    "exportCsv": "Export CSV",
+    "exportSuccess": "Exported: {fileName}",
+    "exportFailed": "Export failed",
+    "noResults": "No matching records.",
     "entryActions": {
       "open": "Open file",
       "showInFolder": "Show in folder",

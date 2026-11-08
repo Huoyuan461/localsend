@@ -4,7 +4,7 @@ import 'package:localsend_isolates/model/file_type.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 /// Max stored history entries for free users.
-const freeHistoryLimit = 30;
+const freeHistoryLimit = 50;
 
 /// Max stored history entries for Pro users.
 const proHistoryLimit = 200;

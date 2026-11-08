@@ -355,6 +355,21 @@ class Translations$receiveHistoryPage$en {
   /// en: 'Unlock full history with Pro'
   String get proUpsell => 'Unlock full history with Pro';
 
+  /// en: 'Search by file name or sender'
+  String get searchHint => 'Search by file name or sender';
+
+  /// en: 'Export CSV'
+  String get exportCsv => 'Export CSV';
+
+  /// en: 'Exported: {fileName}'
+  String exportSuccess({required Object fileName}) => 'Exported: ${fileName}';
+
+  /// en: 'Export failed'
+  String get exportFailed => 'Export failed';
+
+  /// en: 'No matching records.'
+  String get noResults => 'No matching records.';
+
   late final Translations$receiveHistoryPage$entryActions$en entryActions = Translations$receiveHistoryPage$entryActions$en.internal(_root);
 }
 
