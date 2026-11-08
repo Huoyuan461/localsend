@@ -56,6 +56,7 @@ dependencies:
   routerino: 0.8.1
   screen_retriever: 0.2.2
   share_handler: 0.0.22
+  share_plus: 10.1.4
   shared_preferences: 2.5.5
   shared_preferences_platform_interface: any
   slang: 4.19.0

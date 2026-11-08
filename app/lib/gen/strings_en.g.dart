@@ -361,9 +361,6 @@ class Translations$receiveHistoryPage$en {
   /// en: 'Export CSV'
   String get exportCsv => 'Export CSV';
 
-  /// en: 'Exported: {fileName}'
-  String exportSuccess({required Object fileName}) => 'Exported: ${fileName}';
-
   /// en: 'Export failed'
   String get exportFailed => 'Export failed';
 

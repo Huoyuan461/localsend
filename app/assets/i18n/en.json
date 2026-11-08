@@ -197,7 +197,6 @@
     "empty": "The history is empty.",
     "searchHint": "Search by file name or sender",
     "exportCsv": "Export CSV",
-    "exportSuccess": "Exported: {fileName}",
     "exportFailed": "Export failed",
     "noResults": "No matching records.",
     "entryActions": {

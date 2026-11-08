@@ -323,8 +323,6 @@ class Translations$receiveHistoryPage$zh_CN extends Translations$receiveHistoryP
   @override
   String get exportCsv => '导出 CSV';
   @override
-  String exportSuccess({required Object fileName}) => '已导出：${fileName}';
-  @override
   String get exportFailed => '导出失败';
   @override
   String get noResults => '没有匹配的记录。';

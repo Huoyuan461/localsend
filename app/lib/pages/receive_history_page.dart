@@ -27,6 +27,7 @@ import 'package:localsend_isolates/util/file_size_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:share_plus/share_plus.dart';
 
 enum _EntryOption {
   open,
@@ -115,6 +116,9 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
   static String _twoDigits(int value) => value.toString().padLeft(2, '0');
 
   Future<void> _exportCsv(BuildContext context, List<ReceiveHistoryEntry> entries) async {
+    // Anchor for the system share sheet on iPad (captured before any await).
+    final renderObject = context.findRenderObject();
+    final box = renderObject is RenderBox ? renderObject : null;
     try {
       final destination = context.read(settingsProvider).destination ?? await getDefaultDestinationDirectory();
       final now = DateTime.now();
@@ -122,15 +126,15 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
           'zhichuan-history-${now.year}${_twoDigits(now.month)}${_twoDigits(now.day)}-${_twoDigits(now.hour)}${_twoDigits(now.minute)}${_twoDigits(now.second)}.csv';
       final file = File(path.join(destination, fileName));
       await file.writeAsString(_buildCsv(entries));
-      if (context.mounted) {
+      // The CSV stays in the destination folder; the system share sheet lets
+      // the user send it on or save it elsewhere.
+      final result = await Share.shareXFiles(
+        [XFile(file.path)],
+        sharePositionOrigin: box == null ? null : box.localToGlobal(Offset.zero) & box.size,
+      );
+      if (result.status == ShareResultStatus.unavailable && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(t.receiveHistoryPage.exportSuccess(fileName: fileName)),
-            action: SnackBarAction(
-              label: t.receiveHistoryPage.openFolder,
-              onPressed: () => openFolder(folderPath: destination),
-            ),
-          ),
+          SnackBar(content: Text(t.receiveHistoryPage.exportFailed)),
         );
       }
     } catch (_) {
@@ -148,7 +152,38 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
     // [FOSS_REMOVE_START]
     final isPro = context.watch(purchaseProvider).isPro;
     // [FOSS_REMOVE_END]
-    final filteredEntries = _filterEntries(entries);
+    // Free users only see records from the last 30 days. Stored entries are
+    // kept untouched, so they reappear after upgrading to Pro.
+    var visibleEntries = entries;
+    // [FOSS_REMOVE_START]
+    if (!isPro) {
+      final cutoff = DateTime.now().subtract(const Duration(days: 30));
+      visibleEntries = entries.where((entry) => entry.timestamp.isAfter(cutoff)).toList();
+    }
+    // [FOSS_REMOVE_END]
+    final filteredEntries = _filterEntries(visibleEntries);
+    Widget? searchSuffix = _query.isEmpty
+        ? null
+        : IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              _searchController.clear();
+              setState(() => _query = '');
+            },
+          );
+    // [FOSS_REMOVE_START]
+    if (!isPro) {
+      searchSuffix = const Icon(Icons.lock);
+    }
+    // [FOSS_REMOVE_END]
+    var exportLabel = t.receiveHistoryPage.exportCsv;
+    var exportIcon = Icons.file_download;
+    // [FOSS_REMOVE_START]
+    if (!isPro) {
+      exportLabel = '${t.receiveHistoryPage.exportCsv} · Pro';
+      exportIcon = Icons.lock;
+    }
+    // [FOSS_REMOVE_END]
 
     return Scaffold(
       appBar: AppBar(
@@ -161,20 +196,22 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: TextField(
               controller: _searchController,
+              // [FOSS_REMOVE_START]
+              readOnly: !isPro,
+              // [FOSS_REMOVE_END]
               decoration: InputDecoration(
                 hintText: t.receiveHistoryPage.searchHint,
                 prefixIcon: const Icon(Icons.search),
-                suffixIcon: _query.isEmpty
-                    ? null
-                    : IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() => _query = '');
-                        },
-                      ),
+                suffixIcon: searchSuffix,
                 border: const OutlineInputBorder(),
               ),
+              // [FOSS_REMOVE_START]
+              onTap: () async {
+                if (!isPro) {
+                  await context.push(() => const ProPage());
+                }
+              },
+              // [FOSS_REMOVE_END]
               onChanged: (value) => setState(() => _query = value),
             ),
           ),
@@ -226,15 +263,25 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                     backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
                     foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
                   ),
-                  onPressed: filteredEntries.isEmpty ? null : () => _exportCsv(context, filteredEntries),
-                  icon: const Icon(Icons.file_download),
-                  label: Text(t.receiveHistoryPage.exportCsv),
+                  onPressed: filteredEntries.isEmpty
+                      ? null
+                      : () async {
+                          // [FOSS_REMOVE_START]
+                          if (!isPro) {
+                            await context.push(() => const ProPage());
+                            return;
+                          }
+                          // [FOSS_REMOVE_END]
+                          await _exportCsv(context, filteredEntries);
+                        },
+                  icon: Icon(exportIcon),
+                  label: Text(exportLabel),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 20),
-          if (entries.isEmpty)
+          if (visibleEntries.isEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 100),
               child: Center(child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headlineMedium)),

@@ -197,7 +197,6 @@
     "empty": "无历史记录。",
     "searchHint": "搜索文件名或发送方",
     "exportCsv": "导出 CSV",
-    "exportSuccess": "已导出：{fileName}",
     "exportFailed": "导出失败",
     "noResults": "没有匹配的记录。",
     "entryActions": {
