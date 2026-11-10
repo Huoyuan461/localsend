@@ -49,10 +49,26 @@ jobs:
         working-directory: app
         run: flutter pub get
 
-      # CI has no Apple certificate: switch Runner + ShareExtension to manual
-      # signing with an empty identity, so the build comes out unsigned.
-      # (Same trick as build_ios_ipa.yml's "Switch project to manual signing".)
-      # This only touches the throwaway CI checkout, not the committed project.
+      # Developer ID certificate for signing + notarization (secrets APPLE_CERT_*).
+      # Same keychain incantation as build_ios_ipa.yml.
+      - name: Install signing certificate
+        env:
+          P12_B64: ${{ secrets.APPLE_CERT_P12 }}
+          P12_PASS: ${{ secrets.APPLE_CERT_PASSWORD }}
+        run: |
+          echo "$P12_B64" | base64 -d -o /tmp/devid.p12
+          security create-keychain -p ci /tmp/ci.keychain-db
+          security set-keychain-settings -t 3600 -u /tmp/ci.keychain-db
+          security unlock-keychain -p ci /tmp/ci.keychain-db
+          security import /tmp/devid.p12 -k /tmp/ci.keychain-db -P "$P12_PASS" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k ci /tmp/ci.keychain-db
+          security list-keychains -d user -s /tmp/ci.keychain-db $(security list-keychains -d user | tr -d '"')
+          security find-identity -v -p codesigning /tmp/ci.keychain-db
+          rm /tmp/devid.p12
+
+      # CI builds unsigned first; the Developer ID signature is applied
+      # afterwards (see "Sign app" step) so the hardened runtime flag can be
+      # set explicitly. This only touches the throwaway CI checkout.
       - name: Disable code signing (unsigned CI build)
         run: |
           cd app/macos
@@ -66,11 +82,19 @@ jobs:
           print("code signing disabled for CI build")
           PYEOF
 
-      # Unsigned build: no Developer ID certificate in CI yet.
-      # First open needs right-click -> Open (Gatekeeper).
-      - name: Compile for macOS (unsigned)
+      - name: Compile for macOS
         working-directory: app
         run: flutter build macos --release
+
+      # Hardened runtime is required for notarization.
+      - name: Sign app (Developer ID)
+        working-directory: app
+        run: |
+          codesign --deep --force --options runtime --sign "Developer ID Application: yuan huo (49Y2P4VXPB)" --timestamp "build/macos/Build/Products/Release/直传.app"
+          codesign --verify --deep --strict "build/macos/Build/Products/Release/直传.app"
+          codesign -dv "build/macos/Build/Products/Release/直传.app" 2>&1 | tee /tmp/codesign-dv.txt
+          grep -q "TeamIdentifier=49Y2P4VXPB" /tmp/codesign-dv.txt
+          grep -q "runtime" /tmp/codesign-dv.txt
 
       - name: Create DMG
         working-directory: app
@@ -78,6 +102,21 @@ jobs:
           ls -la build/macos/Build/Products/Release/
           hdiutil create -volname "直传" -srcfolder "build/macos/Build/Products/Release/直传.app" -ov -format UDZO "Zhichuan-${{ needs.build.outputs.version }}-macos.dmg"
           ls -lh *.dmg
+
+      # Notarize the DMG with the App Store Connect API key, then staple the
+      # ticket so Gatekeeper accepts it offline. Secrets APPLE_API_KEY_*.
+      - name: Notarize and staple DMG
+        working-directory: app
+        env:
+          API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
+          API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+        run: |
+          echo "$API_KEY_P8" | base64 -d -o /tmp/notary.p8
+          xcrun notarytool submit "Zhichuan-${{ needs.build.outputs.version }}-macos.dmg" --key /tmp/notary.p8 --key-id "$API_KEY_ID" --issuer "$API_ISSUER" --wait
+          xcrun stapler staple "Zhichuan-${{ needs.build.outputs.version }}-macos.dmg"
+          xcrun stapler validate "Zhichuan-${{ needs.build.outputs.version }}-macos.dmg"
+          rm /tmp/notary.p8
 
       - name: Upload DMG
         uses: actions/upload-artifact@v6
