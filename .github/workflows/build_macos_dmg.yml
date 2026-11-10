@@ -1,0 +1,70 @@
+name: Build macos dmg
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+env:
+  FLUTTER_VERSION: "3.41.9"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: |
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build_macos_dmg:
+    needs: build
+    runs-on: macos-26
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Select Xcode 26
+        run: |
+          ls -d /Applications/Xcode_26*.app
+          sudo xcode-select -s $(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)
+          xcodebuild -version
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+          cache: true
+
+      # Rust is needed by cargokit to build the localsend Rust plugin.
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+
+      # Unsigned build: no Developer ID certificate in CI yet.
+      # First open needs right-click -> Open (Gatekeeper).
+      - name: Compile for macOS (unsigned)
+        working-directory: app
+        run: flutter build macos --release --no-codesign
+
+      - name: Create DMG
+        working-directory: app
+        run: |
+          ls -la build/macos/Build/Products/Release/
+          hdiutil create -volname "直传" -srcfolder "build/macos/Build/Products/Release/直传.app" -ov -format UDZO "Zhichuan-${{ needs.build.outputs.version }}-macos.dmg"
+          ls -lh *.dmg
+
+      - name: Upload DMG
+        uses: actions/upload-artifact@v6
+        with:
+          name: macos-dmg-result
+          path: app/Zhichuan-${{ needs.build.outputs.version }}-macos.dmg
+          if-no-files-found: error

@@ -47,6 +47,9 @@ jobs:
       id-token: write # OIDC token for Azure login
       contents: read
 
+  build_macos_dmg:
+    uses: ./.github/workflows/build_macos_dmg.yml
+
   build_cli_linux:
     uses: ./.github/workflows/build_linux_cli.yml
 
@@ -68,6 +71,7 @@ jobs:
       - build_windows_zip_x86_64
       - build_windows_zip_arm_64
       - build_windows_exe_x86_64
+      - build_macos_dmg
       - build_cli_linux
       - build_cli_windows_exe
     runs-on: ubuntu-latest
@@ -379,3 +383,20 @@ jobs:
           asset_path: result-cli.exe
           asset_name: Zhichuan-CLI-${{ steps.get_version.outputs.version }}-windows-arm-64.exe
           asset_content_type: application/vnd.microsoft.portable-executable
+
+      # MACOS DMG
+      - name: Download macOS DMG file
+        uses: actions/download-artifact@v7
+        with:
+          name: macos-dmg-result
+          path: macos-dmg-result
+
+      - name: Upload Release Asset (macOS DMG)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: macos-dmg-result/Zhichuan-${{ steps.get_version.outputs.version }}-macos.dmg
+          asset_name: Zhichuan-${{ steps.get_version.outputs.version }}-macos.dmg
+          asset_content_type: application/x-apple-diskimage
