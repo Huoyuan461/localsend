@@ -72,18 +72,18 @@ void main() {
     verifyNever(persistenceService.setReceiveHistory(any));
   });
 
-  test('Should remove the 30th entry when adding another', () async {
+  test('Should remove the oldest entry when adding beyond the Pro limit', () async {
     final service = ReduxNotifier.test(
       redux: ReceiveHistoryService(persistenceService),
       initialState: List.generate(
-        30,
+        proHistoryLimit,
         (index) => _createEntry(index.toString()),
       ),
     );
 
-    expect(service.state.length, 30);
+    expect(service.state.length, proHistoryLimit);
     expect(service.state.first, _createEntry('0'));
-    expect(service.state.last, _createEntry('29'));
+    expect(service.state.last, _createEntry('${proHistoryLimit - 1}'));
 
     final entry = _createEntry('AAA');
 
@@ -101,11 +101,48 @@ void main() {
       ),
     );
 
-    expect(service.state.length, 30);
+    expect(service.state.length, proHistoryLimit);
     expect(service.state.first, entry);
     expect(service.state.first, _createEntry('AAA'));
     expect(service.state[1], _createEntry('0'));
-    expect(service.state.last, _createEntry('28'));
+    expect(service.state.last, _createEntry('${proHistoryLimit - 2}'));
+  });
+
+  test('Should remove the oldest entry when adding beyond the free limit', () async {
+    final service = ReduxNotifier.test(
+      redux: ReceiveHistoryService(persistenceService),
+      initialState: List.generate(
+        freeHistoryLimit,
+        (index) => _createEntry(index.toString()),
+      ),
+    );
+
+    expect(service.state.length, freeHistoryLimit);
+    expect(service.state.first, _createEntry('0'));
+    expect(service.state.last, _createEntry('${freeHistoryLimit - 1}'));
+
+    final entry = _createEntry('AAA');
+
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+        maxEntries: freeHistoryLimit,
+      ),
+    );
+
+    expect(service.state.length, freeHistoryLimit);
+    expect(service.state.first, entry);
+    expect(service.state.first, _createEntry('AAA'));
+    expect(service.state[1], _createEntry('0'));
+    expect(service.state.last, _createEntry('${freeHistoryLimit - 2}'));
   });
 
   test('Should remove an entry', () async {
