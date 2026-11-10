@@ -1,6 +1,6 @@
-import 'package:zhichuan_app/util/shared_preferences/shared_preferences_portable.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
+import 'package:zhichuan_app/util/shared_preferences/shared_preferences_portable.dart';
 
 void main() {
   test('should put settings.json next to the executable', () {

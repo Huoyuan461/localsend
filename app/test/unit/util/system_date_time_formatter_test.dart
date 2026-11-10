@@ -2,9 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:system_date_time_format/system_date_time_format.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/util/system_date_time_formatter.dart';
-import 'package:system_date_time_format/system_date_time_format.dart';
 
 void main() {
   // Loads the same date symbols as the app; intl's initializeDateFormatting() has more locales and hides fallback bugs.

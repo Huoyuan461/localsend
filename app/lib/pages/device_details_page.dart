@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/favorite_device.dart';
 import 'package:zhichuan_app/pages/verify_page.dart';
@@ -11,10 +15,6 @@ import 'package:zhichuan_app/widget/big_button.dart';
 import 'package:zhichuan_app/widget/dialogs/favorite_delete_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/favorite_edit_dialog.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
-import 'package:localsend_isolates/isolate.dart';
-import 'package:localsend_isolates/model/device.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 /// Shows the general information of a discovered device and
 /// the log of its retained discovery confirmations.

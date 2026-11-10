@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:zhichuan_app/model/state/purchase_state.dart';
 import 'package:zhichuan_app/util/native/platform_check.dart';
-import 'package:refena_flutter/refena_flutter.dart';
 
 final purchaseProvider = ReduxProvider<PurchaseService, PurchaseState>((ref) {
   return PurchaseService();

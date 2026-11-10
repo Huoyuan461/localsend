@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/provider/tv_provider.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 /// A normal [TextFormField] on mobile and desktop.
 /// A button which opens a dialog on Android TV

@@ -1,5 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/send_mode.dart';
@@ -29,11 +34,6 @@ import 'package:zhichuan_app/widget/responsive_builder.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
 import 'package:zhichuan_app/widget/responsive_wrap_view.dart';
 import 'package:zhichuan_app/widget/rotating_widget.dart';
-import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/model/session_status.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 const _horizontalPadding = 15.0;
 final pickerOptions = FilePickerOption.getOptionsForPlatform();

@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:zhichuan_app/util/native/channel/android_channel.dart' as android_channel;
-import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:open_file/open_file.dart';
+import 'package:zhichuan_app/util/native/channel/android_channel.dart' as android_channel;
+import 'package:zhichuan_app/util/native/platform_check.dart';
 
 final _logger = Logger('OpenFolder');
 

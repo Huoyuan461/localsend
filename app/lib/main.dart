@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:refena_flutter/addons.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
+import 'package:system_date_time_format/system_date_time_format.dart';
 import 'package:zhichuan_app/config/init.dart';
 import 'package:zhichuan_app/config/init_error.dart';
 import 'package:zhichuan_app/config/theme.dart';
@@ -16,11 +21,6 @@ import 'package:zhichuan_app/widget/watcher/shortcut_watcher.dart';
 import 'package:zhichuan_app/widget/watcher/tray_watcher.dart';
 import 'package:zhichuan_app/widget/watcher/window_brightness_watcher.dart';
 import 'package:zhichuan_app/widget/watcher/window_watcher.dart';
-import 'package:localsend_isolates/isolate.dart';
-import 'package:refena_flutter/addons.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
-import 'package:system_date_time_format/system_date_time_format.dart';
 
 Future<void> main(List<String> args) async {
   final RefenaContainer container;

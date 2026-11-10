@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:zhichuan_app/util/shared_preferences/shared_preferences_file.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
+import 'package:zhichuan_app/util/shared_preferences/shared_preferences_file.dart';
 
 final _logger = Logger('SharedPreferencesPortable');
 

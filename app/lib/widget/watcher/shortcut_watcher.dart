@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/pages/home_page.dart';
 import 'package:zhichuan_app/pages/home_page_controller.dart';
 import 'package:zhichuan_app/util/native/file_picker.dart';
 import 'package:zhichuan_app/util/native/platform_check.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 class ShortcutWatcher extends StatelessWidget {
   final Widget child;

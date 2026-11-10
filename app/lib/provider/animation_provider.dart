@@ -1,8 +1,8 @@
 import 'package:flutter/scheduler.dart';
-import 'package:zhichuan_app/provider/settings_provider.dart';
-import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:zhichuan_app/provider/settings_provider.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
 
 /// If true, then animations are disabled.
 /// Used when the app is in the background.

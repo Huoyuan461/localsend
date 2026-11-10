@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/rust/api/model.dart';
+import 'package:localsend_isolates/util/rust.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/favorite_device.dart';
@@ -8,10 +12,6 @@ import 'package:zhichuan_app/provider/http_provider.dart';
 import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:zhichuan_app/widget/dialogs/error_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/favorite_edit_dialog.dart';
-import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/util/rust.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 /// A dialog showing a list of favorites
 class FavoritesDialog extends StatefulWidget {

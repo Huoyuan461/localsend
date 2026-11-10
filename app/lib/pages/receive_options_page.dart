@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/pages/receive_page.dart';
 import 'package:zhichuan_app/provider/network/server/server_provider.dart';
@@ -11,8 +13,6 @@ import 'package:zhichuan_app/widget/custom_icon_button.dart';
 import 'package:zhichuan_app/widget/dialogs/file_name_input_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/quick_actions_dialog.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
-import 'package:refena_flutter/refena_flutter.dart';
 
 class ReceiveOptionsPage extends StatelessWidget {
   final ReceivePageVm vm;

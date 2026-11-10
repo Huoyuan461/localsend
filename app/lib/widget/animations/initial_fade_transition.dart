@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:localsend_isolates/util/sleep.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/provider/settings_provider.dart';
 
 class InitialFadeTransition extends StatefulWidget {
   final Widget child;

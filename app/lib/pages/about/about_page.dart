@@ -1,13 +1,13 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:routerino/routerino.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/pages/debug/debug_page.dart';
 import 'package:zhichuan_app/util/i18n.dart';
 import 'package:zhichuan_app/widget/local_send_logo.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
-import 'package:routerino/routerino.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 part 'contributors.dart';
 

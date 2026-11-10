@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:system_date_time_format/system_date_time_format.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 // TODO: Revisit this plugin when https://github.com/dart-lang/i18n/issues/67 is fixed.
 // intl currently uses US date/time patterns for unsupported regional locales

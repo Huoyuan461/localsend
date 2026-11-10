@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
-import 'package:zhichuan_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_isolates/util/file_size_helper.dart';
 import 'package:routerino/routerino.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/model/persistence/receive_history_entry.dart';
 
 class FileInfoDialog extends StatelessWidget {
   final ReceiveHistoryEntry entry;

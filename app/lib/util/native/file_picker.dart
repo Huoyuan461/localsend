@@ -4,6 +4,16 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:localsend_isolates/util/sleep.dart';
+import 'package:logging/logging.dart';
+import 'package:pasteboard/pasteboard.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
+import 'package:uri_content/uri_content.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/cross_file.dart';
@@ -20,16 +30,6 @@ import 'package:zhichuan_app/util/ui/asset_picker_translated_text_delegate.dart'
 import 'package:zhichuan_app/widget/dialogs/loading_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/message_input_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/no_permission_dialog.dart';
-import 'package:localsend_isolates/model/file_type.dart';
-import 'package:localsend_isolates/util/file_path_helper.dart';
-import 'package:localsend_isolates/util/sleep.dart';
-import 'package:logging/logging.dart';
-import 'package:pasteboard/pasteboard.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
-import 'package:uri_content/uri_content.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 final _logger = Logger('FilePickerHelper');
 final _uriContent = UriContent();
@@ -181,11 +181,12 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
       return;
     }
 
-    // ignore: use_build_context_synchronously
-    await showDialog(
-      context: context,
-      builder: (_) => const NoPermissionDialog(),
-    );
+    if (context.mounted) {
+      await showDialog(
+        context: context,
+        builder: (_) => const NoPermissionDialog(),
+      );
+    }
     _logger.warning('Failed to pick files', e);
   } finally {
     // ignore: use_build_context_synchronously
@@ -234,11 +235,12 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     }
 
     _logger.warning('Failed to pick directory', e);
-    // ignore: use_build_context_synchronously
-    await showDialog(
-      context: context,
-      builder: (_) => const NoPermissionDialog(),
-    );
+    if (context.mounted) {
+      await showDialog(
+        context: context,
+        builder: (_) => const NoPermissionDialog(),
+      );
+    }
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:zhichuan_app/provider/window_dimensions_provider.dart';
 import 'package:mockito/mockito.dart';
+import 'package:zhichuan_app/provider/window_dimensions_provider.dart';
 
 import '../../mocks.mocks.dart';
 

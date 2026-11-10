@@ -1,9 +1,9 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 /// Lets the user pick a color visually or enter a HEX code (RRGGBB).
 /// Pops with the selected [Color] or null when cancelled.

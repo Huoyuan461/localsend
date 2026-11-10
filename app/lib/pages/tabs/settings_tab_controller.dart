@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/device_info_result.dart';
+import 'package:localsend_isolates/util/sleep.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/model/persistence/color_mode.dart';
 import 'package:zhichuan_app/pages/language_page.dart';
@@ -12,11 +17,6 @@ import 'package:zhichuan_app/util/native/context_menu_helper.dart';
 import 'package:zhichuan_app/util/ui/dynamic_colors.dart';
 import 'package:zhichuan_app/util/ui/snackbar.dart';
 import 'package:zhichuan_app/widget/dialogs/custom_color_dialog.dart';
-import 'package:localsend_isolates/isolate.dart';
-import 'package:localsend_isolates/model/device_info_result.dart';
-import 'package:localsend_isolates/util/sleep.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 final settingsTabControllerProvider = ReduxProvider<SettingsTabController, SettingsTabVm>((ref) {
   final settings = ref.notifier(settingsProvider);

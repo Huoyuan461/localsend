@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
-import 'package:zhichuan_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/widget/responsive_list_view.dart';
 
 class WhatsNewPage extends StatelessWidget {
   final String version;

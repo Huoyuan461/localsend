@@ -1,7 +1,7 @@
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:zhichuan_app/model/state/purchase_state.dart';
 import 'package:zhichuan_app/provider/purchase_provider.dart';
 import 'package:zhichuan_app/util/native/platform_check.dart';
-import 'package:refena_flutter/refena_flutter.dart';
 
 class ProPageVm {
   final bool platformSupportPayment;

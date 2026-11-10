@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/pages/home_page.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/pages/home_page.dart';
 
 class HomePageVm {
   final PageController controller;
@@ -37,11 +39,7 @@ class ChangeTabAction extends ReduxAction<HomePageController, HomePageVm> {
   @override
   HomePageVm reduce() {
     // 3D质感的页面切换：快速滑入带轻微回弹，而非生硬跳转
-    state.controller.animateToPage(
-      tab.index,
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeOutCubic,
-    );
+    unawaited(state.controller.animateToPage(tab.index, duration: const Duration(milliseconds: 350), curve: Curves.easeOutCubic));
     return HomePageVm(
       controller: state.controller,
       currentTab: tab,

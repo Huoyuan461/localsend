@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:routerino/routerino.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String error;

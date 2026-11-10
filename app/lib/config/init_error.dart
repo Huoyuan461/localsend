@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/util/native/platform_check.dart';
-import 'package:zhichuan_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
+import 'package:zhichuan_app/util/native/tray_helper.dart';
 
 final _logger = Logger('Init');
 

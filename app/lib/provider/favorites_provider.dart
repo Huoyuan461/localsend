@@ -1,6 +1,6 @@
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:zhichuan_app/model/persistence/favorite_device.dart';
 import 'package:zhichuan_app/provider/persistence_provider.dart';
-import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider stores the list of favorite devices.
 /// It automatically saves the list to the device's storage.

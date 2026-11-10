@@ -1,8 +1,8 @@
-import 'package:zhichuan_app/provider/persistence_provider.dart';
-import 'package:zhichuan_app/util/security_helper.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/stored_security_context.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/provider/persistence_provider.dart';
+import 'package:zhichuan_app/util/security_helper.dart';
 
 /// This provider manages the [StoredSecurityContext].
 /// It contains all the security related data for HTTPS communication.

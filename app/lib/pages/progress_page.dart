@@ -3,6 +3,16 @@ import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/model/file_status.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:localsend_isolates/util/file_speed_helper.dart';
+import 'package:refena_flutter/addons.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/state/server/receive_session_state.dart';
@@ -21,16 +31,6 @@ import 'package:zhichuan_app/widget/custom_progress_bar.dart';
 import 'package:zhichuan_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/error_dialog.dart';
 import 'package:zhichuan_app/widget/file_thumbnail.dart';
-import 'package:localsend_isolates/model/dto/file_dto.dart';
-import 'package:localsend_isolates/model/file_status.dart';
-import 'package:localsend_isolates/model/session_status.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
-import 'package:localsend_isolates/util/file_speed_helper.dart';
-import 'package:refena_flutter/addons.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// Extra space needed below the file list while the progress details are expanded.
 const _advancedProgressPanelExtraPadding = 100.0;

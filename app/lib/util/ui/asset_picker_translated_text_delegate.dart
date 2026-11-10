@@ -1,5 +1,5 @@
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 class TranslatedAssetPickerTextDelegate extends AssetPickerTextDelegate {
   const TranslatedAssetPickerTextDelegate();

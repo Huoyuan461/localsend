@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/favorite_device.dart';
-import 'package:routerino/routerino.dart';
 
 class FavoriteDeleteDialog extends StatelessWidget {
   final FavoriteDevice favorite;

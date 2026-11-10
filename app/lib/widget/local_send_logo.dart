@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/gen/assets.gen.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 class LocalSendLogo extends StatelessWidget {
   final bool withText;

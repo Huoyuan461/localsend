@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
-import 'package:zhichuan_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
 import 'package:system_settings_2/system_settings_2.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/widget/dialogs/custom_bottom_sheet.dart';
 
 class LocalNetworkDialog extends StatelessWidget {
   const LocalNetworkDialog({super.key});

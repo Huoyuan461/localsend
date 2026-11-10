@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:zhichuan_app/gen/assets.gen.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
-import 'package:zhichuan_app/provider/animation_provider.dart';
-import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:tray_manager/tray_manager.dart' as tm;
 import 'package:window_manager/window_manager.dart';
+import 'package:zhichuan_app/gen/assets.gen.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
+import 'package:zhichuan_app/provider/animation_provider.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
 
 final _logger = Logger('TrayHelper');
 

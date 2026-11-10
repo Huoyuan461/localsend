@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:routerino/routerino.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 class MessageInputDialog extends StatefulWidget {
   final String? initialText;

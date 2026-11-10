@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:refena_flutter/addons.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/util/native/file_picker.dart';
 import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:zhichuan_app/widget/big_button.dart';
 import 'package:zhichuan_app/widget/dialogs/custom_bottom_sheet.dart';
-import 'package:refena_flutter/addons.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 class AddFileDialog extends StatelessWidget {
   final List<FilePickerOption> options;

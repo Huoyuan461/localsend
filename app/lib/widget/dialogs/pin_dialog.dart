@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/config/theme.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:nanoid2/nanoid2.dart';
 import 'package:routerino/routerino.dart';
+import 'package:zhichuan_app/config/theme.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 class PinDialog extends StatefulWidget {
   final String? pin;

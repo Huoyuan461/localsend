@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/util/platform_strings.dart';
-import 'package:routerino/routerino.dart';
 
 class NotAvailableOnPlatformDialog extends StatelessWidget {
   final List<TargetPlatform> platforms;

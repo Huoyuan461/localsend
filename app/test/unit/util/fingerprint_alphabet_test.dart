@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:zhichuan_app/util/fingerprint_alphabet.dart';
 import 'package:test/test.dart';
+import 'package:zhichuan_app/util/fingerprint_alphabet.dart';
 
 void main() {
   group('iconAlphabet', () {

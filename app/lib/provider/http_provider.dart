@@ -1,6 +1,6 @@
-import 'package:zhichuan_app/provider/security_provider.dart';
 import 'package:localsend_isolates/rust/api/http.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/provider/security_provider.dart';
 
 class HttpClientCollection {
   final String _privateKey;

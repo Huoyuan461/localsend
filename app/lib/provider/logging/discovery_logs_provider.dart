@@ -1,6 +1,6 @@
-import 'package:zhichuan_app/model/log_entry.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/model/log_entry.dart';
 
 final _logger = Logger('Discovery');
 

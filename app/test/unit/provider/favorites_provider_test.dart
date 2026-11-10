@@ -1,8 +1,8 @@
-import 'package:zhichuan_app/model/persistence/favorite_device.dart';
-import 'package:zhichuan_app/provider/favorites_provider.dart';
 import 'package:mockito/mockito.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:test/test.dart';
+import 'package:zhichuan_app/model/persistence/favorite_device.dart';
+import 'package:zhichuan_app/provider/favorites_provider.dart';
 
 import '../../mocks.mocks.dart';
 

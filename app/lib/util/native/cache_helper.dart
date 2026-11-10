@@ -3,7 +3,6 @@ import 'dart:isolate';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:localsend_isolates/util/logger.dart';
 import 'package:logging/logging.dart';
@@ -11,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path_provider_foundation/path_provider_foundation.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
 
 final _logger = Logger('ClearCacheAction');
 

@@ -1,5 +1,5 @@
-import 'package:zhichuan_app/provider/local_ip_provider.dart';
 import 'package:test/test.dart';
+import 'package:zhichuan_app/provider/local_ip_provider.dart';
 
 void main() {
   group('rankIpAddresses', () {

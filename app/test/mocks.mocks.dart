@@ -7,6 +7,11 @@ import 'dart:async' as _i5;
 import 'dart:ui' as _i3;
 
 import 'package:flutter/material.dart' as _i9;
+import 'package:localsend_isolates/model/device.dart' as _i14;
+import 'package:localsend_isolates/model/stored_security_context.dart' as _i2;
+import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i8;
+import 'package:shared_preferences/shared_preferences.dart' as _i15;
 import 'package:zhichuan_app/gen/strings.g.dart' as _i11;
 import 'package:zhichuan_app/model/persistence/color_mode.dart' as _i10;
 import 'package:zhichuan_app/model/persistence/favorite_device.dart' as _i7;
@@ -14,11 +19,6 @@ import 'package:zhichuan_app/model/persistence/quick_save_mode.dart' as _i12;
 import 'package:zhichuan_app/model/persistence/receive_history_entry.dart' as _i6;
 import 'package:zhichuan_app/model/send_mode.dart' as _i13;
 import 'package:zhichuan_app/provider/persistence_provider.dart' as _i4;
-import 'package:localsend_isolates/model/device.dart' as _i14;
-import 'package:localsend_isolates/model/stored_security_context.dart' as _i2;
-import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
-import 'package:shared_preferences/shared_preferences.dart' as _i15;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

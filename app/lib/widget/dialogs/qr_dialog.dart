@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/state/send/web/web_download_state.dart';
 import 'package:zhichuan_app/provider/network/server/server_provider.dart';
-import 'package:pretty_qr_code/pretty_qr_code.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 class QrDialog extends StatelessWidget {
   final String data;

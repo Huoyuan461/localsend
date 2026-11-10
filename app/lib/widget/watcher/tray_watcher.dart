@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:tray_manager/tray_manager.dart';
 import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:zhichuan_app/util/native/tray_helper.dart';
-import 'package:tray_manager/tray_manager.dart';
 
 class TrayWatcher extends StatefulWidget {
   final Widget child;

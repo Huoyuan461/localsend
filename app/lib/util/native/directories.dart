@@ -1,8 +1,8 @@
 import 'dart:io' show Directory, FileSystemException, Platform;
 
 import 'package:flutter/foundation.dart';
-import 'package:zhichuan_app/util/native/channel/android_channel.dart';
 import 'package:path_provider/path_provider.dart' as path;
+import 'package:zhichuan_app/util/native/channel/android_channel.dart';
 
 Future<String> getDefaultDestinationDirectory() async {
   switch (defaultTargetPlatform) {

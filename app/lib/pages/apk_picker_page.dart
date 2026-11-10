@@ -1,5 +1,9 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/provider/apk_provider.dart';
 import 'package:zhichuan_app/provider/selection/selected_sending_files_provider.dart';
@@ -8,10 +12,6 @@ import 'package:zhichuan_app/util/ui/nav_bar_padding.dart';
 import 'package:zhichuan_app/widget/file_thumbnail.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
 import 'package:zhichuan_app/widget/sliver/sliver_pinned_header.dart';
-import 'package:localsend_isolates/model/file_type.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 class ApkPickerPage extends StatefulWidget {
   const ApkPickerPage({super.key});

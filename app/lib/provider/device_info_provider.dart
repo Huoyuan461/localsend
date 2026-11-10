@@ -1,13 +1,13 @@
 import 'package:collection/collection.dart';
-import 'package:zhichuan_app/provider/local_ip_provider.dart';
-import 'package:zhichuan_app/provider/network/server/server_provider.dart';
-import 'package:zhichuan_app/provider/security_provider.dart';
-import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/device_info_result.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/provider/local_ip_provider.dart';
+import 'package:zhichuan_app/provider/network/server/server_provider.dart';
+import 'package:zhichuan_app/provider/security_provider.dart';
+import 'package:zhichuan_app/provider/settings_provider.dart';
 
 final deviceRawInfoProvider = Provider<DeviceInfoResult>((ref) {
   throw Exception('deviceRawInfoProvider not initialized');

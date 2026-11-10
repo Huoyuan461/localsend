@@ -1,5 +1,5 @@
-import 'package:zhichuan_app/model/state/server/server_state.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/model/state/server/server_state.dart';
 
 /// Having this class allows us to have one parameter to access all relevant server methods.
 class ServerUtils {

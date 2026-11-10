@@ -1,6 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:path/path.dart' as path;
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/receive_history_entry.dart';
@@ -21,13 +28,6 @@ import 'package:zhichuan_app/widget/dialogs/file_info_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/history_clear_dialog.dart';
 import 'package:zhichuan_app/widget/file_thumbnail.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
-import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/model/session_status.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
-import 'package:path/path.dart' as path;
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
-import 'package:share_plus/share_plus.dart';
 
 enum _EntryOption {
   open,
@@ -127,7 +127,8 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
     final renderObject = context.findRenderObject();
     final box = renderObject is RenderBox ? renderObject : null;
     try {
-      final destination = context.read(settingsProvider).destination ?? await getDefaultDestinationDirectory();
+      final configuredDestination = context.read(settingsProvider).destination;
+      final destination = configuredDestination ?? await getDefaultDestinationDirectory();
       final now = DateTime.now();
       final fileName =
           'zhichuan-history-${now.year}${_twoDigits(now.month)}${_twoDigits(now.day)}-${_twoDigits(now.hour)}${_twoDigits(now.minute)}${_twoDigits(now.second)}.csv';

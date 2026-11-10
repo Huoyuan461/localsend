@@ -1,6 +1,6 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:test/test.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 void main() {
   group('i18n', () {

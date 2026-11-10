@@ -1,5 +1,5 @@
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:localsend_isolates/util/notification_strings.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 /// The translations that `localsend_isolates` needs, taken from the current locale.
 ///

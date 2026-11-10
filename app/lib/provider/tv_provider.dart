@@ -1,7 +1,7 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
-import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:zhichuan_app/util/native/platform_check.dart';
 
 final tvProvider = Provider<bool>(
   (_) => throw Exception('tvProvider not initialized'),

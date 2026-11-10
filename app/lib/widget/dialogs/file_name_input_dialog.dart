@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:zhichuan_app/config/theme.dart';
-import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:localsend_isolates/rust/api/filename.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:routerino/routerino.dart';
+import 'package:zhichuan_app/config/theme.dart';
+import 'package:zhichuan_app/gen/strings.g.dart';
 
 class FileNameInputDialog extends StatefulWidget {
   final String originalName;

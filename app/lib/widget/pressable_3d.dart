@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 /// 3D黏土风按压动效：按下时整体下沉+缩小+阴影收缩，松开时弹性回弹。
@@ -48,24 +50,16 @@ class _Pressable3DState extends State<Pressable3D> with SingleTickerProviderStat
   }
 
   void _onPointerDown(PointerDownEvent _) {
-    _controller.forward();
+    unawaited(_controller.forward());
   }
 
   void _onPointerUp(PointerUpEvent _) {
     // 松开时用弹性曲线回弹，带轻微过冲的"键帽感"
-    _controller.animateBack(
-      0.0,
-      curve: Curves.elasticOut,
-      duration: const Duration(milliseconds: 500),
-    );
+    unawaited(_controller.animateBack(0.0, curve: Curves.elasticOut, duration: const Duration(milliseconds: 500)));
   }
 
   void _onPointerCancel(PointerCancelEvent _) {
-    _controller.animateBack(
-      0.0,
-      curve: Curves.easeOut,
-      duration: const Duration(milliseconds: 200),
-    );
+    unawaited(_controller.animateBack(0.0, curve: Curves.easeOut, duration: const Duration(milliseconds: 200)));
   }
 
   @override

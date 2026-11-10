@@ -1,6 +1,6 @@
-import 'package:zhichuan_app/util/notification_strings.dart';
 import 'package:localsend_isolates/util/file_speed_helper.dart';
 import 'package:test/test.dart';
+import 'package:zhichuan_app/util/notification_strings.dart';
 
 void main() {
   group('getRemainingTime', () {

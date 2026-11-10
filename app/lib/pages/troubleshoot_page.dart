@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:zhichuan_app/util/native/cmd_helper.dart';
@@ -10,7 +11,6 @@ import 'package:zhichuan_app/util/native/platform_check.dart';
 import 'package:zhichuan_app/widget/custom_icon_button.dart';
 import 'package:zhichuan_app/widget/dialogs/not_available_on_platform_dialog.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
-import 'package:refena_flutter/refena_flutter.dart';
 
 class TroubleshootPage extends StatelessWidget {
   const TroubleshootPage();

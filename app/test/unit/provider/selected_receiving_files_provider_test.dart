@@ -1,6 +1,6 @@
-import 'package:zhichuan_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:test/test.dart';
+import 'package:zhichuan_app/provider/selection/selected_receiving_files_provider.dart';
 
 void main() {
   test('pads counters to the width of the file count', () {

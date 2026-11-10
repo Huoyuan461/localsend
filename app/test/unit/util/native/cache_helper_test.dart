@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:zhichuan_app/util/native/cache_helper.dart';
 import 'package:test/test.dart';
+import 'package:zhichuan_app/util/native/cache_helper.dart';
 
 void main() {
   test('cache cleanup completes only after temporary file deletion', () async {

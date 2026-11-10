@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/rust/api/model.dart';
+import 'package:localsend_isolates/util/rust.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/persistence/favorite_device.dart';
@@ -14,11 +19,6 @@ import 'package:zhichuan_app/provider/purchase_provider.dart';
 import 'package:zhichuan_app/provider/settings_provider.dart';
 import 'package:zhichuan_app/widget/dialogs/error_dialog.dart';
 import 'package:zhichuan_app/widget/dialogs/favorite_delete_dialog.dart';
-import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/util/rust.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 /// A dialog to add or edit a favorite device.
 class FavoriteEditDialog extends StatefulWidget {

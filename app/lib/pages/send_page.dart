@@ -1,6 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:refena_flutter/addons.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/state/send/send_session_state.dart';
@@ -16,11 +21,6 @@ import 'package:zhichuan_app/widget/animations/initial_slide_transition.dart';
 import 'package:zhichuan_app/widget/dialogs/error_dialog.dart';
 import 'package:zhichuan_app/widget/list_tile/device_list_tile.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
-import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/model/session_status.dart';
-import 'package:refena_flutter/addons.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 class SendPage extends StatefulWidget {
   final bool showAppBar;

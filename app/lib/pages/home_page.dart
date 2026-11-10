@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 import 'package:zhichuan_app/config/init.dart';
 import 'package:zhichuan_app/config/theme.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
@@ -12,7 +13,6 @@ import 'package:zhichuan_app/pages/tabs/settings_tab.dart';
 import 'package:zhichuan_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:zhichuan_app/util/native/cross_file_converters.dart';
 import 'package:zhichuan_app/widget/responsive_builder.dart';
-import 'package:refena_flutter/refena_flutter.dart';
 
 enum HomeTab {
   receive(Icons.wifi),

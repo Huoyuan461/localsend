@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_isolates/util/sleep.dart';
+import 'package:refena_flutter/addons.dart';
+import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:zhichuan_app/gen/strings.g.dart';
 import 'package:zhichuan_app/model/state/server/server_state.dart';
 import 'package:zhichuan_app/pages/home_page.dart';
@@ -17,10 +21,6 @@ import 'package:zhichuan_app/widget/local_send_logo.dart';
 import 'package:zhichuan_app/widget/pressable_3d.dart';
 import 'package:zhichuan_app/widget/responsive_list_view.dart';
 import 'package:zhichuan_app/widget/rotating_widget.dart';
-import 'package:localsend_isolates/util/sleep.dart';
-import 'package:refena_flutter/addons.dart';
-import 'package:refena_flutter/refena_flutter.dart';
-import 'package:routerino/routerino.dart';
 
 class ReceiveTab extends StatefulWidget {
   const ReceiveTab();
