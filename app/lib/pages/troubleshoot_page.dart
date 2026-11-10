@@ -19,9 +19,7 @@ class TroubleshootPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = context.ref.watch(settingsProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.troubleshootPage.title),
-      ),
+      appBar: AppBar(title: Text(t.troubleshootPage.title)),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
         children: [
@@ -30,7 +28,9 @@ class TroubleshootPage extends StatelessWidget {
           if (checkPlatformIsDesktop())
             _TroubleshootItem(
               symptomText: t.troubleshootPage.firewall.symptom,
-              solutionText: t.troubleshootPage.firewall.solution(port: settings.port),
+              solutionText: t.troubleshootPage.firewall.solution(
+                port: settings.port,
+              ),
               primaryButton: _FixButton(
                 label: t.troubleshootPage.fixButton,
                 onTapMap: {
@@ -50,7 +50,9 @@ class TroubleshootPage extends StatelessWidget {
                     adminPrivileges: false,
                     commands: ['wf'],
                   ),
-                  TargetPlatform.macOS: _NativeFixAction(() => macos_channel.openFirewallSettings()),
+                  TargetPlatform.macOS: _NativeFixAction(
+                    () => macos_channel.openFirewallSettings(),
+                  ),
                 },
               ),
             ),
@@ -98,7 +100,10 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.symptomText, style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                widget.symptomText,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: 10),
               Text(t.troubleshootPage.solution),
               Text(widget.solutionText),
@@ -133,7 +138,10 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                         ...?widget.primaryButton?.onTap?.commands?.map((cmd) {
                           return Padding(
                             padding: const EdgeInsets.only(top: 10),
-                            child: Text(cmd, style: const TextStyle(fontFamily: 'RobotoMono')),
+                            child: Text(
+                              cmd,
+                              style: const TextStyle(fontFamily: 'RobotoMono'),
+                            ),
                           );
                         }),
                       ],
@@ -154,10 +162,7 @@ class _FixButton extends StatelessWidget {
   final Map<TargetPlatform, _FixAction> onTapMap;
   final _FixAction? onTap;
 
-  _FixButton({
-    required this.label,
-    required this.onTapMap,
-  }) : onTap = onTapMap[defaultTargetPlatform];
+  _FixButton({required this.label, required this.onTapMap}) : onTap = onTapMap[defaultTargetPlatform];
 
   @override
   Widget build(BuildContext context) {
@@ -193,10 +198,7 @@ class _CommandFixAction extends _FixAction {
   @override
   final List<String> commands;
 
-  _CommandFixAction({
-    required this.adminPrivileges,
-    required this.commands,
-  });
+  _CommandFixAction({required this.adminPrivileges, required this.commands});
 
   @override
   void runFix() async {

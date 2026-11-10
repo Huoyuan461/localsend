@@ -64,10 +64,7 @@ final sendTabVmProvider = ViewProvider((ref) {
     onTapAddress: (context) async {
       var files = ref.read(selectedSendingFilesProvider);
       if (files.isEmpty) {
-        await AddFileDialog.open(
-          context: context,
-          options: pickerOptions,
-        );
+        await AddFileDialog.open(context: context, options: pickerOptions);
       }
 
       files = ref.read(selectedSendingFilesProvider);
@@ -80,13 +77,7 @@ final sendTabVmProvider = ViewProvider((ref) {
         builder: (_) => const AddressInputDialog(),
       );
       if (device != null && context.mounted) {
-        await ref
-            .notifier(sendProvider)
-            .startSession(
-              target: device,
-              files: files,
-              background: false,
-            );
+        await ref.notifier(sendProvider).startSession(target: device, files: files, background: false);
       }
     },
     onTapFavorite: (context) async {
@@ -97,10 +88,7 @@ final sendTabVmProvider = ViewProvider((ref) {
       if (device != null && context.mounted) {
         var files = ref.read(selectedSendingFilesProvider);
         if (files.isEmpty) {
-          await AddFileDialog.open(
-            context: context,
-            options: pickerOptions,
-          );
+          await AddFileDialog.open(context: context, options: pickerOptions);
         }
 
         files = ref.read(selectedSendingFilesProvider);
@@ -109,23 +97,14 @@ final sendTabVmProvider = ViewProvider((ref) {
           return;
         }
 
-        await ref
-            .notifier(sendProvider)
-            .startSession(
-              target: device,
-              files: files,
-              background: false,
-            );
+        await ref.notifier(sendProvider).startSession(target: device, files: files, background: false);
       }
     },
     onTapSendMode: (context, mode) async {
       if (mode == SendMode.link) {
         var files = ref.read(selectedSendingFilesProvider);
         if (files.isEmpty) {
-          await AddFileDialog.open(
-            context: context,
-            options: pickerOptions,
-          );
+          await AddFileDialog.open(context: context, options: pickerOptions);
         }
 
         files = ref.read(selectedSendingFilesProvider);
@@ -145,10 +124,7 @@ final sendTabVmProvider = ViewProvider((ref) {
     onTapDevice: (context, device) async {
       var files = selectedFiles;
       if (files.isEmpty) {
-        await AddFileDialog.open(
-          context: context,
-          options: pickerOptions,
-        );
+        await AddFileDialog.open(context: context, options: pickerOptions);
       }
 
       files = ref.read(selectedSendingFilesProvider);
@@ -157,13 +133,7 @@ final sendTabVmProvider = ViewProvider((ref) {
         return;
       }
 
-      await ref
-          .notifier(sendProvider)
-          .startSession(
-            target: device,
-            files: files,
-            background: false,
-          );
+      await ref.notifier(sendProvider).startSession(target: device, files: files, background: false);
     },
     onTapDeviceMultiSend: (context, device) async {
       final session = ref.read(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
@@ -171,7 +141,11 @@ final sendTabVmProvider = ViewProvider((ref) {
         if (session.status == SessionStatus.waiting) {
           ref.notifier(sendProvider).setBackground(session.sessionId, false);
           await context.push(
-            () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
+            () => SendPage(
+              showAppBar: true,
+              closeSessionOnClose: false,
+              sessionId: session.sessionId,
+            ),
             transition: RouterinoTransition.fade(),
           );
           // Only restore background mode if the user actually backed out.
@@ -183,7 +157,13 @@ final sendTabVmProvider = ViewProvider((ref) {
           return;
         } else if (session.status == SessionStatus.sending || session.status == SessionStatus.finishedWithErrors) {
           ref.notifier(sendProvider).setBackground(session.sessionId, false);
-          await context.push(() => ProgressPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId));
+          await context.push(
+            () => ProgressPage(
+              showAppBar: true,
+              closeSessionOnClose: false,
+              sessionId: session.sessionId,
+            ),
+          );
           ref.notifier(sendProvider).setBackground(session.sessionId, true);
           return;
         }
@@ -192,10 +172,7 @@ final sendTabVmProvider = ViewProvider((ref) {
       var files = ref.read(selectedSendingFilesProvider);
 
       if (files.isEmpty) {
-        await AddFileDialog.open(
-          context: context,
-          options: pickerOptions,
-        );
+        await AddFileDialog.open(context: context, options: pickerOptions);
       }
 
       files = ref.read(selectedSendingFilesProvider);
@@ -209,13 +186,7 @@ final sendTabVmProvider = ViewProvider((ref) {
         ref.notifier(sendProvider).closeSession(session.sessionId);
       }
 
-      await ref
-          .notifier(sendProvider)
-          .startSession(
-            target: device,
-            files: files,
-            background: true,
-          );
+      await ref.notifier(sendProvider).startSession(target: device, files: files, background: true);
     },
   );
 });

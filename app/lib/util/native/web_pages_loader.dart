@@ -17,7 +17,10 @@ Future<WebPages> loadCustomWebPages() async {
     return const WebPages();
   }
 
-  final webDir = path.join(File(Platform.resolvedExecutable).parent.path, 'web');
+  final webDir = path.join(
+    File(Platform.resolvedExecutable).parent.path,
+    'web',
+  );
   return WebPages(
     downloadHtml: await _readOptionalFile(path.join(webDir, 'download.html')),
     uploadHtml: await _readOptionalFile(path.join(webDir, 'upload.html')),

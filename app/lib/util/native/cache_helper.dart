@@ -34,26 +34,25 @@ Future<void> _clear(RootIsolateToken token) async {
     PhotoManager.clearFileCache(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android]) ? getTemporaryDirectory().then(clearTemporaryCacheFiles) : Future.value(),
     checkPlatform([TargetPlatform.iOS])
-        ? PathProviderFoundation()
-              .getContainerPath(
-                appGroupIdentifier: 'group.com.zhichuan.app',
-              )
-              .then((directoryPath) async {
-                if (directoryPath == null) {
-                  _logger.warning('Failed to get app group directory');
-                  return;
-                }
+        ? PathProviderFoundation().getContainerPath(appGroupIdentifier: 'group.com.zhichuan.app').then((directoryPath) async {
+            if (directoryPath == null) {
+              _logger.warning('Failed to get app group directory');
+              return;
+            }
 
-                final directory = Directory(directoryPath);
+            final directory = Directory(directoryPath);
 
-                // delete contents of the directory (only files, not directories)
-                await for (final entry in directory.list(recursive: false, followLinks: false)) {
-                  if (entry is File && !entry.path.fileName.startsWith('.')) {
-                    _logger.info('Deleting ${entry.path}');
-                    entry.deleteSync();
-                  }
-                }
-              })
+            // delete contents of the directory (only files, not directories)
+            await for (final entry in directory.list(
+              recursive: false,
+              followLinks: false,
+            )) {
+              if (entry is File && !entry.path.fileName.startsWith('.')) {
+                _logger.info('Deleting ${entry.path}');
+                entry.deleteSync();
+              }
+            }
+          })
         : Future.value(),
   ).wait;
 

@@ -85,7 +85,9 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
               children: [
                 Expanded(
                   child: TextButton(
-                    style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                    ),
                     onPressed: _fetching ? null : () async => await _checkConnectionToDevice(favorite),
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -94,7 +96,10 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
                   ),
                 ),
                 TextButton(
-                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                    iconSize: 24,
+                  ),
                   onPressed: _fetching ? null : () async => await _showDeviceDialog(favorite),
                   child: const Icon(Icons.edit),
                 ),
@@ -105,7 +110,12 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
               padding: const EdgeInsets.only(top: 10),
               child: Row(
                 children: [
-                  Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                  Text(
+                    t.general.error,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.warning,
+                    ),
+                  ),
                   if (_error != null) ...[
                     const SizedBox(width: 5),
                     InkWell(
@@ -117,7 +127,11 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                        child: Icon(
+                          Icons.info,
+                          color: Theme.of(context).colorScheme.warning,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ],

@@ -80,7 +80,9 @@ class TaskbarHelper {
     // Windows handling
     switch (status) {
       case SessionStatus.waiting:
-        await TaskbarHelper.setProgressBarMode(TaskbarProgressMode.indeterminate);
+        await TaskbarHelper.setProgressBarMode(
+          TaskbarProgressMode.indeterminate,
+        );
         break;
       case SessionStatus.declined:
       case SessionStatus.recipientBusy:

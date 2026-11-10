@@ -9,27 +9,20 @@ class CombinedFingerprint {
   final String combined;
   final List<IconData> icons;
 
-  CombinedFingerprint({
-    required this.combined,
-    required this.icons,
-  });
+  CombinedFingerprint({required this.combined, required this.icons});
 
   factory CombinedFingerprint.load(BuildContext context, String fingerprint) {
-    final myFingerprint = context.read(securityProvider.select((s) => s.certificateHash));
+    final myFingerprint = context.read(
+      securityProvider.select((s) => s.certificateHash),
+    );
     final fingerprints = [myFingerprint, fingerprint]..sort();
     final combined = fingerprints.join();
     final icons = fingerprintToIcons(combined);
-    return CombinedFingerprint(
-      combined: combined,
-      icons: icons,
-    );
+    return CombinedFingerprint(combined: combined, icons: icons);
   }
 }
 
-enum VerifyMode {
-  icons,
-  text,
-}
+enum VerifyMode { icons, text }
 
 /// Verifies the identity of a discovered device by comparing the fingerprints
 /// of both sides.
@@ -48,33 +41,36 @@ class _VerifyPageState extends State<VerifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.verifyPage.title),
-      ),
+      appBar: AppBar(title: Text(t.verifyPage.title)),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         children: [
           Center(
             child: SegmentedButton<VerifyMode>(
               segments: [
-                ButtonSegment(value: VerifyMode.icons, label: Text(t.verifyPage.icons)),
-                ButtonSegment(value: VerifyMode.text, label: Text(t.verifyPage.text)),
+                ButtonSegment(
+                  value: VerifyMode.icons,
+                  label: Text(t.verifyPage.icons),
+                ),
+                ButtonSegment(
+                  value: VerifyMode.text,
+                  label: Text(t.verifyPage.text),
+                ),
               ],
               selected: {_mode},
               onSelectionChanged: (selection) => setState(() => _mode = selection.first),
             ),
           ),
           const SizedBox(height: 20),
-          VerifyWidget(
-            mode: _mode,
-            fingerprint: widget.fingerprint,
-          ),
+          VerifyWidget(mode: _mode, fingerprint: widget.fingerprint),
           const SizedBox(height: 20),
           Center(
             child: Text(
               t.verifyPage.question,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
         ],
@@ -87,10 +83,7 @@ class VerifyWidget extends StatelessWidget {
   final VerifyMode mode;
   final CombinedFingerprint fingerprint;
 
-  const VerifyWidget({
-    required this.mode,
-    required this.fingerprint,
-  });
+  const VerifyWidget({required this.mode, required this.fingerprint});
 
   @override
   Widget build(BuildContext context) {

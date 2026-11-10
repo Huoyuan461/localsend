@@ -8,7 +8,9 @@ void main() {
   test('cache cleanup completes only after temporary file deletion', () async {
     final file = _ControlledFile();
     var completed = false;
-    final cleanup = clearTemporaryCacheFiles(_ControlledDirectory(Stream.value(file))).then((_) => completed = true);
+    final cleanup = clearTemporaryCacheFiles(
+      _ControlledDirectory(Stream.value(file)),
+    ).then((_) => completed = true);
 
     try {
       await file.deleteStarted.future;
@@ -28,7 +30,10 @@ class _ControlledDirectory implements Directory {
   _ControlledDirectory(this.entries);
 
   @override
-  Stream<FileSystemEntity> list({bool recursive = false, bool followLinks = true}) => entries;
+  Stream<FileSystemEntity> list({
+    bool recursive = false,
+    bool followLinks = true,
+  }) => entries;
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);

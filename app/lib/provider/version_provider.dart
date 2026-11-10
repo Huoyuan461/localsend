@@ -6,16 +6,10 @@ class VersionData {
   final String buildNumber;
   final String combinedString;
 
-  VersionData({
-    required this.version,
-    required this.buildNumber,
-  }) : combinedString = '$version ($buildNumber)';
+  VersionData({required this.version, required this.buildNumber}) : combinedString = '$version ($buildNumber)';
 }
 
 final versionProvider = FutureProvider((ref) async {
   final info = await PackageInfo.fromPlatform();
-  return VersionData(
-    version: info.version,
-    buildNumber: info.buildNumber,
-  );
+  return VersionData(version: info.version, buildNumber: info.buildNumber);
 }, debugLabel: 'VersionProvider');

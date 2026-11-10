@@ -62,11 +62,21 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
   SettingsTabVm init() {
     return SettingsTabVm(
       advanced: _settingsService.state.advancedSettings,
-      aliasController: TextEditingController(text: _settingsService.state.alias),
-      deviceModelController: TextEditingController(text: _initialDeviceInfo.deviceModel),
-      portController: TextEditingController(text: _settingsService.state.port.toString()),
-      timeoutController: TextEditingController(text: _settingsService.state.discoveryTimeout.toString()),
-      multicastController: TextEditingController(text: _settingsService.state.multicastGroup),
+      aliasController: TextEditingController(
+        text: _settingsService.state.alias,
+      ),
+      deviceModelController: TextEditingController(
+        text: _initialDeviceInfo.deviceModel,
+      ),
+      portController: TextEditingController(
+        text: _settingsService.state.port.toString(),
+      ),
+      timeoutController: TextEditingController(
+        text: _settingsService.state.discoveryTimeout.toString(),
+      ),
+      multicastController: TextEditingController(
+        text: _settingsService.state.multicastGroup,
+      ),
       settings: _settingsService.state,
       serverState: _serverService.state,
       deviceInfo: _initialDeviceInfo,
@@ -76,7 +86,9 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
       showInContextMenu: false,
       onChangeTheme: (context, theme) async {
         await _settingsService.setTheme(theme);
-        await sleepAsync(500); // workaround: brightness takes some time to be updated
+        await sleepAsync(
+          500,
+        ); // workaround: brightness takes some time to be updated
         if (context.mounted) {
           await updateSystemOverlayStyle(context);
         }
@@ -85,7 +97,9 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
         if (colorMode == ColorMode.custom) {
           final color = await showDialog<Color>(
             context: context,
-            builder: (_) => CustomColorDialog(initialColor: _settingsService.state.customColor),
+            builder: (_) => CustomColorDialog(
+              initialColor: _settingsService.state.customColor,
+            ),
           );
           if (color == null) {
             return;
@@ -106,7 +120,9 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
         if (state.autoStart) {
           success = await disableAutoStart();
         } else {
-          success = await enableAutoStart(startHidden: state.autoStartLaunchHidden);
+          success = await enableAutoStart(
+            startHidden: state.autoStartLaunchHidden,
+          );
         }
 
         if (success) {
@@ -115,9 +131,13 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
       },
       onToggleAutoStartLaunchHidden: (context) async {
         if (state.autoStart) {
-          final success = await enableAutoStart(startHidden: !state.autoStartLaunchHidden);
+          final success = await enableAutoStart(
+            startHidden: !state.autoStartLaunchHidden,
+          );
           if (success) {
-            redux.dispatch(_SetAutoStartLaunchHiddenAction(!state.autoStartLaunchHidden));
+            redux.dispatch(
+              _SetAutoStartLaunchHiddenAction(!state.autoStartLaunchHidden),
+            );
           }
         }
       },
@@ -146,8 +166,12 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
             state.portController.text = newServerState.port.toString();
             await _settingsService.setAlias(newServerState.alias);
             await _settingsService.setPort(newServerState.port);
-            external(_isolateController).dispatch(IsolateDiscoveryRestartAction());
-            external(_localIpService).dispatchAsync(FetchLocalIpAction()); // ignore: unawaited_futures
+            external(
+              _isolateController,
+            ).dispatch(IsolateDiscoveryRestartAction());
+            external(
+              _localIpService,
+            ).dispatchAsync(FetchLocalIpAction()); // ignore: unawaited_futures
           }
         } catch (e) {
           // ignore: use_build_context_synchronously

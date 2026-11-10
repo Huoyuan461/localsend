@@ -50,7 +50,9 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('rejects invalid ports and saves a corrected port', (tester) async {
+  testWidgets('rejects invalid ports and saves a corrected port', (
+    tester,
+  ) async {
     await pumpEditor(tester);
     await openEditor(tester);
 
@@ -72,7 +74,9 @@ void main() {
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
       expect(find.byType(FavoriteEditDialog), findsNothing);
-      verify(persistence.setFavorites([_favorite.copyWith(port: port)])).called(1);
+      verify(
+        persistence.setFavorites([_favorite.copyWith(port: port)]),
+      ).called(1);
       await openEditor(tester);
       expect(error, findsNothing);
     }
@@ -86,7 +90,15 @@ void main() {
     await tester.tap(find.text(t.general.confirm));
     await tester.pumpAndSettle();
 
-    verify(persistence.setFavorites(argThat(predicate<List<FavoriteDevice>>((devices) => devices.single.alias == 'Changed')))).called(1);
+    verify(
+      persistence.setFavorites(
+        argThat(
+          predicate<List<FavoriteDevice>>(
+            (devices) => devices.single.alias == 'Changed',
+          ),
+        ),
+      ),
+    ).called(1);
     expect(find.byType(FavoriteEditDialog), findsNothing);
     expect(find.text('Edit favorite'), findsOneWidget);
   });

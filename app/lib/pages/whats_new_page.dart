@@ -8,15 +8,14 @@ class WhatsNewPage extends StatelessWidget {
   final String version;
   final WhatsNewStrings strings;
 
-  const WhatsNewPage({
-    super.key,
-    required this.version,
-    required this.strings,
-  });
+  const WhatsNewPage({super.key, required this.version, required this.strings});
 
   static WhatsNewPage? fromLastVersion({required String? lastVersion}) {
     return switch (lastVersion) {
-      null => WhatsNewPage(version: '1.18.0', strings: t.whatsNewPage.changes.v1_18_0),
+      null => WhatsNewPage(
+        version: '1.18.0',
+        strings: t.whatsNewPage.changes.v1_18_0,
+      ),
       _ => null,
     };
   }
@@ -24,9 +23,7 @@ class WhatsNewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.whatsNewPage.title(version: version)),
-      ),
+      appBar: AppBar(title: Text(t.whatsNewPage.title(version: version))),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         children: [

@@ -88,10 +88,14 @@ Future<void> setupMethodCallHandler() async {
   _methodChannel.setMethodCallHandler((call) async {
     switch (call.method) {
       case 'onPendingFiles':
-        _pendingFilesStreamController.add((call.arguments as List).cast<String>());
+        _pendingFilesStreamController.add(
+          (call.arguments as List).cast<String>(),
+        );
         break;
       case 'onPendingStrings':
-        _pendingStringsStreamController.add((call.arguments as List).cast<String>());
+        _pendingStringsStreamController.add(
+          (call.arguments as List).cast<String>(),
+        );
         break;
       case 'showZhichuanFromMenuBar':
         await showFromTray();

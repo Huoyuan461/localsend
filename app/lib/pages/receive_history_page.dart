@@ -99,23 +99,30 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
   }
 
   String _buildCsv(List<ReceiveHistoryEntry> entries) {
-    final buffer = StringBuffer('fileName,fileType,senderAlias,timestamp,fileSize,path\n');
+    final buffer = StringBuffer(
+      'fileName,fileType,senderAlias,timestamp,fileSize,path\n',
+    );
     for (final entry in entries) {
-      buffer.writeln([
-        _csvEscape(entry.fileName),
-        entry.fileType.name,
-        _csvEscape(entry.senderAlias),
-        entry.timestamp.toLocal().toIso8601String(),
-        entry.fileSize.toString(),
-        _csvEscape(entry.path ?? ''),
-      ].join(','));
+      buffer.writeln(
+        [
+          _csvEscape(entry.fileName),
+          entry.fileType.name,
+          _csvEscape(entry.senderAlias),
+          entry.timestamp.toLocal().toIso8601String(),
+          entry.fileSize.toString(),
+          _csvEscape(entry.path ?? ''),
+        ].join(','),
+      );
     }
     return buffer.toString();
   }
 
   static String _twoDigits(int value) => value.toString().padLeft(2, '0');
 
-  Future<void> _exportCsv(BuildContext context, List<ReceiveHistoryEntry> entries) async {
+  Future<void> _exportCsv(
+    BuildContext context,
+    List<ReceiveHistoryEntry> entries,
+  ) async {
     // Anchor for the system share sheet on iPad (captured before any await).
     final renderObject = context.findRenderObject();
     final box = renderObject is RenderBox ? renderObject : null;
@@ -186,9 +193,7 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
     // [FOSS_REMOVE_END]
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.receiveHistoryPage.title),
-      ),
+      appBar: AppBar(title: Text(t.receiveHistoryPage.title)),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(vertical: 20),
         children: [
@@ -223,8 +228,12 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                 const SizedBox(width: 15),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
-                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.secondaryContainerIfDark,
+                    foregroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onSecondaryContainerIfDark,
                   ),
                   onPressed: checkPlatform([TargetPlatform.iOS])
                       ? null
@@ -239,8 +248,12 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                 const SizedBox(width: 20),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
-                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.secondaryContainerIfDark,
+                    foregroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onSecondaryContainerIfDark,
                   ),
                   onPressed: entries.isEmpty
                       ? null
@@ -260,8 +273,12 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                 const SizedBox(width: 20),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainerIfDark,
-                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainerIfDark,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.secondaryContainerIfDark,
+                    foregroundColor: Theme.of(
+                      context,
+                    ).colorScheme.onSecondaryContainerIfDark,
                   ),
                   onPressed: filteredEntries.isEmpty
                       ? null
@@ -284,17 +301,30 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
           if (visibleEntries.isEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 100),
-              child: Center(child: Text(t.receiveHistoryPage.empty, style: Theme.of(context).textTheme.headlineMedium)),
+              child: Center(
+                child: Text(
+                  t.receiveHistoryPage.empty,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
             )
           else if (filteredEntries.isEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 100),
-              child: Center(child: Text(t.receiveHistoryPage.noResults, style: Theme.of(context).textTheme.headlineMedium)),
+              child: Center(
+                child: Text(
+                  t.receiveHistoryPage.noResults,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
             )
           else
             ...filteredEntries.map((entry) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 8,
+                ),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   splashFactory: NoSplash.splashFactory,
@@ -333,7 +363,11 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                             return;
                           }
 
-                          await _openFile(context, entry, context.redux(receiveHistoryProvider));
+                          await _openFile(
+                            context,
+                            entry,
+                            context.redux(receiveHistoryProvider),
+                          );
                         }
                       : null,
                   child: Row(
@@ -371,7 +405,11 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                         onSelected: (_EntryOption item) async {
                           switch (item) {
                             case _EntryOption.open:
-                              await _openFile(context, entry, context.redux(receiveHistoryProvider));
+                              await _openFile(
+                                context,
+                                entry,
+                                context.redux(receiveHistoryProvider),
+                              );
                               break;
                             case _EntryOption.showInFolder:
                               if (entry.path != null) {
@@ -390,7 +428,11 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                               break;
                             case _EntryOption.delete:
                               // ignore: use_build_context_synchronously
-                              await context.redux(receiveHistoryProvider).dispatchAsync(RemoveHistoryEntryAction(entry.id));
+                              await context
+                                  .redux(receiveHistoryProvider)
+                                  .dispatchAsync(
+                                    RemoveHistoryEntryAction(entry.id),
+                                  );
                               break;
                           }
                         },
@@ -418,7 +460,10 @@ class _ReceiveHistoryPageState extends State<ReceiveHistoryPage> {
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.lock, color: Theme.of(context).colorScheme.primary),
+                    Icon(
+                      Icons.lock,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(

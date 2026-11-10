@@ -26,12 +26,20 @@ bool checkPlatformIsNot(List<TargetPlatform> platforms, {bool web = false}) {
 
 /// This platform runs on a "traditional" computer
 bool checkPlatformIsDesktop() {
-  return checkPlatform([TargetPlatform.linux, TargetPlatform.windows, TargetPlatform.macOS]);
+  return checkPlatform([
+    TargetPlatform.linux,
+    TargetPlatform.windows,
+    TargetPlatform.macOS,
+  ]);
 }
 
 /// This platform supports tray
 bool checkPlatformHasTray() {
-  return checkPlatform([TargetPlatform.windows, TargetPlatform.macOS, TargetPlatform.linux]);
+  return checkPlatform([
+    TargetPlatform.windows,
+    TargetPlatform.macOS,
+    TargetPlatform.linux,
+  ]);
 }
 
 /// This platform can receive share intents
@@ -41,7 +49,13 @@ bool checkPlatformCanReceiveShareIntent() {
 
 /// This platform can select folders
 bool checkPlatformWithFolderSelect() {
-  return checkPlatform([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.linux, TargetPlatform.windows, TargetPlatform.macOS]);
+  return checkPlatform([
+    TargetPlatform.android,
+    TargetPlatform.iOS,
+    TargetPlatform.linux,
+    TargetPlatform.windows,
+    TargetPlatform.macOS,
+  ]);
 }
 
 /// This platform has a gallery
@@ -52,7 +66,12 @@ bool checkPlatformWithGallery() {
 /// This platform has access to file system
 /// On android, do not allow to change
 bool checkPlatformWithFileSystem() {
-  return checkPlatform([TargetPlatform.linux, TargetPlatform.windows, TargetPlatform.android, TargetPlatform.macOS]);
+  return checkPlatform([
+    TargetPlatform.linux,
+    TargetPlatform.windows,
+    TargetPlatform.android,
+    TargetPlatform.macOS,
+  ]);
 }
 
 /// Convenience function to check if the app is not running on a Linux device with the Wayland display manager
@@ -62,5 +81,9 @@ bool checkPlatformIsNotWaylandDesktop() {
 
 /// This platform supports payment (in-app purchase)
 bool checkPlatformSupportPayment() {
-  return checkPlatform([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS]);
+  return checkPlatform([
+    TargetPlatform.android,
+    TargetPlatform.iOS,
+    TargetPlatform.macOS,
+  ]);
 }

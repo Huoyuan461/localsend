@@ -60,9 +60,6 @@ class RotatingWidgetState extends State<RotatingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: _angle,
-      child: widget.child,
-    );
+    return Transform.rotate(angle: _angle, child: widget.child);
   }
 }

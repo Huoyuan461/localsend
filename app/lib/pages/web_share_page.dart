@@ -135,7 +135,9 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
       canPop: false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_sendMode ? t.webSharePage.title : t.webReceivePage.title),
+          title: Text(
+            _sendMode ? t.webSharePage.title : t.webReceivePage.title,
+          ),
         ),
         body: Builder(
           builder: (context) {
@@ -155,14 +157,24 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                       ),
                     ),
                   ] else if (_initializedError != null) ...[
-                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
-                    const SizedBox(height: 10),
-                    Center(
-                      child: Text(t.webSharePage.error, style: Theme.of(context).textTheme.titleLarge),
+                    const Icon(
+                      Icons.error_outline,
+                      size: 48,
+                      color: Colors.red,
                     ),
                     const SizedBox(height: 10),
                     Center(
-                      child: SelectableText(_initializedError!, style: Theme.of(context).textTheme.bodyMedium),
+                      child: Text(
+                        t.webSharePage.error,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: SelectableText(
+                        _initializedError!,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                   ],
                 ],
@@ -182,7 +194,10 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
             return ResponsiveListView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               children: [
-                Text(t.webSharePage.openLink(n: networkState.localIps.length), style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  t.webSharePage.openLink(n: networkState.localIps.length),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 const SizedBox(height: 10),
                 Card(
                   color: Theme.of(context).colorScheme.secondaryContainer,
@@ -208,13 +223,20 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                 const SizedBox(width: 5),
                                 InkWell(
                                   onTap: () async {
-                                    await Clipboard.setData(ClipboardData(text: url));
+                                    await Clipboard.setData(
+                                      ClipboardData(text: url),
+                                    );
                                     if (context.mounted && checkPlatformIsDesktop()) {
-                                      context.showSnackBar(t.general.copiedToClipboard);
+                                      context.showSnackBar(
+                                        t.general.copiedToClipboard,
+                                      );
                                     }
                                   },
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 2,
+                                    ),
                                     child: Icon(Icons.content_copy, size: 16),
                                   ),
                                 ),
@@ -231,7 +253,10 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                     );
                                   },
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 2,
+                                    ),
                                     child: Icon(Icons.qr_code, size: 16),
                                   ),
                                 ),
@@ -247,7 +272,10 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                     );
                                   },
                                   child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 2,
+                                    ),
                                     child: Icon(Icons.tv, size: 16),
                                   ),
                                 ),
@@ -261,7 +289,10 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                 ),
                 const SizedBox(height: 20),
                 if (webDownloadState != null) ...[
-                  Text(t.webSharePage.requests, style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    t.webSharePage.requests,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                   const SizedBox(height: 10),
                   if (webDownloadState.sessions.isEmpty)
                     Padding(
@@ -284,42 +315,65 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                     Text(
                                       session.deviceInfo,
                                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                        color: session.pending ? Theme.of(context).colorScheme.warning : null,
+                                        color: session.pending
+                                            ? Theme.of(
+                                                context,
+                                              ).colorScheme.warning
+                                            : null,
                                       ),
                                     ),
                                     const SizedBox(height: 5),
-                                    Text(session.ip, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey)),
+                                    Text(
+                                      session.ip,
+                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey),
+                                    ),
                                   ],
                                 ),
                               ),
                               if (session.pending) ...[
                                 TextButton(
                                   onPressed: () {
-                                    ref.notifier(serverProvider).declineWebDownloadRequest(session.sessionId);
+                                    ref
+                                        .notifier(serverProvider)
+                                        .declineWebDownloadRequest(
+                                          session.sessionId,
+                                        );
                                   },
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                    foregroundColor: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
                                     iconSize: 24,
                                   ),
                                   child: const Icon(Icons.close),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    ref.notifier(serverProvider).acceptWebDownloadRequest(session.sessionId);
+                                    ref
+                                        .notifier(serverProvider)
+                                        .acceptWebDownloadRequest(
+                                          session.sessionId,
+                                        );
                                   },
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                    foregroundColor: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
                                     iconSize: 24,
                                   ),
                                   child: const Icon(Icons.check_circle),
                                 ),
                               ] else
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                  ),
                                   child: Text(
                                     t.general.accepted,
                                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSecondaryContainer,
                                     ),
                                   ),
                                 ),
@@ -333,7 +387,10 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(t.webSharePage.encryption, style: Theme.of(context).textTheme.titleMedium),
+                    Text(
+                      t.webSharePage.encryption,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _encrypted,
@@ -346,12 +403,17 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                 if (_encrypted)
                   Text(
                     t.webSharePage.encryptionHint,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.warning,
+                    ),
                   ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(t.webSharePage.autoAccept, style: Theme.of(context).textTheme.titleMedium),
+                    Text(
+                      t.webSharePage.autoAccept,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: webDownloadState != null ? webDownloadState.autoAccept : settings.receiveViaLinkAutoAccept,
@@ -368,7 +430,10 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(t.webSharePage.requirePin, style: Theme.of(context).textTheme.titleMedium),
+                    Text(
+                      t.webSharePage.requirePin,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: pin != null,
@@ -395,7 +460,9 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                 if (pin != null)
                   Text(
                     t.webSharePage.pinHint(pin: pin),
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.warning,
+                    ),
                   ),
               ],
             );

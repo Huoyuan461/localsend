@@ -24,7 +24,9 @@ class QrDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final WebDownloadState? webDownloadState;
     if (listenIncomingWebDownloadRequests) {
-      webDownloadState = context.ref.watch(serverProvider.select((s) => s?.webDownloadState));
+      webDownloadState = context.ref.watch(
+        serverProvider.select((s) => s?.webDownloadState),
+      );
     } else {
       webDownloadState = null;
     }
@@ -56,13 +58,20 @@ class QrDialog extends StatelessWidget {
           if (listenIncomingWebDownloadRequests && webDownloadState != null)
             Builder(
               builder: (context) {
-                final pending = webDownloadState?.sessions.values.fold<int>(0, (prev, curr) => prev + (curr.pending ? 1 : 0)) ?? 0;
+                final pending =
+                    webDownloadState?.sessions.values.fold<int>(
+                      0,
+                      (prev, curr) => prev + (curr.pending ? 1 : 0),
+                    ) ??
+                    0;
                 if (pending != 0) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
                       t.webSharePage.pendingRequests(n: pending),
-                      style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.warning,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   );

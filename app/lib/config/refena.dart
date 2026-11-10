@@ -15,10 +15,7 @@ class CustomRefenaObserver extends RefenaMultiObserver {
             onLine: (line) => _logger.info(line),
             exclude: _exclude,
           ),
-          RefenaTracingObserver(
-            limit: 100,
-            exclude: _exclude,
-          ),
+          RefenaTracingObserver(limit: 100, exclude: _exclude),
           RefenaInspectorObserver(),
         ],
       );

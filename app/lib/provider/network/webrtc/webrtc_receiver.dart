@@ -78,9 +78,7 @@ class AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRec
       dispatch(_SetStatusAction(status));
     });
 
-    return state.copyWith(
-      controller: controller,
-    );
+    return state.copyWith(controller: controller);
   }
 
   @override
@@ -103,7 +101,9 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
     dispatch(_InitSessionState(convertedFiles));
 
     final vm = ViewProvider((ref) {
-      final state = ref.watch(notifier.provider as ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>);
+      final state = ref.watch(
+        notifier.provider as ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>,
+      );
       return ReceivePageVm(
         status: switch (state.status) {
           null => SessionStatus.waiting,
@@ -132,9 +132,7 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
     // ignore: unawaited_futures, use_build_context_synchronously
     Routerino.context.push(() => ReceivePage(vm));
 
-    return state.copyWith(
-      controller: controller,
-    );
+    return state.copyWith(controller: controller);
   }
 }
 
@@ -183,9 +181,7 @@ class _SetStatusAction extends ReduxAction<WebRTCReceiveService, WebRTCReceiveSt
 
   @override
   WebRTCReceiveState reduce() {
-    return state.copyWith(
-      status: status,
-    );
+    return state.copyWith(status: status);
   }
 }
 

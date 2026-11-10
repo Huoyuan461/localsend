@@ -34,7 +34,9 @@ class ServerState with ServerStateMappable {
 
   /// Returns a copy with the [WebDownloadState] of the active download share updated.
   /// Returns this state unchanged when the download page is not active.
-  ServerState updateWebDownloadState(WebDownloadState Function(WebDownloadState state) update) {
+  ServerState updateWebDownloadState(
+    WebDownloadState Function(WebDownloadState state) update,
+  ) {
     return switch (web) {
       WebShareDownload(:final state, :final pin) => copyWith(
         web: WebShareDownload(state: update(state), pin: pin),

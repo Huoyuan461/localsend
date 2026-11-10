@@ -6,8 +6,8 @@
 //! interface, a firewall dropping the group), so these tests skip themselves
 //! instead of failing when the environment does not carry the traffic.
 
-use zhichuan::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
-use zhichuan::multicast::{
+use localsend::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
+use localsend::multicast::{
     self, MulticastConfig, MulticastDevice, MulticastEvent, MulticastHandle,
 };
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};

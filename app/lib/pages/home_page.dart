@@ -43,11 +43,7 @@ class HomePage extends StatefulWidget {
   /// because the first init clears the cache
   final bool appStart;
 
-  const HomePage({
-    required this.initialTab,
-    required this.appStart,
-    super.key,
-  });
+  const HomePage({required this.initialTab, required this.appStart, super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -120,7 +116,10 @@ class _HomePageState extends State<HomePage> with Refena {
                               SizedBox(height: 20),
                               Text(
                                 t.appName,
-                                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: 20),
@@ -159,7 +158,10 @@ class _HomePageState extends State<HomePage> with Refena {
                               children: [
                                 const Icon(Icons.file_download, size: 128),
                                 const SizedBox(height: 30),
-                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
+                                Text(
+                                  t.sendTab.placeItems,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
                               ],
                             ),
                           ),
@@ -174,7 +176,10 @@ class _HomePageState extends State<HomePage> with Refena {
                     selectedIndex: vm.currentTab.index,
                     onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
                     destinations: HomeTab.values.map((tab) {
-                      return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
+                      return NavigationDestination(
+                        icon: Icon(tab.icon),
+                        label: tab.label,
+                      );
                     }).toList(),
                   )
                 : null,

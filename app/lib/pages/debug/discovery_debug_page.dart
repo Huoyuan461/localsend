@@ -30,11 +30,17 @@ class DiscoveryDebugPage extends StatelessWidget {
                     try {
                       await Clipboard.setData(
                         ClipboardData(
-                          text: logs.map((log) => '[${_dateFormat.format(log.timestamp)}] ${log.log}').join('\n'),
+                          text: logs
+                              .map(
+                                (log) => '[${_dateFormat.format(log.timestamp)}] ${log.log}',
+                              )
+                              .join('\n'),
                         ),
                       );
                       if (context.mounted) {
-                        context.showSnackBar('Copied discovery logs to clipboard');
+                        context.showSnackBar(
+                          'Copied discovery logs to clipboard',
+                        );
                       }
                     } catch (e) {
                       if (context.mounted) {

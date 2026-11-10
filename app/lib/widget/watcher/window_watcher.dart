@@ -15,10 +15,7 @@ final _logger = Logger('WindowWatcher');
 class WindowWatcher extends StatefulWidget {
   final Widget child;
 
-  const WindowWatcher({
-    required this.child,
-    super.key,
-  });
+  const WindowWatcher({required this.child, super.key});
 
   @override
   State<WindowWatcher> createState() => _WindowWatcherState();
@@ -71,7 +68,10 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refe
       s.reset();
       final windowOffset = await windowManager.getPosition();
       final windowSize = await windowManager.getSize();
-      await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+      await _dimensionsController?.storeDimensions(
+        windowOffset: windowOffset,
+        windowSize: windowSize,
+      );
     }
   }
 
@@ -91,7 +91,10 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refe
   Future<void> onWindowClose() async {
     final windowOffset = await windowManager.getPosition();
     final windowSize = await windowManager.getSize();
-    await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+    await _dimensionsController?.storeDimensions(
+      windowOffset: windowOffset,
+      windowSize: windowSize,
+    );
 
     if (!checkPlatformIsDesktop()) {
       return;

@@ -36,7 +36,9 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
     return TextButton(
       style: TextButton.styleFrom(
         backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
-        shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+        shape: RoundedRectangleBorder(
+          borderRadius: Theme.of(context).inputDecorationTheme.borderRadius,
+        ),
         foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
       onPressed: () async {
@@ -77,8 +79,12 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
                   valueListenable: widget.controller,
                   builder: (context, value, child) => ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(dialogContext).colorScheme.primary,
-                      foregroundColor: Theme.of(dialogContext).colorScheme.onPrimary,
+                      backgroundColor: Theme.of(
+                        dialogContext,
+                      ).colorScheme.primary,
+                      foregroundColor: Theme.of(
+                        dialogContext,
+                      ).colorScheme.onPrimary,
                     ),
                     onPressed: widget.allowEmpty || value.text.trim().isNotEmpty ? () => dialogContext.pop(widget.controller.text) : null,
                     child: Text(t.general.confirm),

@@ -1,9 +1,9 @@
 #![cfg(feature = "http")]
 
-use zhichuan::http::server::internal::{InternalConfig, InternalEvent};
-use zhichuan::http::server::start_with_port;
-use zhichuan::http::server::web::WebConfig;
-use zhichuan::http::state::ClientInfo;
+use localsend::http::server::internal::{InternalConfig, InternalEvent};
+use localsend::http::server::start_with_port;
+use localsend::http::server::web::WebConfig;
+use localsend::http::state::ClientInfo;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
 
@@ -65,7 +65,7 @@ async fn start_test_server(internal_enabled: bool) -> TestServer {
 async fn test_show() {
     let server = start_test_server(true).await;
 
-    let response = zhichuan::reqwest::Client::new()
+    let response = localsend::reqwest::Client::new()
         .post(format!(
             "http://127.0.0.1:{}/api/localsend/v2/show?token=show-token",
             server.port
@@ -86,7 +86,7 @@ async fn test_show() {
 async fn test_show_with_empty_body() {
     let server = start_test_server(true).await;
 
-    let response = zhichuan::reqwest::Client::new()
+    let response = localsend::reqwest::Client::new()
         .post(format!(
             "http://127.0.0.1:{}/api/localsend/v2/show?token=show-token",
             server.port
@@ -103,7 +103,7 @@ async fn test_show_with_empty_body() {
 async fn test_show_with_invalid_token() {
     let server = start_test_server(true).await;
 
-    let response = zhichuan::reqwest::Client::new()
+    let response = localsend::reqwest::Client::new()
         .post(format!(
             "http://127.0.0.1:{}/api/localsend/v2/show?token=wrong-token",
             server.port
@@ -121,7 +121,7 @@ async fn test_show_with_invalid_token() {
 async fn test_show_disabled() {
     let server = start_test_server(false).await;
 
-    let response = zhichuan::reqwest::Client::new()
+    let response = localsend::reqwest::Client::new()
         .post(format!(
             "http://127.0.0.1:{}/api/localsend/v2/show?token=show-token",
             server.port

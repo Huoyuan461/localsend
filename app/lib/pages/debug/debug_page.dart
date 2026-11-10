@@ -19,20 +19,22 @@ class DebugPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appArguments = context.watch(appArgumentsProvider);
-    final portableMode = context.watch(persistenceProvider.select((state) => state.isPortableMode()));
+    final portableMode = context.watch(
+      persistenceProvider.select((state) => state.isPortableMode()),
+    );
     final store = SharedPreferencesStorePlatform.instance;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Debugging'),
-      ),
+      appBar: AppBar(title: const Text('Debugging')),
       body: ListView(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 30),
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 10,
+          bottom: 30,
+        ),
         children: [
-          DebugEntry(
-            name: 'Debug Mode',
-            value: kDebugMode.toString(),
-          ),
+          DebugEntry(name: 'Debug Mode', value: kDebugMode.toString()),
           DebugEntry(
             name: 'Portable Mode',
             value: portableMode ? 'true' : 'false',
@@ -41,23 +43,13 @@ class DebugPage extends StatelessWidget {
             name: 'Executable Path',
             value: Platform.resolvedExecutable,
           ),
-          DebugEntry(
-            name: 'Working Directory',
-            value: Directory.current.path,
-          ),
-          if (store is SharedPreferencesFile)
-            DebugEntry(
-              name: 'Settings Path',
-              value: store.getPath(),
-            ),
+          DebugEntry(name: 'Working Directory', value: Directory.current.path),
+          if (store is SharedPreferencesFile) DebugEntry(name: 'Settings Path', value: store.getPath()),
           DebugEntry(
             name: 'App Arguments',
             value: appArguments.isEmpty ? null : appArguments.map((e) => '"$e"').join(' '),
           ),
-          DebugEntry(
-            name: 'Dart SDK',
-            value: Platform.version,
-          ),
+          DebugEntry(name: 'Dart SDK', value: Platform.version),
           const SizedBox(height: 20),
           const Text('More', style: DebugEntry.headerStyle),
           const SizedBox(height: 5),

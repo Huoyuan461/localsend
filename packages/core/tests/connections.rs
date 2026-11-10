@@ -1,9 +1,9 @@
 #![cfg(feature = "http")]
 //! How the server admits connections and which protocol they may speak.
 
-use zhichuan::http::server::start_with_port;
-use zhichuan::http::server::web::WebConfig;
-use zhichuan::http::state::ClientInfo;
+use localsend::http::server::start_with_port;
+use localsend::http::server::web::WebConfig;
+use localsend::http::state::ClientInfo;
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;

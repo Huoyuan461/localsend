@@ -43,27 +43,20 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
         ? context.notifier(settingsProvider).setNetworkWhitelist
         : context.notifier(settingsProvider).setNetworkBlacklist;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.networkInterfacesPage.title),
-      ),
+      appBar: AppBar(title: Text(t.networkInterfacesPage.title)),
       body: LocalHeroScope(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         child: ResponsiveListView(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           children: [
-            Text(
-              t.networkInterfacesPage.info,
-              textAlign: TextAlign.center,
-            ),
+            Text(t.networkInterfacesPage.info, textAlign: TextAlign.center),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
                 t.networkInterfacesPage.preview,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             ScrollConfiguration(
@@ -194,9 +187,7 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '${t.general.example}:',
-                          ),
+                          Text('${t.general.example}:'),
                           Text('123.123.123.123'),
                           Text('123.123.123.*'),
                         ],
@@ -205,10 +196,7 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
                     const Spacer(),
                     FilledButton.icon(
                       onPressed: () async {
-                        await updateFunction([
-                          ...currList,
-                          '',
-                        ]);
+                        await updateFunction([...currList, '']);
                       },
                       icon: const Icon(Icons.add),
                       label: Text(t.general.add),

@@ -32,7 +32,9 @@ class SendController {
   /// Builds the [WebDownloadState] for the given [files].
   /// Files that only exist in memory (e.g. text messages) are materialized
   /// to the cache directory so the Rust server can stream them.
-  Future<WebDownloadState> buildWebDownloadState({required List<CrossFile> files}) async {
+  Future<WebDownloadState> buildWebDownloadState({
+    required List<CrossFile> files,
+  }) async {
     final currentWebDownloadState = server.getStateOrNull()?.webDownloadState;
 
     return WebDownloadState(
@@ -46,7 +48,10 @@ class SendController {
             if (path == null && file.bytes != null) {
               // The Rust server streams file content from disk, so in-memory
               // bytes (text messages, clipboard content) are written to a temp file.
-              final tempPath = p.join(await getCacheDirectory(), 'web-download-$id');
+              final tempPath = p.join(
+                await getCacheDirectory(),
+                'web-download-$id',
+              );
               await File(tempPath).writeAsBytes(file.bytes!);
               path = tempPath;
             }
@@ -61,7 +66,9 @@ class SendController {
                   fileType: file.fileType,
                   hash: null,
                   preview: files.first.fileType == FileType.text && files.first.bytes != null
-                      ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+                      ? utf8.decode(
+                          files.first.bytes!,
+                        ) // send simple message by embedding it into the preview
                       : null,
                   metadata: file.lastModified != null || file.lastAccessed != null
                       ? FileMetadata(
@@ -89,7 +96,14 @@ class SendController {
     final webDownloadState = server.getStateOrNull()?.webDownloadState;
     if (webDownloadState == null) {
       // should not happen: web download events are only emitted when web download was configured
-      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareDownloadDecisionAction(sessionId: event.sessionId, accept: false));
+      server.ref
+          .redux(parentIsolateProvider)
+          .dispatch(
+            IsolateHttpServerPrepareDownloadDecisionAction(
+              sessionId: event.sessionId,
+              accept: false,
+            ),
+          );
       return;
     }
 
@@ -129,15 +143,28 @@ class SendController {
 
       if (path.startsWith('content://')) {
         filePath = null;
-        fileDescriptor = await isolate_android_channel.getFileDescriptorAndroid(uri: path);
+        fileDescriptor = await isolate_android_channel.getFileDescriptorAndroid(
+          uri: path,
+        );
       } else {
         filePath = path;
         fileDescriptor = null;
       }
     } catch (e, st) {
-      _logger.severe('Failed to resolve source for web download file ${event.fileId}', e, st);
+      _logger.severe(
+        'Failed to resolve source for web download file ${event.fileId}',
+        e,
+        st,
+      );
       // Unblock the web client's request waiting for the content source.
-      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerFailFileDownloadAction(sessionId: event.sessionId, fileId: event.fileId));
+      server.ref
+          .redux(parentIsolateProvider)
+          .dispatch(
+            IsolateHttpServerFailFileDownloadAction(
+              sessionId: event.sessionId,
+              fileId: event.fileId,
+            ),
+          );
       return;
     }
 
@@ -168,7 +195,14 @@ class SendController {
       ),
     );
 
-    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareDownloadDecisionAction(sessionId: sessionId, accept: true));
+    server.ref
+        .redux(parentIsolateProvider)
+        .dispatch(
+          IsolateHttpServerPrepareDownloadDecisionAction(
+            sessionId: sessionId,
+            accept: true,
+          ),
+        );
   }
 
   void declineRequest(String sessionId) {
@@ -188,7 +222,14 @@ class SendController {
       ),
     );
 
-    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareDownloadDecisionAction(sessionId: sessionId, accept: false));
+    server.ref
+        .redux(parentIsolateProvider)
+        .dispatch(
+          IsolateHttpServerPrepareDownloadDecisionAction(
+            sessionId: sessionId,
+            accept: false,
+          ),
+        );
   }
 }
 
@@ -218,11 +259,7 @@ extension on WebDownloadState {
     required WebDownloadSession Function(WebDownloadSession oldSession) update,
   }) {
     return copyWith(
-      sessions: {...sessions}
-        ..update(
-          sessionId,
-          (session) => update(session),
-        ),
+      sessions: {...sessions}..update(sessionId, (session) => update(session)),
     );
   }
 }

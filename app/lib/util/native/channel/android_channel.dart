@@ -57,20 +57,19 @@ Future<bool> getSystemAnimationsStatusAndroid() async {
 /// Returns true when granted or when running on an older Android version.
 Future<bool> requestLocalNetworkPermissionAndroid() async {
   try {
-    return await _methodChannel.invokeMethod<bool>('requestLocalNetworkPermission') ?? false;
+    return await _methodChannel.invokeMethod<bool>(
+          'requestLocalNetworkPermission',
+        ) ??
+        false;
   } catch (e) {
     _logger.warning('Could not request local network permission', e);
     return false;
   }
 }
 
-Future<void> openContentUri({
-  required String uri,
-}) async {
+Future<void> openContentUri({required String uri}) async {
   _logger.info('Opening content URI: $uri');
-  await _methodChannel.invokeMethod('openContentUri', {
-    'uri': uri,
-  });
+  await _methodChannel.invokeMethod('openContentUri', {'uri': uri});
 }
 
 /// Tells MainActivity that the Dart side is now subscribed to the share_handler media stream,
@@ -93,10 +92,7 @@ class PickDirectoryResult with PickDirectoryResultMappable {
   final String directoryUri;
   final List<FileInfo> files;
 
-  PickDirectoryResult({
-    required this.directoryUri,
-    required this.files,
-  });
+  PickDirectoryResult({required this.directoryUri, required this.files});
 }
 
 @MappableClass()

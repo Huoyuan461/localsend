@@ -35,7 +35,9 @@ class SystemDateTimeFormatter {
 
   /// Fields intl mishandles: unknown letters (e.g. `B`) print literally, time zones (`v`, `z`, `Z`) print nothing,
   /// .NET-style `ddd` prints a padded day, `EEEEEE` throws.
-  static final _unsupportedField = RegExp(r'(?![GyMkSEahKHcLQdDms])[A-Za-z]|d{3,}|E{6,}');
+  static final _unsupportedField = RegExp(
+    r'(?![GyMkSEahKHcLQdDms])[A-Za-z]|d{3,}|E{6,}',
+  );
 
   static bool _isSupported(String pattern) {
     final parts = pattern.split("'");
@@ -57,9 +59,17 @@ class SystemDateTimeFormatter {
   }
 
   static String get _locale {
-    return _verified(WidgetsBinding.instance.platformDispatcher.locale.toString()) ?? _verified(LocaleSettings.currentLocale.languageTag) ?? 'en';
+    return _verified(
+          WidgetsBinding.instance.platformDispatcher.locale.toString(),
+        ) ??
+        _verified(LocaleSettings.currentLocale.languageTag) ??
+        'en';
   }
 
   /// Resolves e.g. `de_DE` to `de` and `pt-BR` to `pt`, or null if intl has no date symbols for the language.
-  static String? _verified(String locale) => Intl.verifiedLocale(locale, DateFormat.localeExists, onFailure: (_) => null);
+  static String? _verified(String locale) => Intl.verifiedLocale(
+    locale,
+    DateFormat.localeExists,
+    onFailure: (_) => null,
+  );
 }

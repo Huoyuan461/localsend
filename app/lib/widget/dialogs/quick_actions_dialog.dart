@@ -70,7 +70,10 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ToggleButtons(
-            isSelected: [_action == _QuickAction.counter, _action == _QuickAction.random],
+            isSelected: [
+              _action == _QuickAction.counter,
+              _action == _QuickAction.random,
+            ],
             onPressed: (int index) {
               setState(() {
                 if (index == 0) {
@@ -85,7 +88,10 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
             constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
             children: _QuickAction.values.map((mode) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 child: Text(mode.label),
               );
             }).toList(),

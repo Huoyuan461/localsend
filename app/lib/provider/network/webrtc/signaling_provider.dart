@@ -34,18 +34,16 @@ class SignalingState with SignalingStateMappable {
   });
 }
 
-final signalingProvider = ReduxProvider<SignalingService, SignalingState>((ref) {
-  return SignalingService(
-    persistence: ref.read(persistenceProvider),
-  );
+final signalingProvider = ReduxProvider<SignalingService, SignalingState>((
+  ref,
+) {
+  return SignalingService(persistence: ref.read(persistenceProvider));
 });
 
 class SignalingService extends ReduxNotifier<SignalingState> {
   final PersistenceService _persistence;
 
-  SignalingService({
-    required PersistenceService persistence,
-  }) : _persistence = persistence;
+  SignalingService({required PersistenceService persistence}) : _persistence = persistence;
 
   @override
   SignalingState init() {
@@ -62,7 +60,9 @@ class SetupSignalingConnection extends ReduxAction<SignalingService, SignalingSt
   SignalingState reduce() {
     for (final signalingServer in state.signalingServers) {
       // ignore: discarded_futures
-      global.dispatchAsync(_SetupSignalingConnection(signalingServer: signalingServer));
+      global.dispatchAsync(
+        _SetupSignalingConnection(signalingServer: signalingServer),
+      );
     }
     return state;
   }
@@ -117,9 +117,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
               ref
                   .redux(nearbyDevicesProvider)
                   .dispatch(
-                    RegisterSignalingDeviceAction(
-                      d.toDevice(signalingServer),
-                    ),
+                    RegisterSignalingDeviceAction(d.toDevice(signalingServer)),
                   );
             }
             break;
@@ -128,19 +126,11 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
             ref
                 .redux(nearbyDevicesProvider)
                 .dispatch(
-                  RegisterSignalingDeviceAction(
-                    peer.toDevice(signalingServer),
-                  ),
+                  RegisterSignalingDeviceAction(peer.toDevice(signalingServer)),
                 );
             break;
           case WsServerMessage_Left():
-            ref
-                .redux(nearbyDevicesProvider)
-                .dispatch(
-                  UnregisterSignalingDeviceAction(
-                    message.peerId.uuid,
-                  ),
-                );
+            ref.redux(nearbyDevicesProvider).dispatch(UnregisterSignalingDeviceAction(message.peerId.uuid));
             break;
           case WsServerMessage_Offer():
             final provider = ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>((ref) {
@@ -181,10 +171,7 @@ class _SetConnectionAction extends ReduxAction<SignalingService, SignalingState>
   @override
   SignalingState reduce() {
     return state.copyWith(
-      connections: {
-        ...state.connections,
-        signalingServer: connection,
-      },
+      connections: {...state.connections, signalingServer: connection},
     );
   }
 }
@@ -218,11 +205,7 @@ extension ClientInfoExt on ClientInfo {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDeviceType() ?? DeviceType.desktop,
       download: false,
-      channels: [
-        SignalingChannel(
-          signalingServer: signalingServer,
-        ),
-      ],
+      channels: [SignalingChannel(signalingServer: signalingServer)],
     );
   }
 }

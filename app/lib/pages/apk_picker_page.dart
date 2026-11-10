@@ -102,10 +102,22 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
             onSelected: (value) {
               switch (value) {
                 case 0:
-                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
+                  ref
+                      .notifier(apkSearchParamProvider)
+                      .setState(
+                        (old) => old.copyWith(
+                          includeSystemApps: !old.includeSystemApps,
+                        ),
+                      );
                   break;
                 case 1:
-                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
+                  ref
+                      .notifier(apkSearchParamProvider)
+                      .setState(
+                        (old) => old.copyWith(
+                          onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent,
+                        ),
+                      );
                   break;
               }
             },
@@ -120,7 +132,9 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                 children: [
                   const Icon(Icons.add),
                   const SizedBox(width: 5),
-                  Text('Add ${_selectedApps.length} ${(_selectedApps.length == 1) ? "App" : "Apps"}'),
+                  Text(
+                    'Add ${_selectedApps.length} ${(_selectedApps.length == 1) ? "App" : "Apps"}',
+                  ),
                 ],
               ),
             ),
@@ -129,9 +143,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
         tabletPadding: const EdgeInsets.symmetric(horizontal: 15),
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 10),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
             SliverPinnedHeader(
               height: 80,
               child: Padding(
@@ -180,18 +192,22 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                           });
                         },
                         activeTrackColor: Theme.of(context).colorScheme.primary,
-                        activeThumbColor: Theme.of(context).colorScheme.onPrimary,
-                        inactiveThumbColor: Theme.of(context).colorScheme.outline,
-                        inactiveTrackColor: Theme.of(context).colorScheme.surface,
+                        activeThumbColor: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary,
+                        inactiveThumbColor: Theme.of(
+                          context,
+                        ).colorScheme.outline,
+                        inactiveTrackColor: Theme.of(
+                          context,
+                        ).colorScheme.surface,
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 10),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
             apkAsync.when(
               data: (appList) {
                 return SliverList(
@@ -228,7 +244,9 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                     ),
                                     Consumer(
                                       builder: (context, ref) {
-                                        final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
+                                        final appSize = ref.watch(
+                                          apkSizeProvider(app.apkFilePath),
+                                        );
                                         final appSizeString = appSize.maybeWhen(
                                           data: (size) => '${size.asReadableFileSize} • ',
                                           orElse: () => '',
@@ -238,11 +256,15 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                           children: [
                                             Text(
                                               '$appSizeString${app.versionName != null ? 'v${app.versionName}' : ''}',
-                                              style: Theme.of(context).textTheme.bodySmall,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall,
                                             ),
                                             Text(
                                               app.packageName,
-                                              style: Theme.of(context).textTheme.bodySmall,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall,
                                             ),
                                           ],
                                         );
@@ -269,9 +291,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
               },
               loading: () {
                 return const SliverToBoxAdapter(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               },
             ),

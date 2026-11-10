@@ -22,17 +22,13 @@ class SelectedFilesPage extends StatelessWidget {
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.sendTab.selection.title),
-      ),
+      appBar: AppBar(title: Text(t.sendTab.selection.title)),
       body: ResponsiveListView.single(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         tabletPadding: const EdgeInsets.symmetric(horizontal: 15),
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 15),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 15)),
             SliverToBoxAdapter(
               child: Row(
                 children: [
@@ -41,8 +37,16 @@ class SelectedFilesPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(t.sendTab.selection.files(files: selectedFiles.length)),
-                        Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                        Text(
+                          t.sendTab.selection.files(
+                            files: selectedFiles.length,
+                          ),
+                        ),
+                        Text(
+                          t.sendTab.selection.size(
+                            size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -56,9 +60,7 @@ class SelectedFilesPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 10),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 childCount: selectedFiles.length,
@@ -97,35 +99,57 @@ class SelectedFilesPage extends StatelessWidget {
                                       overflow: TextOverflow.fade,
                                       softWrap: false,
                                     ),
-                                    Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.bodySmall),
+                                    Text(
+                                      file.size.asReadableFileSize,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
                                   ],
                                 ),
                               ),
                               if (file.fileType == FileType.text && file.bytes != null)
                                 TextButton(
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                    foregroundColor: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
                                     iconSize: 24,
                                   ),
                                   onPressed: () async {
                                     final result = await showDialog<String>(
                                       context: context,
-                                      builder: (_) => MessageInputDialog(initialText: message),
+                                      builder: (_) => MessageInputDialog(
+                                        initialText: message,
+                                      ),
                                     );
                                     if (result != null) {
-                                      ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
+                                      ref
+                                          .redux(selectedSendingFilesProvider)
+                                          .dispatch(
+                                            UpdateMessageAction(
+                                              message: result,
+                                              index: index,
+                                            ),
+                                          );
                                     }
                                   },
                                   child: const Icon(Icons.edit),
                                 ),
                               TextButton(
                                 style: TextButton.styleFrom(
-                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                  foregroundColor: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                   iconSize: 24,
                                 ),
                                 onPressed: () {
                                   final currCount = ref.read(selectedSendingFilesProvider).length;
-                                  ref.redux(selectedSendingFilesProvider).dispatch(RemoveSelectedFileAction(index));
+                                  ref
+                                      .redux(selectedSendingFilesProvider)
+                                      .dispatch(
+                                        RemoveSelectedFileAction(index),
+                                      );
                                   if (currCount == 1) {
                                     context.popUntilRoot();
                                   }

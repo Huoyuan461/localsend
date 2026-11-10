@@ -62,7 +62,9 @@ class _ReceiveTabState extends State<ReceiveTab> {
       children: [
         Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+            constraints: const BoxConstraints(
+              maxWidth: ResponsiveListView.defaultMaxWidth,
+            ),
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: ColumnListView(
@@ -78,7 +80,11 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           child: Consumer(
                             builder: (context, ref) {
                               final animations = ref.watch(animationProvider);
-                              final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
+                              final activeTab = ref.watch(
+                                homePageControllerProvider.select(
+                                  (state) => state.currentTab,
+                                ),
+                              );
                               return RotatingWidget(
                                 duration: const Duration(seconds: 15),
                                 spinning: serverState != null && animations && activeTab == HomeTab.receive,
@@ -89,7 +95,10 @@ class _ReceiveTabState extends State<ReceiveTab> {
                         ),
                         FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: Text(serverState?.alias ?? alias, style: const TextStyle(fontSize: 48)),
+                          child: Text(
+                            serverState?.alias ?? alias,
+                            style: const TextStyle(fontSize: 48),
+                          ),
                         ),
                         InitialFadeTransition(
                           duration: const Duration(milliseconds: 300),
@@ -109,7 +118,9 @@ class _ReceiveTabState extends State<ReceiveTab> {
                       child: Pressable3D(
                         child: OutlinedButton.icon(
                           onPressed: () async {
-                            await context.global.dispatchAsync(NavigateAction.push(const WebSharePage()));
+                            await context.global.dispatchAsync(
+                              NavigateAction.push(const WebSharePage()),
+                            );
                           },
                           icon: Icon(Icons.language),
                           label: Text(t.receiveTab.link),

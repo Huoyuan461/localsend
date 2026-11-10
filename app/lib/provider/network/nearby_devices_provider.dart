@@ -51,10 +51,14 @@ class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
 class StartDiscoveryListener extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
   @override
   Future<NearbyDevicesState> reduce() async {
-    final stream = external(notifier._isolateController).dispatchTakeResult(IsolateDiscoveryListenAction());
+    final stream = external(
+      notifier._isolateController,
+    ).dispatchTakeResult(IsolateDiscoveryListenAction());
     await for (final device in stream) {
       await dispatchAsync(RegisterDeviceAction(device));
-      notifier._discoveryLogger.addLog('[DISCOVER] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+      notifier._discoveryLogger.addLog(
+        '[DISCOVER] ${device.alias} (${device.ip}, model: ${device.deviceModel})',
+      );
     }
     return state;
   }
@@ -64,9 +68,7 @@ class StartDiscoveryListener extends AsyncReduxAction<NearbyDevicesService, Near
 class ClearFoundDevicesAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
   @override
   NearbyDevicesState reduce() {
-    return state.copyWith(
-      devices: {},
-    );
+    return state.copyWith(devices: {});
   }
 }
 
@@ -86,10 +88,14 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
   Future<NearbyDevicesState> reduce() async {
     assert(device.ip?.isNotEmpty ?? false, 'IP must not be empty');
 
-    final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
+    final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull(
+      (e) => e.fingerprint == device.fingerprint,
+    );
     if (favoriteDevice != null && !favoriteDevice.customAlias) {
       // Update existing favorite with new alias
-      await external(notifier._favoriteService).dispatchAsync(UpdateFavoriteAction(favoriteDevice.copyWith(alias: device.alias)));
+      await external(notifier._favoriteService).dispatchAsync(
+        UpdateFavoriteAction(favoriteDevice.copyWith(alias: device.alias)),
+      );
     } else {
       await Future.microtask(() {});
     }
@@ -108,7 +114,9 @@ class RegisterSignalingDeviceAction extends ReduxAction<NearbyDevicesService, Ne
   @override
   NearbyDevicesState reduce() {
     final Set<Device> existingDevices = state.signalingDevices[device.fingerprint]?.toSet() ?? {};
-    final existingDevice = existingDevices.firstWhereOrNull((e) => e.signalingId == device.signalingId);
+    final existingDevice = existingDevices.firstWhereOrNull(
+      (e) => e.signalingId == device.signalingId,
+    );
     if (existingDevice != null) {
       existingDevices.remove(existingDevice);
     }
@@ -143,7 +151,9 @@ class UnregisterSignalingDeviceAction extends ReduxAction<NearbyDevicesService, 
 class StartMulticastScan extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
   @override
   NearbyDevicesState reduce() {
-    external(notifier._isolateController).dispatch(IsolateDiscoveryAnnouncementAction());
+    external(
+      notifier._isolateController,
+    ).dispatch(IsolateDiscoveryAnnouncementAction());
     return state;
   }
 }
@@ -226,9 +236,7 @@ class StartStagedScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
         )
         .drain<void>();
 
-    return state.copyWith(
-      runningFavoriteScan: false,
-    );
+    return state.copyWith(runningFavoriteScan: false);
   }
 }
 
@@ -239,9 +247,7 @@ class _SetRunningIpsAction extends ReduxAction<NearbyDevicesService, NearbyDevic
 
   @override
   NearbyDevicesState reduce() {
-    return state.copyWith(
-      runningIps: runningIps,
-    );
+    return state.copyWith(runningIps: runningIps);
   }
 }
 
@@ -252,8 +258,6 @@ class _SetRunningFavoriteScanAction extends ReduxAction<NearbyDevicesService, Ne
 
   @override
   NearbyDevicesState reduce() {
-    return state.copyWith(
-      runningFavoriteScan: running,
-    );
+    return state.copyWith(runningFavoriteScan: running);
   }
 }

@@ -5,15 +5,15 @@
 
 use bytes::Bytes;
 use futures_util::StreamExt;
-use zhichuan::http::client::{ClientError, LsHttpClientV2};
-use zhichuan::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
-use zhichuan::http::server::common::save::FileUploadTarget;
-use zhichuan::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
-use zhichuan::http::server::web::{WebConfig, WebMode};
-use zhichuan::http::server::{start_with_port, ServerConfigV2, TlsConfig};
-use zhichuan::http::state::ClientInfo;
-use zhichuan::model::discovery::ProtocolType;
-use zhichuan::model::transfer::FileDto;
+use localsend::http::client::{ClientError, LsHttpClientV2};
+use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
+use localsend::http::server::common::save::FileUploadTarget;
+use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
+use localsend::http::server::web::{WebConfig, WebMode};
+use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
+use localsend::http::state::ClientInfo;
+use localsend::model::discovery::ProtocolType;
+use localsend::model::transfer::FileDto;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
@@ -29,7 +29,7 @@ struct Identity {
 }
 
 fn generate_identity() -> Identity {
-    let cert = zhichuan::crypto::cert::generate_self_signed().unwrap();
+    let cert = localsend::crypto::cert::generate_self_signed().unwrap();
 
     Identity {
         cert: cert.certificate_pem,
@@ -207,7 +207,7 @@ async fn upload_bytes(
     let sent = Arc::new(AtomicU64::new(0));
     let progress = sent.clone();
     let body =
-        zhichuan::reqwest::Body::wrap_stream(ReceiverStream::new(rx).map(move |chunk: Bytes| {
+        localsend::reqwest::Body::wrap_stream(ReceiverStream::new(rx).map(move |chunk: Bytes| {
             progress.fetch_add(chunk.len() as u64, Ordering::Relaxed);
             Ok::<Bytes, std::io::Error>(chunk)
         }));
@@ -381,7 +381,7 @@ async fn test_client_without_cert_allowed_in_web_mode() {
     .await;
 
     // A browser-like client: no client certificate, self-signed server cert accepted.
-    let browser = zhichuan::reqwest::Client::builder()
+    let browser = localsend::reqwest::Client::builder()
         .use_rustls_tls()
         .danger_accept_invalid_certs(true)
         .build()

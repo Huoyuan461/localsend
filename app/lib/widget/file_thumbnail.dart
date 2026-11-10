@@ -36,20 +36,11 @@ class SmartFileThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (bytes != null) {
-      return MemoryThumbnail(
-        bytes: bytes,
-        fileType: fileType,
-      );
+      return MemoryThumbnail(bytes: bytes, fileType: fileType);
     } else if (asset != null) {
-      return AssetThumbnail(
-        asset: asset!,
-        fileType: fileType,
-      );
+      return AssetThumbnail(asset: asset!, fileType: fileType);
     } else {
-      return FilePathThumbnail(
-        path: path,
-        fileType: fileType,
-      );
+      return FilePathThumbnail(path: path, fileType: fileType);
     }
   }
 }
@@ -58,10 +49,7 @@ class AssetThumbnail extends StatelessWidget {
   final AssetEntity asset;
   final FileType fileType;
 
-  const AssetThumbnail({
-    required this.asset,
-    required this.fileType,
-  });
+  const AssetThumbnail({required this.asset, required this.fileType});
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +69,7 @@ class FilePathThumbnail extends StatelessWidget {
   final String? path;
   final FileType fileType;
 
-  const FilePathThumbnail({
-    required this.path,
-    required this.fileType,
-  });
+  const FilePathThumbnail({required this.path, required this.fileType});
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +101,7 @@ class FilePathThumbnail extends StatelessWidget {
       thumbnail = null;
     }
 
-    return _Thumbnail(
-      thumbnail: thumbnail,
-      icon: fileType.icon,
-    );
+    return _Thumbnail(thumbnail: thumbnail, icon: fileType.icon);
   }
 }
 
@@ -152,11 +134,7 @@ class MemoryThumbnail extends StatelessWidget {
       thumbnail = null;
     }
 
-    return _Thumbnail(
-      thumbnail: thumbnail,
-      icon: fileType.icon,
-      size: size,
-    );
+    return _Thumbnail(thumbnail: thumbnail, icon: fileType.icon, size: size);
   }
 }
 

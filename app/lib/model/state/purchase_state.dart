@@ -20,16 +20,10 @@ enum PurchaseItem {
     androidId: 'zhichuan_android_donate_50',
     iosId: 'zhichuan_ios_donate_50',
   ),
-  pro(
-    androidId: 'zhichuan_android_pro',
-    iosId: 'zhichuan_ios_pro',
-  )
+  pro(androidId: 'zhichuan_android_pro', iosId: 'zhichuan_ios_pro')
   ;
 
-  const PurchaseItem({
-    required this.androidId,
-    required this.iosId,
-  });
+  const PurchaseItem({required this.androidId, required this.iosId});
 
   final String androidId;
   final String iosId;

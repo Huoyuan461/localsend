@@ -74,12 +74,12 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     );
 
     if (vm.status == null && vm.message == null) {
-      return const Scaffold(
-        body: SizedBox(),
-      );
+      return const Scaffold(body: SizedBox());
     }
 
-    final senderFavoriteEntry = ref.watch(favoritesProvider.select((state) => state.findDevice(vm.sender)));
+    final senderFavoriteEntry = ref.watch(
+      favoritesProvider.select((state) => state.findDevice(vm.sender)),
+    );
 
     return ViewModelBuilder(
       provider: (ref) => widget.vm,
@@ -99,13 +99,18 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
             body: SafeArea(
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+                  constraints: const BoxConstraints(
+                    maxWidth: ResponsiveListView.defaultMaxWidth,
+                  ),
                   child: Builder(
                     builder: (context) {
                       final height = MediaQuery.of(context).size.height;
                       final smallUi = vm.message != null && height < 600;
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: smallUi ? 20 : 30),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: smallUi ? 20 : 30,
+                        ),
                         child: Column(
                           children: [
                             Expanded(
@@ -116,19 +121,31 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                     children: [
                                       if (vm.showSenderInfo && !smallUi)
                                         Padding(
-                                          padding: const EdgeInsets.only(bottom: 10),
-                                          child: Icon(vm.sender.deviceType.icon, size: 64),
+                                          padding: const EdgeInsets.only(
+                                            bottom: 10,
+                                          ),
+                                          child: Icon(
+                                            vm.sender.deviceType.icon,
+                                            size: 64,
+                                          ),
                                         ),
                                       Builder(
                                         builder: (context) {
                                           final alias = senderFavoriteEntry?.alias ?? vm.sender.alias;
                                           if (alias.isEmpty) {
-                                            return Text('', style: TextStyle(fontSize: smallUi ? 32 : 48));
+                                            return Text(
+                                              '',
+                                              style: TextStyle(
+                                                fontSize: smallUi ? 32 : 48,
+                                              ),
+                                            );
                                           }
                                           return FittedBox(
                                             child: Text(
                                               alias,
-                                              style: TextStyle(fontSize: smallUi ? 32 : 48),
+                                              style: TextStyle(
+                                                fontSize: smallUi ? 32 : 48,
+                                              ),
                                               textAlign: TextAlign.center,
                                             ),
                                           );
@@ -138,8 +155,12 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                         const SizedBox(height: 10),
                                         Center(
                                           child: DeviceBadge(
-                                            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                                            foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                                            backgroundColor: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondaryContainer,
+                                            foregroundColor: Theme.of(
+                                              context,
+                                            ).colorScheme.onInverseSurface,
                                             label: vm.sender.deviceModel!,
                                           ),
                                         ),
@@ -152,13 +173,21 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                       Text(
                                         vm.message != null
                                             ? (vm.isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
-                                            : t.receivePage.subTitle(n: vm.files.length),
-                                        style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
+                                            : t.receivePage.subTitle(
+                                                n: vm.files.length,
+                                              ),
+                                        style: smallUi
+                                            ? null
+                                            : Theme.of(
+                                                context,
+                                              ).textTheme.titleLarge,
                                         textAlign: TextAlign.center,
                                       ),
                                       if (vm.showSenderInfo && vm.message == null)
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 8),
+                                          padding: const EdgeInsets.only(
+                                            top: 8,
+                                          ),
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
@@ -167,24 +196,37 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                                     ? null
                                                     : () async => await context.push(
                                                         () => VerifyPage(
-                                                          fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
+                                                          fingerprint: CombinedFingerprint.load(
+                                                            context,
+                                                            vm.sender.fingerprint,
+                                                          ),
                                                         ),
                                                       ),
                                                 style: TextButton.styleFrom(
-                                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                                  foregroundColor: Theme.of(
+                                                    context,
+                                                  ).colorScheme.onSurface,
                                                 ),
                                                 icon: Icon(Icons.verified_user),
                                                 label: Text(t.verifyPage.title),
                                               ),
                                               TextButton.icon(
                                                 style: TextButton.styleFrom(
-                                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                                  foregroundColor: Theme.of(
+                                                    context,
+                                                  ).colorScheme.onSurface,
                                                 ),
                                                 onPressed: () async {
-                                                  await context.push(() => ReceiveOptionsPage(vm));
+                                                  await context.push(
+                                                    () => ReceiveOptionsPage(vm),
+                                                  );
                                                 },
-                                                icon: const Icon(Icons.settings),
-                                                label: Text(t.receiveOptionsPage.title),
+                                                icon: const Icon(
+                                                  Icons.settings,
+                                                ),
+                                                label: Text(
+                                                  t.receiveOptionsPage.title,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -194,13 +236,17 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                           crossAxisAlignment: CrossAxisAlignment.stretch,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(top: 20),
+                                              padding: const EdgeInsets.only(
+                                                top: 20,
+                                              ),
                                               child: SizedBox(
                                                 height: 100,
                                                 child: Card(
                                                   child: SingleChildScrollView(
                                                     child: Padding(
-                                                      padding: const EdgeInsets.all(10),
+                                                      padding: const EdgeInsets.all(
+                                                        10,
+                                                      ),
                                                       child: SelectableText(
                                                         vm.message!,
                                                       ),
@@ -219,22 +265,37 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                                   ElevatedButton.icon(
                                                     onPressed: () async => await context.push(
                                                       () => VerifyPage(
-                                                        fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
+                                                        fingerprint: CombinedFingerprint.load(
+                                                          context,
+                                                          vm.sender.fingerprint,
+                                                        ),
                                                       ),
                                                     ),
-                                                    icon: Icon(Icons.verified_user),
-                                                    label: Text(t.verifyPage.title),
+                                                    icon: Icon(
+                                                      Icons.verified_user,
+                                                    ),
+                                                    label: Text(
+                                                      t.verifyPage.title,
+                                                    ),
                                                   ),
                                                 ElevatedButton.icon(
                                                   onPressed: () {
                                                     unawaited(
-                                                      Clipboard.setData(ClipboardData(text: vm.message!)),
+                                                      Clipboard.setData(
+                                                        ClipboardData(
+                                                          text: vm.message!,
+                                                        ),
+                                                      ),
                                                     );
                                                     if (checkPlatformIsDesktop()) {
-                                                      context.showSnackBar(t.general.copiedToClipboard);
+                                                      context.showSnackBar(
+                                                        t.general.copiedToClipboard,
+                                                      );
                                                     }
                                                     vm.onAccept();
-                                                    context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                                                    context.global.dispatch(
+                                                      NavigateAction.popUntil<WebSharePage>(),
+                                                    );
                                                   },
                                                   icon: Icon(Icons.copy),
                                                   label: Text(t.general.copy),
@@ -247,11 +308,18 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                                     ),
                                                     onPressed: () {
                                                       // ignore: discarded_futures
-                                                      launchUrl(Uri.parse(vm.message!), mode: LaunchMode.externalApplication);
+                                                      launchUrl(
+                                                        Uri.parse(vm.message!),
+                                                        mode: LaunchMode.externalApplication,
+                                                      );
                                                       vm.onAccept();
-                                                      context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                                                      context.global.dispatch(
+                                                        NavigateAction.popUntil<WebSharePage>(),
+                                                      );
                                                     },
-                                                    icon: Icon(Icons.open_in_new),
+                                                    icon: Icon(
+                                                      Icons.open_in_new,
+                                                    ),
                                                     label: Text(t.general.open),
                                                   ),
                                               ],
@@ -287,7 +355,9 @@ class _Actions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedFiles = context.watch(selectedReceivingFilesProvider);
-    final colorMode = context.watch(settingsProvider.select((state) => state.colorMode));
+    final colorMode = context.watch(
+      settingsProvider.select((state) => state.colorMode),
+    );
 
     if (vm.message != null) {
       return Center(
@@ -320,7 +390,9 @@ class _Actions extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: () {
                 vm.onClose();
-                context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                context.global.dispatch(
+                  NavigateAction.popUntil<WebSharePage>(),
+                );
               },
               icon: const Icon(Icons.check_circle),
               label: Text(t.general.close),

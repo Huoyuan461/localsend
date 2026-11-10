@@ -11,11 +11,11 @@ class ChangelogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.changelogPage.title),
-      ),
+      appBar: AppBar(title: Text(t.changelogPage.title)),
       body: FutureBuilder(
-        future: rootBundle.loadString(Assets.changelog), // ignore: discarded_futures
+        future: rootBundle.loadString(
+          Assets.changelog,
+        ), // ignore: discarded_futures
         builder: (context, data) {
           if (!data.hasData) {
             return Container();

@@ -25,10 +25,7 @@ class FavoriteEditDialog extends StatefulWidget {
   final FavoriteDevice? favorite;
   final Device? prefilledDevice;
 
-  const FavoriteEditDialog({
-    this.favorite,
-    this.prefilledDevice,
-  });
+  const FavoriteEditDialog({this.favorite, this.prefilledDevice});
 
   @override
   State<FavoriteEditDialog> createState() => _FavoriteEditDialogState();
@@ -66,7 +63,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.favorite != null ? t.dialogs.favoriteEditDialog.titleEdit : t.dialogs.favoriteEditDialog.titleAdd),
+      title: Text(
+        widget.favorite != null ? t.dialogs.favoriteEditDialog.titleEdit : t.dialogs.favoriteEditDialog.titleAdd,
+      ),
       content: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -112,7 +111,13 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                   );
 
                   if (context.mounted && result == true) {
-                    await context.ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.favorite!.fingerprint));
+                    await context.ref
+                        .redux(favoritesProvider)
+                        .dispatchAsync(
+                          RemoveFavoriteAction(
+                            deviceFingerprint: widget.favorite!.fingerprint,
+                          ),
+                        );
                     if (context.mounted) {
                       context.pop();
                     }
@@ -127,7 +132,12 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                 padding: const EdgeInsets.only(top: 10),
                 child: Row(
                   children: [
-                    Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                    Text(
+                      t.general.error,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.warning,
+                      ),
+                    ),
                     if (_error != null) ...[
                       const SizedBox(width: 5),
                       InkWell(
@@ -139,7 +149,11 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                          child: Icon(
+                            Icons.info,
+                            color: Theme.of(context).colorScheme.warning,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ],
@@ -164,7 +178,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
 
                   final port = int.tryParse(_portController.text);
                   if (port == null || port < 1 || port > 65535) {
-                    setState(() => _portError = t.dialogs.favoriteEditDialog.invalidPort);
+                    setState(
+                      () => _portError = t.dialogs.favoriteEditDialog.invalidPort,
+                    );
                     return;
                   }
                   setState(() => _portError = null);

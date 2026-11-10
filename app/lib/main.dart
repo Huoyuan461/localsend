@@ -27,21 +27,14 @@ Future<void> main(List<String> args) async {
   try {
     container = await preInit(args);
   } catch (e, stackTrace) {
-    showInitErrorApp(
-      error: e,
-      stackTrace: stackTrace,
-    );
+    showInitErrorApp(error: e, stackTrace: stackTrace);
     return;
   }
 
   runApp(
     RefenaScope.withContainer(
       container: container,
-      child: SDTFScope(
-        child: TranslationProvider(
-          child: const LocalSendApp(),
-        ),
-      ),
+      child: SDTFScope(child: TranslationProvider(child: const LocalSendApp())),
     ),
   );
 }
@@ -53,7 +46,9 @@ class LocalSendApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ref = context.ref;
     final (themeMode, colorMode, customColor) = ref.watch(
-      settingsProvider.select((settings) => (settings.theme, settings.colorMode, settings.customColor)),
+      settingsProvider.select(
+        (settings) => (settings.theme, settings.colorMode, settings.customColor),
+      ),
     );
     final dynamicColors = ref.watch(dynamicColorsProvider);
     return TrayWatcher(
@@ -63,7 +58,10 @@ class LocalSendApp extends StatelessWidget {
             switch (state) {
               case AppLifecycleState.resumed:
                 ref.redux(localIpProvider).dispatch(InitLocalIpAction());
-                if (checkPlatform([TargetPlatform.iOS, TargetPlatform.android])) {
+                if (checkPlatform([
+                  TargetPlatform.iOS,
+                  TargetPlatform.android,
+                ])) {
                   // The OS may have invalidated the sockets of the suspended app without any error ever reaching the accept loop.
                   // ignore: discarded_futures
                   ref.notifier(serverProvider).ensureRunning();
@@ -89,16 +87,23 @@ class LocalSendApp extends StatelessWidget {
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: GlobalMaterialLocalizations.delegates,
               debugShowCheckedModeBanner: false,
-              theme: getTheme(colorMode, customColor, Brightness.light, dynamicColors),
-              darkTheme: getTheme(colorMode, customColor, Brightness.dark, dynamicColors),
+              theme: getTheme(
+                colorMode,
+                customColor,
+                Brightness.light,
+                dynamicColors,
+              ),
+              darkTheme: getTheme(
+                colorMode,
+                customColor,
+                Brightness.dark,
+                dynamicColors,
+              ),
               themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
               builder: (context, child) => WindowBrightnessWatcher(child: child!),
               navigatorKey: context.read(navigationProvider).key,
               home: RouterinoHome(
-                builder: () => const HomePage(
-                  initialTab: HomeTab.receive,
-                  appStart: true,
-                ),
+                builder: () => const HomePage(initialTab: HomeTab.receive, appStart: true),
               ),
             ),
           ),

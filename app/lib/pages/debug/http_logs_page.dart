@@ -28,7 +28,11 @@ class HttpLogsPage extends StatelessWidget {
                     try {
                       await Clipboard.setData(
                         ClipboardData(
-                          text: logs.map((log) => '[${_dateFormat.format(log.timestamp)}] ${log.log}').join('\n'),
+                          text: logs
+                              .map(
+                                (log) => '[${_dateFormat.format(log.timestamp)}] ${log.log}',
+                              )
+                              .join('\n'),
                         ),
                       );
                       if (context.mounted) {

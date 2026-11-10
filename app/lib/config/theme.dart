@@ -10,12 +10,22 @@ import 'package:yaru/yaru.dart' as yaru;
 
 final _borderRadius = BorderRadius.circular(5);
 
-ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
+ThemeData getTheme(
+  ColorMode colorMode,
+  Color customColor,
+  Brightness brightness,
+  DynamicColors? dynamicColors,
+) {
   if (colorMode == ColorMode.yaru) {
     return _getYaruTheme(brightness);
   }
 
-  final colorScheme = _determineColorScheme(colorMode, customColor, brightness, dynamicColors);
+  final colorScheme = _determineColorScheme(
+    colorMode,
+    customColor,
+    brightness,
+    dynamicColors,
+  );
 
   final lightInputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: colorScheme.secondaryContainer),
@@ -56,7 +66,9 @@ ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness
     visualDensity: VisualDensity.standard,
     navigationBarTheme: colorScheme.brightness == Brightness.dark
         ? NavigationBarThemeData(
-            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
+            iconTheme: WidgetStateProperty.all(
+              const IconThemeData(color: Colors.white),
+            ),
           )
         : null,
     inputDecorationTheme: InputDecorationTheme(
@@ -87,14 +99,18 @@ Future<void> updateSystemOverlayStyle(BuildContext context) async {
   await updateSystemOverlayStyleWithBrightness(brightness);
 }
 
-Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async {
+Future<void> updateSystemOverlayStyleWithBrightness(
+  Brightness brightness,
+) async {
   if (checkPlatform([TargetPlatform.android])) {
     // See https://github.com/flutter/flutter/issues/90098
     final darkMode = brightness == Brightness.dark;
     final androidSdkInt = RefenaScope.defaultRef.read(deviceInfoProvider).androidSdkInt ?? 0;
     final bool edgeToEdge = androidSdkInt >= 29;
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // ignore: unawaited_futures
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.edgeToEdge,
+    ); // ignore: unawaited_futures
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
@@ -118,7 +134,11 @@ Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async
 extension ThemeDataExt on ThemeData {
   /// This is the actual [cardColor] being used.
   Color get cardColorWithElevation {
-    return ElevationOverlay.applySurfaceTint(cardColor, colorScheme.surfaceTint, 1);
+    return ElevationOverlay.applySurfaceTint(
+      cardColor,
+      colorScheme.surfaceTint,
+      1,
+    );
   }
 }
 
@@ -140,7 +160,12 @@ extension InputDecorationThemeExt on InputDecorationThemeData {
   BorderRadius get borderRadius => _borderRadius;
 }
 
-ColorScheme _determineColorScheme(ColorMode mode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
+ColorScheme _determineColorScheme(
+  ColorMode mode,
+  Color customColor,
+  Brightness brightness,
+  DynamicColors? dynamicColors,
+) {
   final defaultColorScheme = ColorScheme.fromSeed(
     seedColor: const Color(0xFFFF6B1A),
     brightness: brightness,
@@ -196,7 +221,9 @@ ThemeData _getYaruTheme(Brightness brightness) {
     visualDensity: VisualDensity.standard,
     navigationBarTheme: colorScheme.brightness == Brightness.dark
         ? NavigationBarThemeData(
-            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
+            iconTheme: WidgetStateProperty.all(
+              const IconThemeData(color: Colors.white),
+            ),
           )
         : null,
     inputDecorationTheme: InputDecorationTheme(

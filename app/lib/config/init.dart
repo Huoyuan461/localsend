@@ -61,7 +61,9 @@ final _logger = Logger('Init');
 Future<RefenaContainer> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
+  initLogger(
+    args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO,
+  );
 
   if (checkPlatform([TargetPlatform.linux])) {
     try {
@@ -125,7 +127,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
     if (checkPlatformIsNotWaylandDesktop()) {
       await windowManager.setAlwaysOnTop(persistenceService.getAlwaysOnTop());
     }
-    await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
+    await WindowDimensionsController(
+      persistenceService,
+    ).initDimensionsConfiguration();
     if (args.contains(startHiddenFlag)) {
       // keep this app hidden
       startHidden = true;
@@ -213,7 +217,9 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     // so ask before the server and discovery start.
     final localNetworkGranted = await requestLocalNetworkPermissionAndroid();
     if (!localNetworkGranted) {
-      _logger.warning('Local network permission denied. Discovery and transfers may not work.');
+      _logger.warning(
+        'Local network permission denied. Discovery and transfers may not work.',
+      );
       if (context.mounted) {
         await context.pushBottomSheet(() => const LocalNetworkDialog());
       }
@@ -244,9 +250,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       // handle dropped files
       pendingFilesStream.listen((files) async {
         await ref.global.dispatchAsync(
-          _HandleAppStartArgumentsAction(
-            args: files,
-          ),
+          _HandleAppStartArgumentsAction(args: files),
         );
       });
 
@@ -262,9 +266,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     } else {
       final args = ref.read(appArgumentsProvider);
       await ref.global.dispatchAsync(
-        _HandleAppStartArgumentsAction(
-          args: args,
-        ),
+        _HandleAppStartArgumentsAction(args: args),
       );
     }
   }
@@ -280,19 +282,17 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
         hasInitialShare = true;
         // ignore: unawaited_futures
         ref.global.dispatchAsync(
-          _HandleShareIntentAction(
-            payload: initialSharedPayload,
-          ),
+          _HandleShareIntentAction(payload: initialSharedPayload),
         );
       }
     }
 
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
-    _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) async {
+    _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((
+      SharedMedia payload,
+    ) async {
       await ref.global.dispatchAsync(
-        _HandleShareIntentAction(
-          payload: payload,
-        ),
+        _HandleShareIntentAction(payload: payload),
       );
     });
 
@@ -310,7 +310,9 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   }
 
   if (!ref.read(persistenceProvider).isFirstAppStart) {
-    WhatsNewPage? whatsNew = WhatsNewPage.fromLastVersion(lastVersion: ref.read(persistenceProvider).getWhatsNew());
+    WhatsNewPage? whatsNew = WhatsNewPage.fromLastVersion(
+      lastVersion: ref.read(persistenceProvider).getWhatsNew(),
+    );
     if (whatsNew != null) {
       // ignore: unawaited_futures
       ref.global.dispatchAsync(NavigateAction.push(whatsNew));
@@ -335,9 +337,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 class _HandleShareIntentAction extends AsyncGlobalAction {
   final SharedMedia payload;
 
-  _HandleShareIntentAction({
-    required this.payload,
-  });
+  _HandleShareIntentAction({required this.payload});
 
   @override
   Future<void> reduce() async {
@@ -361,9 +361,7 @@ class _HandleShareIntentAction extends AsyncGlobalAction {
 class _HandleAppStartArgumentsAction extends AsyncGlobalAction {
   final List<String> args;
 
-  _HandleAppStartArgumentsAction({
-    required this.args,
-  });
+  _HandleAppStartArgumentsAction({required this.args});
 
   @override
   Future<void> reduce() async {

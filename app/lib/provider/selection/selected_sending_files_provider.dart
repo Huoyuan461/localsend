@@ -36,10 +36,7 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
   final String message;
   final int? index;
 
-  AddMessageAction({
-    required this.message,
-    this.index,
-  });
+  AddMessageAction({required this.message, this.index});
 
   @override
   List<CrossFile> reduce() {
@@ -56,11 +53,7 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
       lastAccessed: null,
     );
 
-    return List.unmodifiable(
-      [
-        ...state,
-      ]..insert(index ?? state.length, file),
-    );
+    return List.unmodifiable([...state]..insert(index ?? state.length, file));
   }
 }
 
@@ -69,10 +62,7 @@ class UpdateMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List
   final String message;
   final int index;
 
-  UpdateMessageAction({
-    required this.message,
-    required this.index,
-  });
+  UpdateMessageAction({required this.message, required this.index});
 
   @override
   List<CrossFile> reduce() {
@@ -109,10 +99,7 @@ class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cro
       lastAccessed: null,
     );
 
-    return List.unmodifiable([
-      ...state,
-      file,
-    ]);
+    return List.unmodifiable([...state, file]);
   }
 }
 
@@ -121,10 +108,7 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
   final Iterable<T> files;
   final Future<CrossFile> Function(T) converter;
 
-  AddFilesAction({
-    required this.files,
-    required this.converter,
-  });
+  AddFilesAction({required this.files, required this.converter});
 
   @override
   Future<List<CrossFile>> reduce() async {
@@ -134,15 +118,14 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
       //  https://github.com/fluttercandies/flutter_photo_manager/issues/589
 
       final crossFile = await converter(file);
-      final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: crossFile));
+      final isAlreadySelect = state.any(
+        (element) => element.isSameFile(otherFile: crossFile),
+      );
       if (!isAlreadySelect) {
         newFiles.add(crossFile);
       }
     }
-    return List.unmodifiable([
-      ...state,
-      ...newFiles,
-    ]);
+    return List.unmodifiable([...state, ...newFiles]);
   }
 }
 
@@ -189,17 +172,16 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           lastAccessed: metadata?.accessed,
         );
 
-        final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
+        final isAlreadySelect = state.any(
+          (element) => element.isSameFile(otherFile: file),
+        );
         if (!isAlreadySelect) {
           newFiles.add(file);
         }
       }
     }
 
-    return List.unmodifiable([
-      ...state,
-      ...newFiles,
-    ]);
+    return List.unmodifiable([...state, ...newFiles]);
   }
 }
 
@@ -251,16 +233,15 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
         lastAccessed: null,
       );
 
-      final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: crossFile));
+      final isAlreadySelect = state.any(
+        (element) => element.isSameFile(otherFile: crossFile),
+      );
       if (!isAlreadySelect) {
         newFiles.add(crossFile);
       }
     }
 
-    return List.unmodifiable([
-      ...state,
-      ...newFiles,
-    ]);
+    return List.unmodifiable([...state, ...newFiles]);
   }
 }
 

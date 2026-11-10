@@ -115,7 +115,12 @@ class PersistenceService {
 
     final portableStore = SharedPreferencesPortable();
     bool usingLegacyStore = false;
-    if (checkPlatform(const [TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]) && portableStore.exists()) {
+    if (checkPlatform(const [
+          TargetPlatform.windows,
+          TargetPlatform.linux,
+          TargetPlatform.macOS,
+        ]) &&
+        portableStore.exists()) {
       _logger.info('Using portable settings.');
       SharedPreferencesStorePlatform.instance = portableStore;
     } else if (defaultTargetPlatform == TargetPlatform.windows) {
@@ -125,7 +130,9 @@ class PersistenceService {
         SharedPreferencesStorePlatform.instance = legacyStore;
         usingLegacyStore = true;
       } else {
-        SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
+        SharedPreferencesStorePlatform.instance = SharedPreferencesFile(
+          filePath: _windowsFile,
+        );
       }
     }
 
@@ -135,7 +142,11 @@ class PersistenceService {
     _logger.info('Existing version: $existingVersion');
     isFirstAppStart = existingVersion == null && !usingLegacyStore && !existingPrefs.keys.any((key) => key.startsWith('flutter.ls_'));
     if (isFirstAppStart) {
-      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
+      await SharedPreferencesStorePlatform.instance.setValue(
+        'Int',
+        'flutter.$_version',
+        _latestVersion,
+      );
     } else {
       // Unversioned profiles in the current store may already contain string modes.
       // Only apply the repair migration; older migrations would replace those modes.
@@ -149,7 +160,10 @@ class PersistenceService {
       prefs = await SharedPreferences.getInstance();
     } catch (e) {
       if (checkPlatform([TargetPlatform.windows])) {
-        _logger.info('Could not initialize SharedPreferences, trying to delete corrupted settings file', e);
+        _logger.info(
+          'Could not initialize SharedPreferences, trying to delete corrupted settings file',
+          e,
+        );
         File(_windowsFile).deleteSync();
         prefs = await SharedPreferences.getInstance();
       } else {
@@ -174,13 +188,18 @@ class PersistenceService {
     }
 
     if (prefs.getString(_securityContext) == null) {
-      await prefs.setString(_securityContext, jsonEncode(await generateSecurityContext()));
+      await prefs.setString(
+        _securityContext,
+        jsonEncode(await generateSecurityContext()),
+      );
     }
 
     if (isFirstAppStart) {
       final systemAnimations = await getSystemAnimationsStatus();
       if (!systemAnimations) {
-        _logger.info('System animations are disabled, disabling animations in the app.');
+        _logger.info(
+          'System animations are disabled, disabling animations in the app.',
+        );
         await prefs.setBool(_enableAnimations, false);
       }
     }
@@ -190,7 +209,9 @@ class PersistenceService {
     } else {
       // fix when device does not support dynamic colors
       final supported = supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system);
-      final colorMode = supported.firstWhereOrNull((color) => color.name == prefs.getString(_colorKey));
+      final colorMode = supported.firstWhereOrNull(
+        (color) => color.name == prefs.getString(_colorKey),
+      );
       if (colorMode == null) {
         await _initColorSetting(prefs, supportsDynamicColors);
       }
@@ -202,14 +223,19 @@ class PersistenceService {
     if (prefs.getBool(launchAtStartupLegacyKey) == true) {
       _logger.info('Enable auto start on legacy settings');
       await prefs.remove(launchAtStartupLegacyKey);
-      await enableAutoStart(startHidden: prefs.getBool(launchMinimizedLegacyKey) == true);
+      await enableAutoStart(
+        startHidden: prefs.getBool(launchMinimizedLegacyKey) == true,
+      );
       await prefs.remove(launchMinimizedLegacyKey);
     }
 
     return PersistenceService._(prefs, isFirstAppStart);
   }
 
-  static Future<void> _initColorSetting(SharedPreferences prefs, bool supportsDynamicColors) async {
+  static Future<void> _initColorSetting(
+    SharedPreferences prefs,
+    bool supportsDynamicColors,
+  ) async {
     await prefs.setString(
       _colorKey,
       checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.zhichuan.name,
@@ -321,7 +347,10 @@ class PersistenceService {
   }
 
   Future<void> setCustomColor(Color color) async {
-    await _prefs.setString(_customColorKey, color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2));
+    await _prefs.setString(
+      _customColorKey,
+      color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2),
+    );
   }
 
   AppLocale? getLocale() {
@@ -329,7 +358,9 @@ class PersistenceService {
     if (value == null) {
       return null;
     }
-    return AppLocale.values.firstWhereOrNull((locale) => locale.languageTag == value);
+    return AppLocale.values.firstWhereOrNull(
+      (locale) => locale.languageTag == value,
+    );
   }
 
   Future<void> setLocale(AppLocale? locale) async {
@@ -392,7 +423,9 @@ class PersistenceService {
     return _prefs.getBool(_receiveViaLinkAutoAccept) ?? false;
   }
 
-  Future<void> setReceiveViaLinkAutoAccept(bool receiveViaLinkAutoAccept) async {
+  Future<void> setReceiveViaLinkAutoAccept(
+    bool receiveViaLinkAutoAccept,
+  ) async {
     await _prefs.setBool(_receiveViaLinkAutoAccept, receiveViaLinkAutoAccept);
   }
 
@@ -458,7 +491,10 @@ class PersistenceService {
 
   QuickSaveMode getQuickSave() {
     final value = _prefs.getString(_quickSave);
-    return QuickSaveMode.values.firstWhereOrNull((mode) => mode.name == value) ?? QuickSaveMode.paired;
+    return QuickSaveMode.values.firstWhereOrNull(
+          (mode) => mode.name == value,
+        ) ??
+        QuickSaveMode.paired;
   }
 
   Future<void> setQuickSave(QuickSaveMode mode) async {
@@ -502,7 +538,10 @@ class PersistenceService {
   }
 
   SendMode getSendMode() {
-    return SendMode.values.firstWhereOrNull((m) => m.name == _prefs.getString(_sendMode)) ?? SendMode.single;
+    return SendMode.values.firstWhereOrNull(
+          (m) => m.name == _prefs.getString(_sendMode),
+        ) ??
+        SendMode.single;
   }
 
   Future<void> setSendMode(SendMode mode) async {
@@ -545,10 +584,7 @@ class PersistenceService {
       return null;
     }
 
-    return WindowDimensions(
-      position: position,
-      size: size,
-    );
+    return WindowDimensions(position: position, size: size);
   }
 
   Future<void> setSaveWindowPlacement(bool savePlacement) async {
@@ -577,7 +613,9 @@ class PersistenceService {
   }
 
   DeviceType? getDeviceType() {
-    return DeviceType.values.firstWhereOrNull((m) => m.name == _prefs.getString(_deviceType));
+    return DeviceType.values.firstWhereOrNull(
+      (m) => m.name == _prefs.getString(_deviceType),
+    );
   }
 
   Future<void> setDeviceType(DeviceType deviceType) async {

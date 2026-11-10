@@ -17,13 +17,15 @@ class DonationPage extends StatelessWidget {
     return ViewModelBuilder(
       provider: (ref) => donationPageVmProvider,
       // [FOSS_REMOVE_START]
-      init: (context) => context.redux(purchaseProvider).dispatchAsync(FetchPricesAndPurchasesAction()), // ignore: discarded_futures
+      init: (context) => context
+          .redux(purchaseProvider)
+          .dispatchAsync(
+            FetchPricesAndPurchasesAction(),
+          ), // ignore: discarded_futures
       // [FOSS_REMOVE_END]
       builder: (context, vm) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(t.donationPage.title),
-          ),
+          appBar: AppBar(title: Text(t.donationPage.title)),
           body: Stack(
             children: [
               ResponsiveListView(
@@ -44,7 +46,9 @@ class DonationPage extends StatelessWidget {
                         child: Text(
                           t.donationPage.thanks,
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                     ),
@@ -54,9 +58,7 @@ class DonationPage extends StatelessWidget {
               if (vm.pending)
                 Container(
                   color: Colors.black.withValues(alpha: 0.1),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
             ],
           ),
@@ -75,13 +77,17 @@ class _StoreDonation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...PurchaseItem.values.where((item) => item != PurchaseItem.pro).map((item) {
+        ...PurchaseItem.values.where((item) => item != PurchaseItem.pro).map((
+          item,
+        ) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: FilledButton.icon(
               onPressed: vm.purchased.contains(item) ? null : () => vm.purchase(item),
               icon: const Icon(Icons.favorite),
-              label: Text(t.donationPage.donate(amount: vm.prices[item] ?? '...')),
+              label: Text(
+                t.donationPage.donate(amount: vm.prices[item] ?? '...'),
+              ),
             ),
           );
         }),
@@ -106,14 +112,20 @@ class _LinkDonation extends StatelessWidget {
       children: [
         TextButton.icon(
           onPressed: () async {
-            await launchUrl(Uri.parse('https://github.com/sponsors/Tienisto'), mode: LaunchMode.externalApplication);
+            await launchUrl(
+              Uri.parse('https://github.com/sponsors/Tienisto'),
+              mode: LaunchMode.externalApplication,
+            );
           },
           icon: const Icon(Icons.open_in_new),
           label: const Text('Github'),
         ),
         TextButton.icon(
           onPressed: () async {
-            await launchUrl(Uri.parse('https://ko-fi.com/tienisto'), mode: LaunchMode.externalApplication);
+            await launchUrl(
+              Uri.parse('https://ko-fi.com/tienisto'),
+              mode: LaunchMode.externalApplication,
+            );
           },
           icon: const Icon(Icons.open_in_new),
           label: const Text('Ko-fi'),

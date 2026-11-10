@@ -24,7 +24,9 @@ class BigButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
+    final sizingInformation = SizingInformation(
+      MediaQuery.sizeOf(context).width,
+    );
     final buttonWidth = width ?? (sizingInformation.isDesktop ? desktopWidth : mobileWidth);
     return Pressable3D(
       child: SizedBox(
@@ -37,7 +39,12 @@ class BigButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            padding: const EdgeInsets.only(left: 2, right: 2, top: 10, bottom: 8),
+            padding: const EdgeInsets.only(
+              left: 2,
+              right: 2,
+              top: 10,
+              bottom: 8,
+            ),
           ),
           onPressed: onTap,
           child: Column(

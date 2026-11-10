@@ -31,12 +31,14 @@ class _Pressable3DState extends State<Pressable3D> with SingleTickerProviderStat
       duration: const Duration(milliseconds: 120),
       reverseDuration: const Duration(milliseconds: 450),
     );
-    _scale = Tween<double>(begin: 1.0, end: widget.pressedScale).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
-    _offsetY = Tween<double>(begin: 0.0, end: widget.pressedOffsetY).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    _scale = Tween<double>(
+      begin: 1.0,
+      end: widget.pressedScale,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+    _offsetY = Tween<double>(
+      begin: 0.0,
+      end: widget.pressedOffsetY,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
   }
 
   @override
@@ -51,11 +53,19 @@ class _Pressable3DState extends State<Pressable3D> with SingleTickerProviderStat
 
   void _onPointerUp(PointerUpEvent _) {
     // 松开时用弹性曲线回弹，带轻微过冲的"键帽感"
-    _controller.animateBack(0.0, curve: Curves.elasticOut, duration: const Duration(milliseconds: 500));
+    _controller.animateBack(
+      0.0,
+      curve: Curves.elasticOut,
+      duration: const Duration(milliseconds: 500),
+    );
   }
 
   void _onPointerCancel(PointerCancelEvent _) {
-    _controller.animateBack(0.0, curve: Curves.easeOut, duration: const Duration(milliseconds: 200));
+    _controller.animateBack(
+      0.0,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 200),
+    );
   }
 
   @override
@@ -70,10 +80,7 @@ class _Pressable3DState extends State<Pressable3D> with SingleTickerProviderStat
         builder: (context, child) {
           return Transform.translate(
             offset: Offset(0, _offsetY.value),
-            child: Transform.scale(
-              scale: _scale.value,
-              child: child,
-            ),
+            child: Transform.scale(scale: _scale.value, child: child),
           );
         },
         child: widget.child,

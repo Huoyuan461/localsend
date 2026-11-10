@@ -16,7 +16,11 @@ class ProPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder(
       provider: (ref) => proPageVmProvider,
-      init: (context) => context.redux(purchaseProvider).dispatchAsync(FetchPricesAndPurchasesAction()), // ignore: discarded_futures
+      init: (context) => context
+          .redux(purchaseProvider)
+          .dispatchAsync(
+            FetchPricesAndPurchasesAction(),
+          ), // ignore: discarded_futures
       builder: (context, vm) {
         final isPro = vm.purchased.contains(PurchaseItem.pro);
         // Store price once the product exists in App Store Connect / Google Play; ¥38 until then.
@@ -24,9 +28,7 @@ class ProPage extends StatelessWidget {
         final freeUntilLabel =
             '${kProFreeUntil.year}-${kProFreeUntil.month.toString().padLeft(2, '0')}-${kProFreeUntil.day.toString().padLeft(2, '0')}';
         return Scaffold(
-          appBar: AppBar(
-            title: Text(t.proPage.title),
-          ),
+          appBar: AppBar(title: Text(t.proPage.title)),
           body: Stack(
             children: [
               ResponsiveListView(
@@ -42,24 +44,38 @@ class ProPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Center(
-                    child: Text(
-                      t.proPage.info,
-                      textAlign: TextAlign.center,
-                    ),
+                    child: Text(t.proPage.info, textAlign: TextAlign.center),
                   ),
                   const SizedBox(height: 30),
-                  _FeatureRow(icon: Icons.history, label: t.proPage.featureHistory),
-                  _FeatureRow(icon: Icons.star, label: t.proPage.featureFavorites),
-                  _FeatureRow(icon: Icons.palette, label: t.proPage.featureThemes),
-                  _FeatureRow(icon: Icons.folder, label: t.proPage.featureDirectory),
-                  _FeatureRow(icon: Icons.support_agent, label: t.proPage.featureSupport),
+                  _FeatureRow(
+                    icon: Icons.history,
+                    label: t.proPage.featureHistory,
+                  ),
+                  _FeatureRow(
+                    icon: Icons.star,
+                    label: t.proPage.featureFavorites,
+                  ),
+                  _FeatureRow(
+                    icon: Icons.palette,
+                    label: t.proPage.featureThemes,
+                  ),
+                  _FeatureRow(
+                    icon: Icons.folder,
+                    label: t.proPage.featureDirectory,
+                  ),
+                  _FeatureRow(
+                    icon: Icons.support_agent,
+                    label: t.proPage.featureSupport,
+                  ),
                   const SizedBox(height: 30),
                   if (isPro)
                     Center(
                       child: Text(
                         t.proPage.alreadyPro,
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     )
                   else if (vm.platformSupportPayment) ...[
@@ -86,7 +102,9 @@ class ProPage extends StatelessWidget {
                         child: Text(
                           t.proPage.freeUntil(date: freeUntilLabel),
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                     ),
@@ -95,9 +113,7 @@ class ProPage extends StatelessWidget {
               if (vm.pending)
                 Container(
                   color: Colors.black.withValues(alpha: 0.1),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
             ],
           ),
@@ -121,9 +137,7 @@ class _FeatureRow extends StatelessWidget {
         children: [
           Icon(icon, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 12),
-          Expanded(
-            child: Text(label, style: const TextStyle(fontSize: 16)),
-          ),
+          Expanded(child: Text(label, style: const TextStyle(fontSize: 16))),
         ],
       ),
     );
@@ -146,14 +160,23 @@ class ProBanner extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Row(
             children: [
-              Icon(Icons.workspace_premium, color: Theme.of(context).colorScheme.primary),
+              Icon(
+                Icons.workspace_premium,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(t.proPage.title, style: Theme.of(context).textTheme.titleMedium),
-                    Text(t.proPage.bannerSubtitle, style: Theme.of(context).textTheme.bodySmall),
+                    Text(
+                      t.proPage.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      t.proPage.bannerSubtitle,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ],
                 ),
               ),

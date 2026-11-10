@@ -37,7 +37,11 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
     ensureRef((ref) async {
       final logs = await ref
           .redux(parentIsolateProvider)
-          .dispatchAsyncTakeResult(IsolateDiscoveryDeviceLogsAction(fingerprint: widget.device.fingerprint));
+          .dispatchAsyncTakeResult(
+            IsolateDiscoveryDeviceLogsAction(
+              fingerprint: widget.device.fingerprint,
+            ),
+          );
       if (mounted) {
         setState(() => _logs = logs);
       }
@@ -51,7 +55,13 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
         builder: (_) => FavoriteDeleteDialog(favoriteEntry),
       );
       if (result == true) {
-        await ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.device.fingerprint));
+        await ref
+            .redux(favoritesProvider)
+            .dispatchAsync(
+              RemoveFavoriteAction(
+                deviceFingerprint: widget.device.fingerprint,
+              ),
+            );
       }
     } else {
       await showDialog(
@@ -66,9 +76,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
     final device = widget.device;
     final favoriteEntry = ref.watch(favoritesProvider).findDevice(device);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.deviceDetailsPage.title),
-      ),
+      appBar: AppBar(title: Text(t.deviceDetailsPage.title)),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         children: [
@@ -90,7 +98,10 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                 width: 120,
                 onTap: () async => await context.push(
                   () => VerifyPage(
-                    fingerprint: CombinedFingerprint.load(context, device.fingerprint),
+                    fingerprint: CombinedFingerprint.load(
+                      context,
+                      device.fingerprint,
+                    ),
                   ),
                 ),
               ),
@@ -112,7 +123,10 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 15, bottom: 5),
-                      child: Text(entry.key, style: const TextStyle(color: Colors.grey)),
+                      child: Text(
+                        entry.key,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 5),
@@ -125,7 +139,12 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
           const SizedBox(height: 20),
           Row(
             children: [
-              Expanded(child: Text(t.deviceDetailsPage.logs.title, style: Theme.of(context).textTheme.titleMedium)),
+              Expanded(
+                child: Text(
+                  t.deviceDetailsPage.logs.title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
               IconButton(
                 tooltip: t.general.copy,
                 icon: const Icon(Icons.copy),
@@ -135,7 +154,11 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                         try {
                           await Clipboard.setData(
                             ClipboardData(
-                              text: _logs.map((log) => '[${SystemDateTimeFormatter.time(context, log.timestamp)}] ${log.description}').join('\n'),
+                              text: _logs
+                                  .map(
+                                    (log) => '[${SystemDateTimeFormatter.time(context, log.timestamp)}] ${log.description}',
+                                  )
+                                  .join('\n'),
                             ),
                           );
                           if (context.mounted) {
@@ -152,7 +175,10 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
           ),
           const SizedBox(height: 10),
           if (_logs.isEmpty)
-            Text(t.deviceDetailsPage.logs.empty, style: const TextStyle(color: Colors.grey))
+            Text(
+              t.deviceDetailsPage.logs.empty,
+              style: const TextStyle(color: Colors.grey),
+            )
           else
             ..._logs.map(
               (log) => Padding(
@@ -160,11 +186,11 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('[${SystemDateTimeFormatter.time(context, log.timestamp)}]'),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(log.description),
+                    Text(
+                      '[${SystemDateTimeFormatter.time(context, log.timestamp)}]',
                     ),
+                    const SizedBox(width: 4),
+                    Expanded(child: Text(log.description)),
                   ],
                 ),
               ),
@@ -179,8 +205,14 @@ extension on DeviceLog {
   String get description {
     final protocol = channel.https ? 'HTTPS' : 'HTTP';
     return switch (kind) {
-      DeviceLogKind.discovered => t.deviceDetailsPage.logs.discovered(protocol: protocol, host: channel.host),
-      DeviceLogKind.updated => t.deviceDetailsPage.logs.updated(protocol: protocol, host: channel.host),
+      DeviceLogKind.discovered => t.deviceDetailsPage.logs.discovered(
+        protocol: protocol,
+        host: channel.host,
+      ),
+      DeviceLogKind.updated => t.deviceDetailsPage.logs.updated(
+        protocol: protocol,
+        host: channel.host,
+      ),
     };
   }
 }

@@ -9,10 +9,18 @@ void main() {
       // Different names can point to the same glyph (e.g. Icons.local_dining and Icons.local_restaurant).
       final byCodePoint = <int, int>{};
       for (final icon in iconAlphabet) {
-        byCodePoint.update(icon.codePoint, (count) => count + 1, ifAbsent: () => 1);
+        byCodePoint.update(
+          icon.codePoint,
+          (count) => count + 1,
+          ifAbsent: () => 1,
+        );
       }
       final duplicates = byCodePoint.entries.where((e) => e.value > 1).map((e) => '0x${e.key.toRadixString(16)}').toList();
-      expect(duplicates, isEmpty, reason: 'duplicate glyphs: ${duplicates.join(', ')}');
+      expect(
+        duplicates,
+        isEmpty,
+        reason: 'duplicate glyphs: ${duplicates.join(', ')}',
+      );
     });
   });
 
@@ -45,21 +53,29 @@ void main() {
     });
 
     test('converts to a smaller alphabet', () {
-      expect(
-        convertFingerprintToAlphabet(fingerprint: 'F', alphabet: [0, 1]),
-        [1, 1, 1, 1],
-      );
+      expect(convertFingerprintToAlphabet(fingerprint: 'F', alphabet: [0, 1]), [
+        1,
+        1,
+        1,
+        1,
+      ]);
     });
 
     test('has a fixed length for a non-power-of-two alphabet', () {
       final alphabet = List.generate(10, (i) => i);
       // 64 hex chars = 256 bits, ceil(256 / log2(10)) = 78
       expect(
-        convertFingerprintToAlphabet(fingerprint: 'F' * 64, alphabet: alphabet).length,
+        convertFingerprintToAlphabet(
+          fingerprint: 'F' * 64,
+          alphabet: alphabet,
+        ).length,
         78,
       );
       expect(
-        convertFingerprintToAlphabet(fingerprint: '0' * 64, alphabet: alphabet).length,
+        convertFingerprintToAlphabet(
+          fingerprint: '0' * 64,
+          alphabet: alphabet,
+        ).length,
         78,
       );
     });
@@ -68,10 +84,19 @@ void main() {
       const fingerprint = 'A1B2C3D4E5F60718293A4B5C6D7E8F90';
       for (var size = 2; size <= 100; size++) {
         final alphabet = List.generate(size, (i) => i);
-        final digits = convertFingerprintToAlphabet(fingerprint: fingerprint, alphabet: alphabet);
-        final value = digits.fold(BigInt.zero, (acc, d) => acc * BigInt.from(size) + BigInt.from(d));
+        final digits = convertFingerprintToAlphabet(
+          fingerprint: fingerprint,
+          alphabet: alphabet,
+        );
+        final value = digits.fold(
+          BigInt.zero,
+          (acc, d) => acc * BigInt.from(size) + BigInt.from(d),
+        );
         expect(value, BigInt.parse(fingerprint, radix: 16));
-        expect(digits.length, (fingerprint.length * 4 * log(2) / log(size)).ceil());
+        expect(
+          digits.length,
+          (fingerprint.length * 4 * log(2) / log(size)).ceil(),
+        );
       }
     });
   });

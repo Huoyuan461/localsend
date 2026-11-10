@@ -1,14 +1,14 @@
 #![cfg(feature = "http")]
 
 use bytes::Bytes;
-use zhichuan::http::client::{ClientError, LsHttpClientV2};
-use zhichuan::http::server::v2::ServerEventV2;
-use zhichuan::http::server::web::WebDownloadConfig;
-use zhichuan::http::server::web::{WebConfig, WebDownloadEvent, WebMode, WebPages};
-use zhichuan::http::server::{start_with_port, ServerConfigV2};
-use zhichuan::http::state::ClientInfo;
-use zhichuan::model::discovery::ProtocolType;
-use zhichuan::model::transfer::{FileContent, FileDto};
+use localsend::http::client::{ClientError, LsHttpClientV2};
+use localsend::http::server::v2::ServerEventV2;
+use localsend::http::server::web::WebDownloadConfig;
+use localsend::http::server::web::{WebConfig, WebDownloadEvent, WebMode, WebPages};
+use localsend::http::server::{start_with_port, ServerConfigV2};
+use localsend::http::state::ClientInfo;
+use localsend::model::discovery::ProtocolType;
+use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
 use std::net::IpAddr;
 use std::path::PathBuf;
@@ -238,7 +238,7 @@ fn assert_status(result: Result<impl Sized, ClientError>, expected_status: u16) 
 async fn test_web_page() {
     let (config, contents, disk_path, _) = web_download_config(None);
     let server = start_test_server(Some((config, contents)), true).await;
-    let client = zhichuan::reqwest::Client::new();
+    let client = localsend::reqwest::Client::new();
     let base_url = format!("http://127.0.0.1:{}", server.port);
 
     let response = client.get(&base_url).send().await.unwrap();
@@ -271,7 +271,7 @@ async fn test_web_page() {
 #[tokio::test]
 async fn test_web_page_disabled() {
     let server = start_test_server(None, true).await;
-    let client = zhichuan::reqwest::Client::new();
+    let client = localsend::reqwest::Client::new();
     let base_url = format!("http://127.0.0.1:{}", server.port);
 
     let response = client.get(&base_url).send().await.unwrap();
@@ -324,7 +324,7 @@ async fn test_upload_page() {
     .expect("Failed to start server");
     let port = handle.port();
 
-    let client = zhichuan::reqwest::Client::new();
+    let client = localsend::reqwest::Client::new();
     let base_url = format!("http://127.0.0.1:{port}");
 
     // The upload page is served at `/` because web download is not active.
@@ -383,7 +383,7 @@ async fn test_custom_web_pages() {
     .await
     .expect("Failed to start server");
 
-    let client = zhichuan::reqwest::Client::new();
+    let client = localsend::reqwest::Client::new();
     let response = client
         .get(format!("http://127.0.0.1:{}", handle.port()))
         .send()

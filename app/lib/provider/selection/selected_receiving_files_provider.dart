@@ -9,7 +9,9 @@ const _uuid = Uuid();
 /// Manages files to be selected to receive.
 /// Never disposed; it is re-seeded via [SelectedReceivingFilesNotifier.setFiles] before each [ReceivePage] is pushed.
 /// Map: FileId -> FileName
-final selectedReceivingFilesProvider = NotifierProvider<SelectedReceivingFilesNotifier, Map<String, String>>((ref) {
+final selectedReceivingFilesProvider = NotifierProvider<SelectedReceivingFilesNotifier, Map<String, String>>((
+  ref,
+) {
   return SelectedReceivingFilesNotifier();
 });
 
@@ -32,10 +34,7 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
   }
 
   void select(FileDto file) {
-    state = {
-      ...state,
-      file.id: file.fileName,
-    };
+    state = {...state, file.id: file.fileName};
   }
 
   void rename(String fileId, String fileName) {
@@ -64,7 +63,10 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
         if (padZero) {
           number = number.padLeft(maxKeyStringLength, '0');
         }
-        return MapEntry(element.key, element.value.withFileNameKeepExtension('$prefix$number'));
+        return MapEntry(
+          element.key,
+          element.value.withFileNameKeepExtension('$prefix$number'),
+        );
       }),
     );
   }

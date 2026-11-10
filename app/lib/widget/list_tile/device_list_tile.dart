@@ -30,13 +30,20 @@ class DeviceListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final badgeColor = Color.lerp(Theme.of(context).colorScheme.secondaryContainer, Colors.white, 0.3)!;
+    final badgeColor = Color.lerp(
+      Theme.of(context).colorScheme.secondaryContainer,
+      Colors.white,
+      0.3,
+    )!;
     return CustomListTile(
       icon: Icon(device.deviceType.icon, size: 46),
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(nameOverride ?? device.alias, style: const TextStyle(fontSize: 20)),
+          Text(
+            nameOverride ?? device.alias,
+            style: const TextStyle(fontSize: 20),
+          ),
           if (isFavorite) ...[
             const SizedBox(width: 5),
             Icon(Icons.check_circle, size: 16),
@@ -64,19 +71,25 @@ class DeviceListTile extends StatelessWidget {
             if (device.ip != null)
               DeviceBadge(
                 backgroundColor: badgeColor,
-                foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                foregroundColor: Theme.of(
+                  context,
+                ).colorScheme.onSecondaryContainer,
                 label: 'HTTP',
               )
             else
               DeviceBadge(
                 backgroundColor: badgeColor,
-                foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                foregroundColor: Theme.of(
+                  context,
+                ).colorScheme.onSecondaryContainer,
                 label: 'WebRTC',
               ),
             if (device.deviceModel != null)
               DeviceBadge(
                 backgroundColor: badgeColor,
-                foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                foregroundColor: Theme.of(
+                  context,
+                ).colorScheme.onSecondaryContainer,
                 label: device.deviceModel!,
               ),
           ],

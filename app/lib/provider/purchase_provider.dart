@@ -12,11 +12,7 @@ final purchaseProvider = ReduxProvider<PurchaseService, PurchaseState>((ref) {
 
 class PurchaseService extends ReduxNotifier<PurchaseState> {
   @override
-  PurchaseState init() => const PurchaseState(
-    prices: {},
-    purchases: {},
-    pending: false,
-  );
+  PurchaseState init() => const PurchaseState(prices: {}, purchases: {}, pending: false);
 }
 
 class InitPurchaseStream extends AsyncReduxAction<PurchaseService, PurchaseState> {
@@ -63,18 +59,20 @@ class FetchPricesAndPurchasesAction extends AsyncReduxAction<PurchaseService, Pu
 class FetchPricesAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
   @override
   Future<PurchaseState> reduce() async {
-    final response = await InAppPurchase.instance.queryProductDetails(PurchaseItem.values.map((e) => e.platformProductId).toSet());
+    final response = await InAppPurchase.instance.queryProductDetails(
+      PurchaseItem.values.map((e) => e.platformProductId).toSet(),
+    );
     final priceMap = <PurchaseItem, String>{};
     for (final product in response.productDetails) {
-      final item = PurchaseItem.values.firstWhereOrNull((e) => e.platformProductId == product.id);
+      final item = PurchaseItem.values.firstWhereOrNull(
+        (e) => e.platformProductId == product.id,
+      );
       if (item == null) {
         continue;
       }
       priceMap[item] = product.price;
     }
-    return state.copyWith(
-      prices: priceMap,
-    );
+    return state.copyWith(prices: priceMap);
   }
 }
 
@@ -99,7 +97,9 @@ class _HandlePurchaseUpdate extends AsyncReduxAction<PurchaseService, PurchaseSt
       // ignore: avoid_print
       throw 'Error purchasing: ${purchase.error?.message}';
     } else if (purchase.status == PurchaseStatus.purchased || purchase.status == PurchaseStatus.restored) {
-      final purchaseEnum = PurchaseItem.values.firstWhereOrNull((element) => element.platformProductId == purchase.productID);
+      final purchaseEnum = PurchaseItem.values.firstWhereOrNull(
+        (element) => element.platformProductId == purchase.productID,
+      );
       if (purchaseEnum == null) {
         throw 'Unknown product ID: ${purchase.productID}';
       }
@@ -126,12 +126,7 @@ class AddPurchaseAction extends ReduxAction<PurchaseService, PurchaseState> {
 
   @override
   PurchaseState reduce() {
-    return state.copyWith(
-      purchases: {
-        ...state.purchases,
-        item,
-      },
-    );
+    return state.copyWith(purchases: {...state.purchases, item});
   }
 }
 
@@ -160,10 +155,7 @@ class PurchaseRestoreAction extends AsyncReduxAction<PurchaseService, PurchaseSt
 /// Only used for testing.
 class PurchaseResetAction extends ReduxAction<PurchaseService, PurchaseState> {
   @override
-  PurchaseState reduce() => state.copyWith(
-    purchases: {},
-    pending: false,
-  );
+  PurchaseState reduce() => state.copyWith(purchases: {}, pending: false);
 }
 
 /// Initiate the purchase flow for a product.
@@ -175,7 +167,9 @@ class PurchaseAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
 
   @override
   Future<PurchaseState> reduce() async {
-    final response = await InAppPurchase.instance.queryProductDetails(<String>{item.platformProductId});
+    final response = await InAppPurchase.instance.queryProductDetails(<String>{
+      item.platformProductId,
+    });
     final productDetails = response.productDetails.firstOrNull;
     if (productDetails == null) {
       throw Exception('Product not found: ${item.platformProductId}');

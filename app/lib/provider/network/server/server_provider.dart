@@ -35,7 +35,13 @@ final serverProvider = NotifierProvider<ServerService, ServerState?>(
   onChanged: (_, next, ref) {
     final settings = ref.read(settingsProvider);
     final syncState = ref.read(parentIsolateProvider).syncState;
-    final syncStatePrev = (syncState.alias, syncState.port, syncState.protocol, syncState.serverRunning, syncState.download);
+    final syncStatePrev = (
+      syncState.alias,
+      syncState.port,
+      syncState.protocol,
+      syncState.serverRunning,
+      syncState.download,
+    );
     final syncStateNext = (
       next?.alias ?? settings.alias,
       next?.port ?? settings.port,
@@ -136,7 +142,13 @@ class ServerService extends Notifier<ServerState?> {
 
     // The server isolate derives its configuration from the sync state,
     // so it must be published before the start task.
-    _syncServerState(alias: alias, port: port, https: https, serverRunning: true, download: web is WebShareDownload);
+    _syncServerState(
+      alias: alias,
+      port: port,
+      https: https,
+      serverRunning: true,
+      download: web is WebShareDownload,
+    );
 
     final settings = ref.read(settingsProvider);
     // Custom pages provided by the user next to the executable, if any.
@@ -206,7 +218,13 @@ class ServerService extends Notifier<ServerState?> {
       await started.future;
     } catch (e) {
       await subscription.cancel();
-      _syncServerState(alias: alias, port: port, https: https, serverRunning: false, download: false);
+      _syncServerState(
+        alias: alias,
+        port: port,
+        https: https,
+        serverRunning: false,
+        download: false,
+      );
       _logger.warning('Failed to start server', e);
       rethrow;
     }
@@ -222,7 +240,9 @@ class ServerService extends Notifier<ServerState?> {
     );
 
     state = newServerState;
-    _logger.info('Server started. (Port: $port, ${https ? 'HTTPS' : 'HTTP'} only)');
+    _logger.info(
+      'Server started. (Port: $port, ${https ? 'HTTPS' : 'HTTP'} only)',
+    );
     return newServerState;
   }
 
@@ -287,7 +307,9 @@ class ServerService extends Notifier<ServerState?> {
     required List<CrossFile> files,
     String? pin,
   }) async {
-    final webDownloadState = await _sendController.buildWebDownloadState(files: files);
+    final webDownloadState = await _sendController.buildWebDownloadState(
+      files: files,
+    );
     await restartServer(
       alias: alias,
       port: port,
@@ -322,7 +344,9 @@ class ServerService extends Notifier<ServerState?> {
 
   /// Updates the auto accept setting for web download.
   void setWebDownloadAutoAccept(bool autoAccept) {
-    state = state?.updateWebDownloadState((webDownload) => webDownload.copyWith(autoAccept: autoAccept));
+    state = state?.updateWebDownloadState(
+      (webDownload) => webDownload.copyWith(autoAccept: autoAccept),
+    );
   }
 
   /// Accepts the web download request.
@@ -397,7 +421,9 @@ class ServerService extends Notifier<ServerState?> {
       );
       socket.destroy();
     } catch (e) {
-      _logger.warning('The server did not accept a probe connection: $e. Restarting server.');
+      _logger.warning(
+        'The server did not accept a probe connection: $e. Restarting server.',
+      );
       await _restartDeadServer();
     } finally {
       _probeInFlight = false;
@@ -426,7 +452,10 @@ class ServerService extends Notifier<ServerState?> {
         },
       );
     } catch (e) {
-      _logger.severe('Failed to restart the server after its listener failed', e);
+      _logger.severe(
+        'Failed to restart the server after its listener failed',
+        e,
+      );
     }
   }
 

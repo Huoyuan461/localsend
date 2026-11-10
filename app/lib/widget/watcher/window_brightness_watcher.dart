@@ -10,10 +10,7 @@ final _logger = Logger('WindowBrightnessWatcher');
 class WindowBrightnessWatcher extends StatefulWidget {
   final Widget child;
 
-  const WindowBrightnessWatcher({
-    required this.child,
-    super.key,
-  });
+  const WindowBrightnessWatcher({required this.child, super.key});
 
   @override
   State<WindowBrightnessWatcher> createState() => _WindowBrightnessWatcherState();

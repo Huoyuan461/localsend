@@ -10,10 +10,7 @@ class WindowDimensions {
   final Offset position;
   final Size size;
 
-  WindowDimensions({
-    required this.position,
-    required this.size,
-  });
+  WindowDimensions({required this.position, required this.size});
 }
 
 final windowDimensionProvider = Provider<WindowDimensionsController>((ref) {
@@ -42,16 +39,25 @@ class WindowDimensionsController {
     }
   }
 
-  Future<void> _restorePersistedDimensions({required bool useSavedPlacement}) async {
+  Future<void> _restorePersistedDimensions({
+    required bool useSavedPlacement,
+  }) async {
     final persistedDimensions = _service.getWindowLastDimensions();
-    if (useSavedPlacement && persistedDimensions != null && await isInScreenBounds(persistedDimensions.position, persistedDimensions.size)) {
+    if (useSavedPlacement &&
+        persistedDimensions != null &&
+        await isInScreenBounds(
+          persistedDimensions.position,
+          persistedDimensions.size,
+        )) {
       await _applyDimensions(persistedDimensions);
     } else {
       await _setDefaultDimensions();
     }
   }
 
-  Future<void> _restoreNativeDimensions({required bool useSavedPlacement}) async {
+  Future<void> _restoreNativeDimensions({
+    required bool useSavedPlacement,
+  }) async {
     final restored = useSavedPlacement && await macos_channel.restoreWindowFrame();
     if (!restored) {
       // Migrate placement saved by earlier versions when AppKit has no saved frame.
@@ -74,13 +80,21 @@ class WindowDimensionsController {
   Future<void> _setDefaultDimensions() async {
     final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
     final hasEnoughWidthForDefaultSize = primaryDisplay.digestedSize.width >= 1200;
-    await WindowManager.instance.setSize(hasEnoughWidthForDefaultSize ? _defaultSize : _minimalSize);
+    await WindowManager.instance.setSize(
+      hasEnoughWidthForDefaultSize ? _defaultSize : _minimalSize,
+    );
     await WindowManager.instance.center();
   }
 
-  Future<bool> isInScreenBounds(Offset windowPosition, [Size? windowSize]) async {
+  Future<bool> isInScreenBounds(
+    Offset windowPosition, [
+    Size? windowSize,
+  ]) async {
     final displays = await ScreenRetriever.instance.getAllDisplays();
-    final sumWidth = displays.fold(0.0, (previousValue, element) => previousValue + element.digestedSize.width);
+    final sumWidth = displays.fold(
+      0.0,
+      (previousValue, element) => previousValue + element.digestedSize.width,
+    );
     final maxHeight = displays.fold(
       0.0,
       (previousValue, element) => previousValue > element.digestedSize.height ? previousValue : element.digestedSize.height,

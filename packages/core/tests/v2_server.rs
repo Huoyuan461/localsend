@@ -2,16 +2,16 @@
 
 use bytes::Bytes;
 use futures_util::StreamExt;
-use zhichuan::crypto::hash::sha256_hex;
-use zhichuan::http::client::{ClientError, LsHttpClient, LsHttpClientV2};
-use zhichuan::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
-use zhichuan::http::server::common::save::FileUploadTarget;
-use zhichuan::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
-use zhichuan::http::server::web::WebConfig;
-use zhichuan::http::server::{start_with_port, ServerConfigV2};
-use zhichuan::http::state::ClientInfo;
-use zhichuan::model::discovery::ProtocolType;
-use zhichuan::model::transfer::{FileContent, FileDto, FileMetadata};
+use localsend::crypto::hash::sha256_hex;
+use localsend::http::client::{ClientError, LsHttpClient, LsHttpClientV2};
+use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
+use localsend::http::server::common::save::FileUploadTarget;
+use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
+use localsend::http::server::web::WebConfig;
+use localsend::http::server::{start_with_port, ServerConfigV2};
+use localsend::http::state::ClientInfo;
+use localsend::model::discovery::ProtocolType;
+use localsend::model::transfer::{FileContent, FileDto, FileMetadata};
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -214,7 +214,7 @@ async fn upload_bytes(
     // sent so the progress assertion below still holds.
     let progress = sent.clone();
     let body =
-        zhichuan::reqwest::Body::wrap_stream(ReceiverStream::new(rx).map(move |chunk: Bytes| {
+        localsend::reqwest::Body::wrap_stream(ReceiverStream::new(rx).map(move |chunk: Bytes| {
             progress.fetch_add(chunk.len() as u64, Ordering::Relaxed);
             Ok::<Bytes, std::io::Error>(chunk)
         }));
@@ -910,7 +910,7 @@ async fn test_upload_with_invalid_token() {
 async fn test_upload_missing_parameters() {
     let server = start_test_server(None, true, None).await;
 
-    let response = zhichuan::reqwest::Client::new()
+    let response = localsend::reqwest::Client::new()
         .post(format!(
             "http://127.0.0.1:{}/api/localsend/v2/upload?sessionId=abc",
             server.port
@@ -934,7 +934,7 @@ async fn test_second_session_blocked_and_cancel() {
             "127.0.0.1",
             server.port,
             None,
-            prepare_upload_request(&[file.clone()]),
+            prepare_upload_request(std::slice::from_ref(&file)),
             None,
             CancellationToken::new(),
         )
@@ -950,7 +950,7 @@ async fn test_second_session_blocked_and_cancel() {
             "127.0.0.1",
             server.port,
             None,
-            prepare_upload_request(&[file.clone()]),
+            prepare_upload_request(std::slice::from_ref(&file)),
             None,
             CancellationToken::new(),
         )
@@ -1171,7 +1171,7 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
     tokio::time::sleep(Duration::from_millis(200)).await;
 
     let cancel_url = format!("http://127.0.0.1:{port}/api/localsend/v2/cancel");
-    let cancel_client = zhichuan::reqwest::Client::new();
+    let cancel_client = localsend::reqwest::Client::new();
 
     // A cancel with a wrong session ID must not cancel the pending request.
     cancel_client
@@ -1263,7 +1263,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
     let handle = start_with_port(
         0,
-        Some(zhichuan::http::server::TlsConfig {
+        Some(localsend::http::server::TlsConfig {
             cert: server_cert.pem(),
             private_key: server_key.serialize_pem(),
         }),
@@ -1354,7 +1354,7 @@ async fn test_prepare_upload_declined() {
             "127.0.0.1",
             server.port,
             None,
-            prepare_upload_request(&[file.clone()]),
+            prepare_upload_request(std::slice::from_ref(&file)),
             None,
             CancellationToken::new(),
         )
@@ -1390,7 +1390,7 @@ async fn test_pin() {
             "127.0.0.1",
             server.port,
             None,
-            prepare_upload_request(&[file.clone()]),
+            prepare_upload_request(std::slice::from_ref(&file)),
             None,
             CancellationToken::new(),
         )
@@ -1404,7 +1404,7 @@ async fn test_pin() {
             "127.0.0.1",
             server.port,
             None,
-            prepare_upload_request(&[file.clone()]),
+            prepare_upload_request(std::slice::from_ref(&file)),
             Some("000000"),
             CancellationToken::new(),
         )
@@ -1440,7 +1440,7 @@ async fn test_pin_too_many_attempts() {
                 "127.0.0.1",
                 server.port,
                 None,
-                prepare_upload_request(&[file.clone()]),
+                prepare_upload_request(std::slice::from_ref(&file)),
                 Some("000000"),
                 CancellationToken::new(),
             )

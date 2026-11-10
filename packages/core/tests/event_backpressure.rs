@@ -8,16 +8,16 @@
 //! application to catch up would stall an HTTP request handler, or a scan, for
 //! as long as the application is busy.
 
-use zhichuan::crypto::cert::generate_self_signed;
-use zhichuan::discovery::{self, DeviceIdentity, DiscoveryConfig, DiscoveryEvent};
-use zhichuan::http::client::LsHttpClientV2;
-use zhichuan::http::dto_v2::RegisterDtoV2;
-use zhichuan::http::server::v2::ServerEventV2;
-use zhichuan::http::server::web::WebConfig;
-use zhichuan::http::server::{start_with_port, ServerConfigV2};
-use zhichuan::http::state::ClientInfo;
-use zhichuan::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
-use zhichuan::multicast::MulticastDevice;
+use localsend::crypto::cert::generate_self_signed;
+use localsend::discovery::{self, DeviceIdentity, DiscoveryConfig, DiscoveryEvent};
+use localsend::http::client::LsHttpClientV2;
+use localsend::http::dto_v2::RegisterDtoV2;
+use localsend::http::server::v2::ServerEventV2;
+use localsend::http::server::web::WebConfig;
+use localsend::http::server::{start_with_port, ServerConfigV2};
+use localsend::http::state::ClientInfo;
+use localsend::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
+use localsend::multicast::MulticastDevice;
 use std::net::Ipv4Addr;
 use std::sync::atomic::{AtomicU16, Ordering};
 use std::time::Duration;

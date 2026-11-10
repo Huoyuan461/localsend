@@ -9,24 +9,31 @@ import 'package:open_file/open_file.dart';
 final _logger = Logger('OpenFolder');
 
 /// Opens the folder and optionally selects the file in the folder.
-Future<void> openFolder({
-  required String folderPath,
-  String? fileName,
-}) async {
+Future<void> openFolder({required String folderPath, String? fileName}) async {
   if (folderPath.startsWith('content://')) {
     await android_channel.openContentUri(uri: folderPath);
     return;
   }
 
-  if (fileName != null && checkPlatform([TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS])) {
+  if (fileName != null &&
+      checkPlatform([
+        TargetPlatform.windows,
+        TargetPlatform.linux,
+        TargetPlatform.macOS,
+      ])) {
     // open folder and select file
 
     if (defaultTargetPlatform == TargetPlatform.windows) {
       folderPath = folderPath.replaceAll('/', '\\');
     }
 
-    final result = await _showInFileManager(folderPath: folderPath, fileName: fileName);
-    _logger.info('Open folder result: $result, path: $folderPath, file: $fileName');
+    final result = await _showInFileManager(
+      folderPath: folderPath,
+      fileName: fileName,
+    );
+    _logger.info(
+      'Open folder result: $result, path: $folderPath, file: $fileName',
+    );
     if (result) {
       return;
     }
@@ -43,7 +50,10 @@ Future<void> openFolder({
 
 /// Opens [folderPath] in the platform's file manager with [fileName] selected.
 /// Arguments are passed as a list (no shell), so file names received from remote devices cannot inject commands.
-Future<bool> _showInFileManager({required String folderPath, required String fileName}) async {
+Future<bool> _showInFileManager({
+  required String folderPath,
+  required String fileName,
+}) async {
   final separator = defaultTargetPlatform == TargetPlatform.windows ? '\\' : '/';
   final filePath = folderPath.endsWith(separator) ? '$folderPath$fileName' : '$folderPath$separator$fileName';
   if (!File(filePath).existsSync()) {

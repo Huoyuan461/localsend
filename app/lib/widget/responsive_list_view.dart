@@ -81,9 +81,7 @@ class ResponsiveListView extends StatelessWidget {
               builder: (sizingInformation) {
                 final bottom = sizingInformation.isDesktop ? desktopPadding.bottom : padding.bottom;
                 return Padding(
-                  padding: (sizingInformation.isDesktop ? desktopPadding : padding).copyWith(
-                    bottom: bottom + getNavBarPadding(context),
-                  ),
+                  padding: (sizingInformation.isDesktop ? desktopPadding : padding).copyWith(bottom: bottom + getNavBarPadding(context)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: children!,

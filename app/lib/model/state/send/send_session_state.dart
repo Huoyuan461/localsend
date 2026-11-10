@@ -58,7 +58,5 @@ class SendSessionState with SendSessionStateMappable implements SessionState {
 class SendingTask {
   final int taskId;
 
-  SendingTask({
-    required this.taskId,
-  });
+  SendingTask({required this.taskId});
 }

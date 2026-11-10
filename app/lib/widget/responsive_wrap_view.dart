@@ -36,14 +36,7 @@ class ResponsiveWrapView extends StatelessWidget {
           if (availableWidth < minChildWidth) {
             return Wrap(
               runSpacing: childPadding,
-              children: children
-                  .map(
-                    (child) => SizedBox(
-                      width: availableWidth,
-                      child: child,
-                    ),
-                  )
-                  .toList(),
+              children: children.map((child) => SizedBox(width: availableWidth, child: child)).toList(),
             );
           }
 
@@ -60,14 +53,7 @@ class ResponsiveWrapView extends StatelessWidget {
           return Wrap(
             spacing: childPadding,
             runSpacing: childPadding,
-            children: children
-                .map(
-                  (child) => SizedBox(
-                    width: actualChildWidth,
-                    child: child,
-                  ),
-                )
-                .toList(),
+            children: children.map((child) => SizedBox(width: actualChildWidth, child: child)).toList(),
           );
         },
       ),

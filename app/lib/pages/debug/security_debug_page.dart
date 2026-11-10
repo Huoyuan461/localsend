@@ -11,9 +11,7 @@ class SecurityDebugPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final securityContext = context.ref.watch(securityProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Security Debugging'),
-      ),
+      appBar: AppBar(title: const Text('Security Debugging')),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         maxWidth: 700,
@@ -30,18 +28,9 @@ class SecurityDebugPage extends StatelessWidget {
             name: 'Certificate SHA-256 (fingerprint)',
             value: securityContext.certificateHash,
           ),
-          DebugEntry(
-            name: 'Certificate',
-            value: securityContext.certificate,
-          ),
-          DebugEntry(
-            name: 'Private Key',
-            value: securityContext.privateKey,
-          ),
-          DebugEntry(
-            name: 'Public Key',
-            value: securityContext.publicKey,
-          ),
+          DebugEntry(name: 'Certificate', value: securityContext.certificate),
+          DebugEntry(name: 'Private Key', value: securityContext.privateKey),
+          DebugEntry(name: 'Public Key', value: securityContext.publicKey),
         ],
       ),
     );

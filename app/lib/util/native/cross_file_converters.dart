@@ -59,7 +59,9 @@ class CrossFileConverters {
     );
   }
 
-  static Future<CrossFile> convertFileInfo(android_channel.FileInfo file) async {
+  static Future<CrossFile> convertFileInfo(
+    android_channel.FileInfo file,
+  ) async {
     return CrossFile(
       name: file.name,
       fileType: file.name.guessFileType(),
@@ -74,7 +76,9 @@ class CrossFileConverters {
     );
   }
 
-  static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
+  static Future<CrossFile> convertSharedAttachment(
+    SharedAttachment attachment,
+  ) async {
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
     final metadata = await readFileMetadata(path: file.path);

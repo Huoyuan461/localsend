@@ -14,9 +14,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 final _logger = Logger('NetworkInfo');
 
 final localIpProvider = ReduxProvider<LocalIpService, NetworkState>((ref) {
-  return LocalIpService(
-    ref.notifier(settingsProvider),
-  );
+  return LocalIpService(ref.notifier(settingsProvider));
 });
 
 StreamSubscription? _subscription;
@@ -28,10 +26,7 @@ class LocalIpService extends ReduxNotifier<NetworkState> {
 
   @override
   NetworkState init() {
-    return const NetworkState(
-      localIps: [],
-      initialized: false,
-    );
+    return const NetworkState(localIps: [], initialized: false);
   }
 
   @override
@@ -91,22 +86,23 @@ Future<List<String>> _getIp({
     _logger.warning('Failed to get wifi IP', e);
   }
 
-  final nativeResult =
-      (await getNetworkInterfaces(
-            whitelist: whitelist,
-            blacklist: blacklist,
-          ))
-          .map((interface) => interface.addresses.map((a) => a.address).toList())
-          .expand((ip) => ip)
-          .where((ip) => !ip.contains(':')) // ignore IPv6 for now
-          .toList();
+  final nativeResult = (await getNetworkInterfaces(whitelist: whitelist, blacklist: blacklist))
+      .map(
+        (interface) => interface.addresses.map((a) => a.address).toList(),
+      )
+      .expand((ip) => ip)
+      .where((ip) => !ip.contains(':')) // ignore IPv6 for now
+      .toList();
 
   final addresses = rankIpAddresses(nativeResult, ip);
   _logger.info('Network state: $addresses');
   return addresses;
 }
 
-List<String> rankIpAddresses(List<String> nativeResult, String? thirdPartyResult) {
+List<String> rankIpAddresses(
+  List<String> nativeResult,
+  String? thirdPartyResult,
+) {
   if (thirdPartyResult == null) {
     // only take the list
     return nativeResult._rankIpAddresses(null);
@@ -118,7 +114,10 @@ List<String> rankIpAddresses(List<String> nativeResult, String? thirdPartyResult
     return {thirdPartyResult, ...nativeResult}.toList()._rankIpAddresses(null);
   } else {
     // merge but prefer result from third party library
-    return {thirdPartyResult, ...nativeResult}.toList()._rankIpAddresses(thirdPartyResult);
+    return {
+      thirdPartyResult,
+      ...nativeResult,
+    }.toList()._rankIpAddresses(thirdPartyResult);
   }
 }
 

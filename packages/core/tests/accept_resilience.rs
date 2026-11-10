@@ -9,10 +9,10 @@
 //! This test lowers the descriptor limit of its own process, which is why it
 //! is the only test in this binary.
 
-use zhichuan::http::server::v2::ServerEventV2;
-use zhichuan::http::server::web::WebConfig;
-use zhichuan::http::server::{start_with_port, ServerConfigV2};
-use zhichuan::http::state::ClientInfo;
+use localsend::http::server::v2::ServerEventV2;
+use localsend::http::server::web::WebConfig;
+use localsend::http::server::{start_with_port, ServerConfigV2};
+use localsend::http::state::ClientInfo;
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::sync::{mpsc, oneshot};

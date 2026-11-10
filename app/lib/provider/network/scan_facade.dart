@@ -38,9 +38,7 @@ class StartSmartScan extends AsyncGlobalAction {
 class StartLegacySubnetScan extends AsyncGlobalAction {
   final List<String> subnets;
 
-  StartLegacySubnetScan({
-    required this.subnets,
-  });
+  StartLegacySubnetScan({required this.subnets});
 
   @override
   Future<void> reduce() async {
@@ -52,7 +50,12 @@ class StartLegacySubnetScan extends AsyncGlobalAction {
     ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan());
 
     await Future.wait<void>([
-      for (final subnet in subnets) ref.redux(nearbyDevicesProvider).dispatchAsync(StartLegacyScan(port: port, localIp: subnet, https: https)),
+      for (final subnet in subnets)
+        ref
+            .redux(nearbyDevicesProvider)
+            .dispatchAsync(
+              StartLegacyScan(port: port, localIp: subnet, https: https),
+            ),
     ]);
   }
 }

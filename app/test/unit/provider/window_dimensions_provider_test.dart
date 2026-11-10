@@ -11,8 +11,13 @@ void main() {
 
   const nativeChannel = MethodChannel('main-delegate-channel');
   const windowChannel = MethodChannel('window_manager');
-  const screenChannel = MethodChannel('dev.leanflutter.plugins/screen_retriever');
-  final legacyFrame = WindowDimensions(position: const Offset(120, 80), size: const Size(700, 550));
+  const screenChannel = MethodChannel(
+    'dev.leanflutter.plugins/screen_retriever',
+  );
+  final legacyFrame = WindowDimensions(
+    position: const Offset(120, 80),
+    size: const Size(700, 550),
+  );
 
   late MockPersistenceService persistence;
   late List<MethodCall> nativeCalls;
@@ -76,7 +81,10 @@ void main() {
 
     await WindowDimensionsController(persistence).initDimensionsConfiguration();
 
-    expect(nativeCalls.map((call) => call.method), ['restoreWindowFrame', 'configureWindowFrameAutosave']);
+    expect(nativeCalls.map((call) => call.method), [
+      'restoreWindowFrame',
+      'configureWindowFrameAutosave',
+    ]);
     expect(nativeCalls.last.arguments, {'enabled': true});
     expect(windowCalls.map((call) => call.method), ['setMinimumSize']);
     verifyNever(persistence.getWindowLastDimensions());
@@ -85,7 +93,10 @@ void main() {
 
   test('macOS ignores a legacy frame on a disconnected display', () async {
     when(persistence.getWindowLastDimensions()).thenReturn(
-      WindowDimensions(position: const Offset(1200, 80), size: const Size(700, 550)),
+      WindowDimensions(
+        position: const Offset(1200, 80),
+        size: const Size(700, 550),
+      ),
     );
 
     await WindowDimensionsController(persistence).initDimensionsConfiguration();
@@ -97,21 +108,39 @@ void main() {
       'getAllDisplays',
       'getCursorScreenPoint',
     ]);
-    expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'getBounds', 'setBounds']);
+    expect(windowCalls.map((call) => call.method), [
+      'setMinimumSize',
+      'setBounds',
+      'getBounds',
+      'setBounds',
+    ]);
     expect((windowCalls[1].arguments as Map)['width'], 900.0);
     expect((windowCalls[1].arguments as Map)['height'], 600.0);
     expect((windowCalls[3].arguments as Map)['x'], 270.0);
     expect((windowCalls[3].arguments as Map)['y'], 150.0);
-    expect(nativeCalls.map((call) => call.method), ['restoreWindowFrame', 'configureWindowFrameAutosave']);
+    expect(nativeCalls.map((call) => call.method), [
+      'restoreWindowFrame',
+      'configureWindowFrameAutosave',
+    ]);
   });
 
   test('macOS migrates the legacy frame when no native frame exists', () async {
     await WindowDimensionsController(persistence).initDimensionsConfiguration();
 
-    expect(nativeCalls.map((call) => call.method), ['restoreWindowFrame', 'configureWindowFrameAutosave']);
-    expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'setBounds']);
+    expect(nativeCalls.map((call) => call.method), [
+      'restoreWindowFrame',
+      'configureWindowFrameAutosave',
+    ]);
+    expect(windowCalls.map((call) => call.method), [
+      'setMinimumSize',
+      'setBounds',
+      'setBounds',
+    ]);
     expect((windowCalls[1].arguments as Map)['width'], legacyFrame.size.width);
-    expect((windowCalls[1].arguments as Map)['height'], legacyFrame.size.height);
+    expect(
+      (windowCalls[1].arguments as Map)['height'],
+      legacyFrame.size.height,
+    );
     expect((windowCalls[2].arguments as Map)['x'], legacyFrame.position.dx);
     expect((windowCalls[2].arguments as Map)['y'], legacyFrame.position.dy);
     expect(screenCalls.map((call) => call.method), ['getAllDisplays']);
@@ -123,7 +152,10 @@ void main() {
     await controller.configureWindowFrameAutosave(enabled: false);
     await controller.configureWindowFrameAutosave(enabled: true);
 
-    expect(nativeCalls.map((call) => call.method), ['configureWindowFrameAutosave', 'configureWindowFrameAutosave']);
+    expect(nativeCalls.map((call) => call.method), [
+      'configureWindowFrameAutosave',
+      'configureWindowFrameAutosave',
+    ]);
     expect(nativeCalls.map((call) => call.arguments), [
       {'enabled': false},
       {'enabled': true},
@@ -134,7 +166,10 @@ void main() {
   test('macOS native autosave suppresses legacy placement writes', () async {
     final controller = WindowDimensionsController(persistence);
 
-    await controller.storeDimensions(windowOffset: legacyFrame.position, windowSize: legacyFrame.size);
+    await controller.storeDimensions(
+      windowOffset: legacyFrame.position,
+      windowSize: legacyFrame.size,
+    );
     await controller.storePosition(windowOffset: legacyFrame.position);
     await controller.storeSize(windowSize: legacyFrame.size);
 
@@ -152,7 +187,11 @@ void main() {
 
     expect(nativeCalls, isEmpty);
     expect(screenCalls.map((call) => call.method), ['getAllDisplays']);
-    expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'setBounds']);
+    expect(windowCalls.map((call) => call.method), [
+      'setMinimumSize',
+      'setBounds',
+      'setBounds',
+    ]);
     expect((windowCalls[2].arguments as Map)['x'], legacyFrame.position.dx);
     expect((windowCalls[2].arguments as Map)['y'], legacyFrame.position.dy);
   });

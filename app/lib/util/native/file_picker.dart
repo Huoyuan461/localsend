@@ -103,10 +103,7 @@ class PickFileAction extends AsyncGlobalAction {
   final FilePickerOption option;
   final BuildContext context;
 
-  PickFileAction({
-    required this.option,
-    required this.context,
-  });
+  PickFileAction({required this.option, required this.context});
 
   @override
   Future<void> reduce() async {
@@ -185,7 +182,10 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
     }
 
     // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    await showDialog(
+      context: context,
+      builder: (_) => const NoPermissionDialog(),
+    );
     _logger.warning('Failed to pick files', e);
   } finally {
     // ignore: use_build_context_synchronously
@@ -235,7 +235,10 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 
     _logger.warning('Failed to pick directory', e);
     // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    await showDialog(
+      context: context,
+      builder: (_) => const NoPermissionDialog(),
+    );
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog
@@ -259,7 +262,10 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
   final oldBrightness = Theme.of(context).brightness;
   final List<AssetEntity>? result = await AssetPicker.pickAssets(
     context,
-    pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
+    pickerConfig: const AssetPickerConfig(
+      maxAssets: 999,
+      textDelegate: TranslatedAssetPickerTextDelegate(),
+    ),
   );
 
   WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -283,7 +289,10 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickText(BuildContext context, Ref ref) async {
-  final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
+  final result = await showDialog<String>(
+    context: context,
+    builder: (_) => const MessageInputDialog(),
+  );
   if (result != null) {
     ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: result));
   }
@@ -361,11 +370,9 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     return;
   }
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(t.general.noItemInClipboard),
-    ),
-  );
+  ScaffoldMessenger.of(
+    context,
+  ).showSnackBar(SnackBar(content: Text(t.general.noItemInClipboard)));
 }
 
 Future<void> _pickApp(BuildContext context) async {

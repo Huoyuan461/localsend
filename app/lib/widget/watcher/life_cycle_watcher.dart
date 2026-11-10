@@ -4,7 +4,11 @@ class LifeCycleWatcher extends StatefulWidget {
   final Widget child;
   final void Function(AppLifecycleState state) onChangedState;
 
-  const LifeCycleWatcher({required this.child, required this.onChangedState, super.key});
+  const LifeCycleWatcher({
+    required this.child,
+    required this.onChangedState,
+    super.key,
+  });
 
   @override
   State<LifeCycleWatcher> createState() => _LifeCycleWatcherState();

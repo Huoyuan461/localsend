@@ -9,7 +9,11 @@ void main() {
       initialState: {for (var i = 0; i < 12; i++) '$i': 'original-$i.txt'},
     );
 
-    service.notifier.applyCounter(prefix: 'file-', padZero: true, sortFirst: false);
+    service.notifier.applyCounter(
+      prefix: 'file-',
+      padZero: true,
+      sortFirst: false,
+    );
 
     expect(service.state.values, [
       'file-01.txt',
