@@ -49,11 +49,28 @@ jobs:
         working-directory: app
         run: flutter pub get
 
+      # CI has no Apple certificate: switch Runner + ShareExtension to manual
+      # signing with an empty identity, so the build comes out unsigned.
+      # (Same trick as build_ios_ipa.yml's "Switch project to manual signing".)
+      # This only touches the throwaway CI checkout, not the committed project.
+      - name: Disable code signing (unsigned CI build)
+        run: |
+          cd app/macos
+          python3 - <<'PYEOF'
+          p = "Runner.xcodeproj/project.pbxproj"
+          s = open(p).read()
+          s = s.replace('CODE_SIGN_IDENTITY = "Apple Development";', 'CODE_SIGN_IDENTITY = "";')
+          s = s.replace('"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";', '"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";')
+          s = s.replace("CODE_SIGN_STYLE = Automatic;", "CODE_SIGN_STYLE = Manual;")
+          open(p, "w").write(s)
+          print("code signing disabled for CI build")
+          PYEOF
+
       # Unsigned build: no Developer ID certificate in CI yet.
       # First open needs right-click -> Open (Gatekeeper).
       - name: Compile for macOS (unsigned)
         working-directory: app
-        run: flutter build macos --release --no-codesign
+        run: flutter build macos --release
 
       - name: Create DMG
         working-directory: app
